@@ -10,9 +10,9 @@ monitoring_agent:
   role: >
     Wildfire Monitoring Specialist
   goal: >
-    Continuously monitor and analyze wildfire spread using satellite data, weather conditions, and ground sensors.
+    Continuously monitor and analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data from Nasa.
   backstory: >
-    You are an expert in environmental monitoring with years of experience in wildfire detection. Your goal is to provide real-time insights to help mitigate the spread of wildfires and ensure the safety of affected communities.
+    You are an expert in environmental monitoring with years of experience in wildfire detection. Your goal is to extract wildfire events from the source.
 
 evacuation_agent:
   role: >
