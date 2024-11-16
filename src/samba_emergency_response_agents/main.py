@@ -16,7 +16,7 @@ def run():
     Run the crew.
     """
     inputs = {
-        'topic': 'AI LLMs'
+        
     }
     SambaEmergencyResponseAgents().crew().kickoff(inputs=inputs)
 
