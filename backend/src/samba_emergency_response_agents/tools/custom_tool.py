@@ -49,15 +49,25 @@ class WildfireMonitorTool(BaseTool):
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            events = data.get("events", [])
+            events = [event for event in data.get("events", []) if "wildfires" in [category.get("id", "") for category in event.get("categories", [])]]
+            
+            print(events)
 
             # Formatting the output for the latest wildfire events
             output = "Latest Wildfire Events:\n"
             for event in events:
                 event_title = event.get("title", "No title")
+                event_description = event.get("description", "No description")
                 event_link = event.get("link", "No link")
                 event_date = event["geometry"][0].get("date", "No date")
-                output += f"- {event_title} (Date: {event_date})\n  More info: {event_link}\n"
+                event_geometry = event.get("geometry", [])
+                event_categories = [category.get("title", "No category") for category in event.get("categories", [])]
+
+                output += f"- {event_title} (Date: {event_date})\n"
+                output += f"  Description: {event_description}\n"
+                output += f"  Categories: {', '.join(event_categories)}\n"
+                output += f"  Geometry: {event_geometry}\n"
+                output += f"  More info: {event_link}\n\n"
 
             return output
         except requests.exceptions.RequestException as e:

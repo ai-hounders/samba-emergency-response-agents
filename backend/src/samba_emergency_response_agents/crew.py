@@ -11,19 +11,25 @@ from crewai_tools import SerperDevTool, ScrapeWebsiteTool, DallETool
 
 llama90b = LLM(
     model="sambanova/Llama-3.2-90B-Vision-Instruct",
-    temperature=0.7,
+    temperature=0.78,
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
 llama70b = LLM(
     model="sambanova/Meta-Llama-3.1-70B-Instruct",
-    temperature=0.7,
+    temperature=0.15,
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
 llama405b = LLM(
     model="sambanova/Meta-Llama-3.1-405B-Instruct",
-    temperature=0.7,
+    temperature=0.15,
+    api_key=os.getenv("SAMBANOVA_API_KEY")
+)
+
+llama8b = LLM(
+    model="sambanova/Meta-Llama-3.1-8B-Instruct",
+    temperature=0.15,
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
@@ -48,7 +54,7 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['monitoring_agent'],
             tools=[WildfireMonitorTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama8b
         )
 
     @agent
@@ -120,6 +126,6 @@ class SambaEmergencyResponseAgents():
             agents=self.agents, # Automatically created by the @agent decorator
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
-            verbose=True,
+            verbose=False,
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
