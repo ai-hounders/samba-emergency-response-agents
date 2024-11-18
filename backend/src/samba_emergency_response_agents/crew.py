@@ -4,7 +4,7 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 
 # Uncomment the following line to use an example of a custom tool
-from samba_emergency_response_agents.tools.custom_tool import WildfireMonitorTool
+from samba_emergency_response_agents.tools.custom_tool import WildfireMonitorTool, GoogleRoutesTool, OpenWeatherMapTool
 
 # Check our tools documentations for more information on how to use them
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool, DallETool
@@ -40,13 +40,22 @@ class SambaEmergencyResponseAgents():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
 
-    @agent
-    def image_generator_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['image_generator_agent'],
-            tools=[DallETool()],
-            verbose=True
-        )
+    # @agent
+    # def image_generator_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['image_generator_agent'],
+    #         tools=[DallETool()],
+    #         verbose=True
+    #     )
+
+    # @agent
+    # def route_planning_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['route_planning_agent'],
+    #         tools=[GoogleRoutesTool(result_as_answer=True)],
+    #         verbose=True,
+    #         llm=llama8b
+    #     )
 
     @agent
     def monitoring_agent(self) -> Agent:
@@ -54,33 +63,50 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['monitoring_agent'],
             tools=[WildfireMonitorTool()],
             verbose=True,
-            llm=llama8b
-        )
-
-    @agent
-    def evacuation_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['evacuation_agent'],
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
-            verbose=True,
-            llm=llama90b # evacuation needs vision capabilities
-        )
-
-    @agent
-    def resource_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['resource_agent'],
-            verbose=True,
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
             llm=llama70b
         )
 
+    # @agent
+    # def evacuation_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['evacuation_agent'],
+    #         tools=[SerperDevTool(), ScrapeWebsiteTool()],
+    #         verbose=True,
+    #         llm=llama90b # evacuation needs vision capabilities
+    #     )
+
+    # @agent
+    # def resource_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['resource_agent'],
+    #         verbose=True,
+    #         tools=[SerperDevTool(), ScrapeWebsiteTool()],
+    #         llm=llama70b
+    #     )
+
+    # @agent
+    # def communication_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['communication_agent'],
+    #         verbose=True,
+    #         tools=[SerperDevTool(), ScrapeWebsiteTool()],
+    #         llm=llama70b
+    #     )
+
     @agent
-    def communication_agent(self) -> Agent:
+    def impact_analysis_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['communication_agent'],
+            config=self.agents_config['impact_analysis_agent'],
             verbose=True,
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            llm=llama405b
+        )
+    
+    @agent
+    def weather_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['weather_agent'],
+            tools=[OpenWeatherMapTool()],
+            verbose=True,
             llm=llama70b
         )
 
@@ -88,35 +114,60 @@ class SambaEmergencyResponseAgents():
     def monitoring_task(self) -> Task:
         return Task(
             config=self.tasks_config['monitoring_task'],
+            output_file="event.json"
         )
 
-    @task
-    def evacuation_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['evacuation_task'],
-            context=[self.monitoring_task()]
-        )
+    # @task
+    # def evacuation_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['evacuation_task'],
+    #         context=[self.monitoring_task()]
+    #     )
 
-    @task
-    def resource_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['resource_task'],
-            context=[self.monitoring_task()]
-        )
+    # @task
+    # def resource_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['resource_task'],
+    #         context=[self.monitoring_task()]
+    #     )
 
-    @task
-    def communication_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['communication_task'],
-            context=[self.evacuation_task(), self.resource_task()],
-            output_file='public_announcement.md'
-        )
+    # @task
+    # def communication_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['communication_task'],
+    #         context=[self.evacuation_task(), self.resource_task()],
+    #         output_file='public_announcement.md'
+    #     )
 
+    # @task
+    # def image_generation_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['image_generation_task'],
+    #         context=[self.monitoring_task()]
+    #     )
+    
+    # @task
+    # def route_planning_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['route_planning_task'],
+    #         context=[self.monitoring_task()],
+    #         output_file="route.json"
+    #     )
+    
     @task
-    def image_generation_task(self) -> Task:
+    def weather_task(self) -> Task:
         return Task(
-            config=self.tasks_config['image_generation_task'],
-            context=[self.monitoring_task()]
+            config=self.tasks_config['weather_task'],
+            context=[self.monitoring_task()],
+            output_file="weather.json"
+        )
+    
+    @task
+    def impact_analysis_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['impact_analysis_task'],
+            context=[self.monitoring_task(), self.weather_task()],
+            output_file="impact_analysis.md"
         )
 
     @crew

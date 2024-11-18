@@ -1,35 +1,65 @@
-image_generation_task:
+# image_generation_task:
+#   description: >
+#     Ensure the image captures the essence of the scene and meets the requirements specified in terms of size and quality.
+#   expected_output: >
+#     An image file of size 1024x1024 pixels that visualizes the concept described in the prompt.
+#   agent: image_generator_agent
+
+
+impact_analysis_task:
   description: >
-    Ensure the image captures the essence of the scene and meets the requirements specified in terms of size and quality.
+    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event.
   expected_output: >
-    An image file of size 1024x1024 pixels that visualizes the concept described in the prompt.
-  agent: image_generator_agent
+    Detailed report for the analysis containing the following sections:
+    1. Event Description
+    2. Impact of weather on the event
+    3. Potential spread path
+    4. Places impacted  
+    5. Analysis of the event 
+    
+  agent: impact_analysis_agent
+
 
 monitoring_task:
   description: >
-    Continuously analyze real-time data from satellite images, weather conditions, and ground sensors to map the current wildfire spread and identify affected areas.
+    Use the wildfire monitoring tool to Fetch events from EONET source in the next 20 days and extract the immediate next wildfire spread event.
   expected_output: >
-    Up-to-date wildfire spread map highlighting affected areas and projected spread direction.
+    JSON of the next wildfire event.
+    
   agent: monitoring_agent
 
-evacuation_task:
-  description: >
-    Develop detailed evacuation plans for communities in the wildfire's projected path, ensuring safety and efficiency in moving residents to designated shelters.
-  expected_output: >
-    Comprehensive evacuation routes, shelter locations, and step-by-step evacuation procedures.
-  agent: evacuation_agent
+# evacuation_task:
+#   description: >
+#     Develop detailed evacuation plans for communities in the wildfire's projected path, ensuring safety and efficiency in moving residents to designated shelters.
+#   expected_output: >
+#     Comprehensive evacuation routes, shelter locations, and step-by-step evacuation procedures.
+#   agent: evacuation_agent
 
-resource_task:
-  description: >
-    Allocate firefighting resources and personnel based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas.
-  expected_output: >
-    Resource allocation plan detailing deployment schedules and distribution of firefighting equipment to priority zones.
-  agent: resource_agent
+# resource_task:
+#   description: >
+#     Allocate firefighting resources and personnel based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas.
+#   expected_output: >
+#     Resource allocation plan detailing deployment schedules and distribution of firefighting equipment to priority zones.
+#   agent: resource_agent
 
-communication_task:
+# communication_task:
+#   description: >
+#     Inform the public about evacuation orders, safety measures, and wildfire updates using multiple communication channels.
+#   expected_output: >
+#     Public announcements including evacuation orders, safety guidelines, and updates on wildfire containment status, formatted for dissemination through various media.
+#   agent: communication_agent
+
+# route_planning_task:
+#   description: >
+#     Plan optimal routes for emergency response vehicles, considering current wildfire spread, road closures, and accessibility to high-risk areas.
+#   expected_output: >
+#     Optimized route plan JSON for vehicles to navigate safely and reach priority and safe zones quickly, accounting for real-time emergency data and road conditions.
+#   agent: route_planning_agent
+
+weather_task:
   description: >
-    Inform the public about evacuation orders, safety measures, and wildfire updates using multiple communication channels.
+    Fetches real-time weather updates, including current conditions, 3-hourly forecasts for next 4 intervals, and weather alerts for the monitored areas.
   expected_output: >
-    Public announcements including evacuation orders, safety guidelines, and updates on wildfire containment status, formatted for dissemination through various media.
-  agent: communication_agent
+    Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
+  agent: weather_agent
 

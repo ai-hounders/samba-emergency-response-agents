@@ -1,13 +1,11 @@
 from crewai.tools import BaseTool
-from typing import Type
-from pydantic import BaseModel, Field
+from typing import Type, Dict, List, Optional
 
+from pydantic import BaseModel, Field 
 
-from crewai.tools import BaseTool
-from typing import Type
-from pydantic import BaseModel, Field
+import requests, json, os
 
-import requests
+from datetime import datetime, timedelta
 
 
 # class MyCustomToolInput(BaseModel):
@@ -26,10 +24,8 @@ import requests
 #         return "this is an example of a tool output, ignore it and move along."
 
 
-
 class WildfireMonitorToolInput(BaseModel):
     """Input schema for WildfireMonitorTool."""
-    limit: int = Field(5, description="The number of events to fetch.")
     days: int = Field(20, description="The number of days to consider for recent events.")
     status: str = Field("open", description="Status of the events to fetch (e.g., 'open').")
 
@@ -42,36 +38,159 @@ class WildfireMonitorTool(BaseTool):
     )
     args_schema: Type[BaseModel] = WildfireMonitorToolInput
 
-    def _run(self, limit: int, days: int, status: str) -> str:
+    def _run(self, days: int, status: str) -> str:
         try:
             # Constructing the API URL with the provided parameters
-            url = f"https://eonet.gsfc.nasa.gov/api/v3/events?limit={limit}&days={days}&status={status}"
+            url = f"https://eonet.gsfc.nasa.gov/api/v3/events?limit=5&days={days}&status={status}"
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            events = [event for event in data.get("events", []) if "wildfires" in [category.get("id", "") for category in event.get("categories", [])]]
             
-            print(events)
-
-            # Formatting the output for the latest wildfire events
-            output = "Latest Wildfire Events:\n"
-            for event in events:
-                event_title = event.get("title", "No title")
-                event_description = event.get("description", "No description")
-                event_link = event.get("link", "No link")
-                event_date = event["geometry"][0].get("date", "No date")
-                event_geometry = event.get("geometry", [])
-                event_categories = [category.get("title", "No category") for category in event.get("categories", [])]
-
-                output += f"- {event_title} (Date: {event_date})\n"
-                output += f"  Description: {event_description}\n"
-                output += f"  Categories: {', '.join(event_categories)}\n"
-                output += f"  Geometry: {event_geometry}\n"
-                output += f"  More info: {event_link}\n\n"
-
-            return output
+            return json.dumps(data)
         except requests.exceptions.RequestException as e:
-            return f"Error while fetching wildfire events: {e}"
+            return json.dumps({"error": f"Error while fetching wildfire events: {e}"})
         except Exception as e:
-            return f"Unexpected error: {e}"
+            return json.dumps({"error": f"Unexpected error: {e}"})
 
+
+class GoogleRoutesToolInput(BaseModel):
+    """Input schema for GoogleRoutesTool."""
+    origin_latitude: float = Field(..., description="Latitude of the origin location.")
+    origin_longitude: float = Field(..., description="Longitude of the origin location.")
+    destination_latitude: float = Field(..., description="Latitude of the destination location.")
+    destination_longitude: float = Field(..., description="Longitude of the destination location.")
+    travel_mode: str = Field("DRIVE", description="Mode of travel. Can be DRIVE, BICYCLE, or WALK.")
+    routing_preference: str = Field("TRAFFIC_AWARE", description="Routing preference. Can be TRAFFIC_AWARE, TRAFFIC_AWARE_OPTIMAL, or SHORTEST.")
+    avoid_tolls: bool = Field(False, description="Whether to avoid toll roads.")
+    avoid_highways: bool = Field(False, description="Whether to avoid highways.")
+    avoid_ferries: bool = Field(False, description="Whether to avoid ferries.")
+
+
+class GoogleRoutesTool(BaseTool):
+    name: str = "Google Routes Tool"
+    description: str = (
+        "A custom tool to fetch the route information from Google Routes API. "
+        "This tool provides the optimal route, distance, and duration between an origin and a destination."
+    )
+    args_schema: Type[BaseModel] = GoogleRoutesToolInput
+
+    def _run(self, origin_latitude: float, origin_longitude: float, destination_latitude: float, destination_longitude: float, travel_mode: str, routing_preference: str, avoid_tolls: bool, avoid_highways: bool, avoid_ferries: bool) -> str:
+        try:
+            # Constructing the request payload
+            payload = {
+                "origin": {
+                    "location": {
+                        "latLng": {
+                            "latitude": origin_latitude,
+                            "longitude": origin_longitude
+                        }
+                    }
+                },
+                "destination": {
+                    "location": {
+                        "latLng": {
+                            "latitude": destination_latitude,
+                            "longitude": destination_longitude
+                        }
+                    }
+                },
+                "travelMode": travel_mode,
+                "routingPreference": routing_preference,
+                "computeAlternativeRoutes": False,
+                "routeModifiers": {
+                    "avoidTolls": avoid_tolls,
+                    "avoidHighways": avoid_highways,
+                    "avoidFerries": avoid_ferries
+                },
+                "languageCode": "en-US",
+                "units": "IMPERIAL"
+            }
+
+            # Sending the request to Google Routes API
+            headers = {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': os.getenv('GOOGLE_API_KEY'),
+                'X-Goog-FieldMask': 'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline'
+            }
+            response = requests.post('https://routes.googleapis.com/directions/v2:computeRoutes', json=payload, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+
+            # Extracting route information
+            routes = data.get("routes", [])
+            if not routes:
+                return json.dumps({"error": "No routes found."})
+
+            output = [
+                {
+                    "duration": route.get("duration", {}).get("text", "No duration info"),
+                    "distance_meters": route.get("distanceMeters", 0),
+                    "polyline": route.get("polyline", {}).get("encodedPolyline", "No polyline info")
+                }
+                for route in routes
+            ]
+            return json.dumps(output)
+        except requests.exceptions.RequestException as e:
+            return json.dumps({"error": f"Error while fetching route information: {e}"})
+        except Exception as e:
+            return json.dumps({"error": f"Unexpected error: {e}"})
+
+
+class OpenWeatherMapToolInput(BaseModel):
+    """Input schema for OpenWeatherTool."""
+    latitude: float = Field(..., description="Latitude of the location for which weather information is required.")
+    longitude: float = Field(..., description="Longitude of the location for which weather information is required.")
+    count: int = Field(4, description="The number of 3-hourly intervals for which weather needs to be forecasted.")
+
+
+class OpenWeatherMapTool(BaseTool):
+    name: str = "Open Weather Map Tool"
+    description: str = (
+        "A custom tool to get the current, hourly, and alert weather data from OpenWeather API. "
+        "It excludes minutely and daily weather information."
+    )
+    args_schema: Type[BaseModel] = OpenWeatherMapToolInput
+
+    def _run(self, latitude: float, longitude: float, count: int) -> str:
+        try:
+            ## Ensuring to include high winds alert in the weather
+            simulate_wind_alert = True;
+
+            # Constructing the API URL
+            api_key = os.getenv('OPENWEATHER_API_KEY')
+            current_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={api_key}"
+
+            forecast_weather_url = f"https://api.openweathermap.org/data/2.5/forecast?cnt={count}&lat={latitude}&lon={longitude}&appid={api_key}"
+
+            # Making the API requests
+            current_weather_response = requests.get(current_weather_url)
+            forecast_weather_response = requests.get(forecast_weather_url)
+            current_weather_response.raise_for_status()
+            forecast_weather_response.raise_for_status()
+            current = current_weather_response.json()
+            forecast = forecast_weather_response.json()
+
+            alerts = []
+
+            # Simulate wind alert if requested
+            if simulate_wind_alert:
+                start_time = datetime.now() + timedelta(hours=2)
+                end_time = start_time + timedelta(hours=1)
+                alerts.append({
+                    "sender_name": "Simulated Alert System",
+                    "event": "High Winds Warning",
+                    "start": start_time.isoformat() + "Z",
+                    "end": end_time.isoformat() + "Z",
+                    "description": "Strong winds expected with gusts up to 60 mph. Please take necessary precautions."
+                })
+
+            output = {
+                "current": current,
+                "forecast": forecast,
+                "alerts": alerts
+            }
+            return json.dumps(output)
+        except requests.exceptions.RequestException as e:
+            return json.dumps({"error": f"Error while fetching weather information: {e}"})
+        except Exception as e:
+            return json.dumps({"error": f"Unexpected error: {e}"})
