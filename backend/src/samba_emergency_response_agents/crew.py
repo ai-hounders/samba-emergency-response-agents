@@ -11,7 +11,7 @@ from crewai_tools import SerperDevTool, ScrapeWebsiteTool, DallETool
 
 llama90b = LLM(
     model="sambanova/Llama-3.2-90B-Vision-Instruct",
-    temperature=0.78,
+    temperature=0.15,
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
@@ -29,6 +29,12 @@ llama405b = LLM(
 
 llama8b = LLM(
     model="sambanova/Meta-Llama-3.1-8B-Instruct",
+    temperature=0.15,
+    api_key=os.getenv("SAMBANOVA_API_KEY")
+)
+
+llama11b = LLM(
+    model="sambanova/Llama-3.2-11B-Vision-Instruct",
     temperature=0.15,
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
@@ -63,7 +69,7 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['monitoring_agent'],
             tools=[WildfireMonitorTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama8b
         )
 
     @agent
@@ -72,7 +78,7 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['weather_agent'],
             tools=[OpenWeatherMapTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama11b
         )
     
     # @agent
@@ -84,14 +90,14 @@ class SambaEmergencyResponseAgents():
     #         llm=llama90b # evacuation needs vision capabilities
     #     )
 
-    # @agent
-    # def resource_agent(self) -> Agent:
-    #     return Agent(
-    #         config=self.agents_config['resource_agent'],
-    #         verbose=True,
-    #         tools=[SerperDevTool(), ScrapeWebsiteTool()],
-    #         llm=llama70b
-    #     )
+    @agent
+    def resource_deployment_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['resource_deployment_agent'],
+            verbose=True,
+            tools=[PlacesSearchTool()],
+            llm=llama405b
+        )
 
     # @agent
     # def communication_agent(self) -> Agent:
@@ -108,7 +114,7 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['places_search_agent'],
             tools=[PlacesSearchTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama11b
         )
 
     @agent
@@ -130,13 +136,6 @@ class SambaEmergencyResponseAgents():
     # def evacuation_task(self) -> Task:
     #     return Task(
     #         config=self.tasks_config['evacuation_task'],
-    #         context=[self.monitoring_task()]
-    #     )
-
-    # @task
-    # def resource_task(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config['resource_task'],
     #         context=[self.monitoring_task()]
     #     )
 
@@ -184,7 +183,16 @@ class SambaEmergencyResponseAgents():
         return Task(
             config=self.tasks_config['impact_analysis_task'],
             context=[self.monitoring_task(), self.weather_task(), self.places_search_task()],
-            output_file="impact_analysis.md"
+            output_file="impact_analysis.md",
+            human_input=True
+        )
+    
+    @task
+    def resource_deployment_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['resource_deployment_task'],
+            context=[self.impact_analysis_task()],
+            output_file="resource_deployment.md"
         )
 
     @crew
@@ -195,5 +203,6 @@ class SambaEmergencyResponseAgents():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=False,
+            # memory=True
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

@@ -8,7 +8,7 @@
 
 impact_analysis_task:
   description: >
-    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event.
+    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event. Get a human input before before proceeding further.
   expected_output: >
     Detailed report for the analysis containing the following sections:
     1. Event Description
@@ -42,12 +42,15 @@ places_search_task:
 #     Comprehensive evacuation routes, shelter locations, and step-by-step evacuation procedures.
 #   agent: evacuation_agent
 
-# resource_task:
-#   description: >
-#     Allocate firefighting resources and personnel based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas.
-#   expected_output: >
-#     Resource allocation plan detailing deployment schedules and distribution of firefighting equipment to priority zones.
-#   agent: resource_agent
+resource_deployment_task:
+  description: >
+    Allocate firefighting resources (like fire engines, water dropping helicopters, etc.) and personnel (first responders, medicos, etc.) based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas. High risk areas include schools, residential places, gas stations and hospitals. Assume you have certain resources available. 
+  expected_output: >
+    # High risk areas identified
+    [Areas and their coordinates]
+    # Resource allocation plan
+    [detailed deployment schedules and distribution of firefighting equipment to high risk areas]
+  agent: resource_deployment_agent
 
 # communication_task:
 #   description: >
