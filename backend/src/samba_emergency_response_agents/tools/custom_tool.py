@@ -194,3 +194,44 @@ class OpenWeatherMapTool(BaseTool):
             return json.dumps({"error": f"Error while fetching weather information: {e}"})
         except Exception as e:
             return json.dumps({"error": f"Unexpected error: {e}"})
+
+
+class PlacesSearchToolInput(BaseModel):
+    """Input schema for PlacesSearchTool."""
+    latitude: float = Field(..., description="Latitude of the center point for the places search.")
+    longitude: float = Field(..., description="Longitude of the center point for the places search.")
+    radius: int = Field(..., description="Radius in meters to search for places.")
+    type: str = Field("locality", description="The type of places to search for. Default is 'locality' for cities and towns.")
+
+class PlacesSearchTool(BaseTool):
+    name: str = "Places Search Tool"
+    description: str = (
+        "A custom tool to fetch places within a specified radius using the Google Nearby Places API. "
+    )
+    args_schema: Type[BaseModel] = PlacesSearchToolInput
+
+    def _run(self, latitude: float, longitude: float, radius: int, type: str) -> dict:
+        try:
+            # Constructing the API URL
+            api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+            url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&radius={radius}&type={type}&key={api_key}"
+
+            # Making the API request
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+
+            # Extracting place information
+            places = [
+                {
+                    "name": result.get("name"),
+                    "location": result.get("geometry", {}).get("location", {})
+                }
+                for result in data.get("results", [])
+            ]
+
+            return {"places": places}
+        except requests.exceptions.RequestException as e:
+            return {"error": f"Error while fetching places information: {e}"}
+        except Exception as e:
+            return {"error": f"Unexpected error: {e}"}

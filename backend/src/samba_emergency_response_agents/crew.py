@@ -4,7 +4,7 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 
 # Uncomment the following line to use an example of a custom tool
-from samba_emergency_response_agents.tools.custom_tool import WildfireMonitorTool, GoogleRoutesTool, OpenWeatherMapTool
+from samba_emergency_response_agents.tools.custom_tool import WildfireMonitorTool, GoogleRoutesTool, OpenWeatherMapTool, PlacesSearchTool
 
 # Check our tools documentations for more information on how to use them
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool, DallETool
@@ -66,6 +66,15 @@ class SambaEmergencyResponseAgents():
             llm=llama70b
         )
 
+    @agent
+    def weather_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['weather_agent'],
+            tools=[OpenWeatherMapTool()],
+            verbose=True,
+            llm=llama70b
+        )
+    
     # @agent
     # def evacuation_agent(self) -> Agent:
     #     return Agent(
@@ -94,20 +103,20 @@ class SambaEmergencyResponseAgents():
     #     )
 
     @agent
+    def places_search_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['places_search_agent'],
+            tools=[PlacesSearchTool()],
+            verbose=True,
+            llm=llama70b
+        )
+
+    @agent
     def impact_analysis_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['impact_analysis_agent'],
             verbose=True,
             llm=llama405b
-        )
-    
-    @agent
-    def weather_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['weather_agent'],
-            tools=[OpenWeatherMapTool()],
-            verbose=True,
-            llm=llama70b
         )
 
     @task
@@ -163,10 +172,18 @@ class SambaEmergencyResponseAgents():
         )
     
     @task
+    def places_search_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['places_search_task'],
+            context=[self.monitoring_task(), self.weather_task()],
+            output_file="places.json"
+        )
+    
+    @task
     def impact_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['impact_analysis_task'],
-            context=[self.monitoring_task(), self.weather_task()],
+            context=[self.monitoring_task(), self.weather_task(), self.places_search_task()],
             output_file="impact_analysis.md"
         )
 

@@ -14,11 +14,11 @@ impact_analysis_task:
     1. Event Description
     2. Impact of weather on the event
     3. Potential spread path
+    [with radius of the spread]
     4. Places impacted  
     5. Analysis of the event 
     
   agent: impact_analysis_agent
-
 
 monitoring_task:
   description: >
@@ -27,6 +27,13 @@ monitoring_task:
     JSON of the next wildfire event.
     
   agent: monitoring_agent
+
+places_search_task:
+  description: >
+    Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Use the Google Places Search API to identify localities within that radius.
+  expected_output: >
+    A list of populated areas including cities and towns that fall within the potential spread radius of the wildfire, formatted for use in evacuation and resource allocation planning.
+  agent: places_search_agent
 
 # evacuation_task:
 #   description: >
