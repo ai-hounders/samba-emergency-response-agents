@@ -61,9 +61,6 @@ class GoogleRoutesToolInput(BaseModel):
     destination_longitude: float = Field(..., description="Longitude of the destination location.")
     travel_mode: str = Field("DRIVE", description="Mode of travel. Can be DRIVE, BICYCLE, or WALK.")
     routing_preference: str = Field("TRAFFIC_AWARE", description="Routing preference. Can be TRAFFIC_AWARE, TRAFFIC_AWARE_OPTIMAL, or SHORTEST.")
-    avoid_tolls: bool = Field(False, description="Whether to avoid toll roads.")
-    avoid_highways: bool = Field(False, description="Whether to avoid highways.")
-    avoid_ferries: bool = Field(False, description="Whether to avoid ferries.")
 
 
 class GoogleRoutesTool(BaseTool):
@@ -74,7 +71,7 @@ class GoogleRoutesTool(BaseTool):
     )
     args_schema: Type[BaseModel] = GoogleRoutesToolInput
 
-    def _run(self, origin_latitude: float, origin_longitude: float, destination_latitude: float, destination_longitude: float, travel_mode: str, routing_preference: str, avoid_tolls: bool, avoid_highways: bool, avoid_ferries: bool) -> str:
+    def _run(self, origin_latitude: float, origin_longitude: float, destination_latitude: float, destination_longitude: float, travel_mode: str, routing_preference: str) -> dict:
         try:
             # Constructing the request payload
             payload = {
@@ -98,9 +95,9 @@ class GoogleRoutesTool(BaseTool):
                 "routingPreference": routing_preference,
                 "computeAlternativeRoutes": False,
                 "routeModifiers": {
-                    "avoidTolls": avoid_tolls,
-                    "avoidHighways": avoid_highways,
-                    "avoidFerries": avoid_ferries
+                    "avoidTolls": False,
+                    "avoidHighways": False,
+                    "avoidFerries": False
                 },
                 "languageCode": "en-US",
                 "units": "IMPERIAL"
@@ -109,7 +106,7 @@ class GoogleRoutesTool(BaseTool):
             # Sending the request to Google Routes API
             headers = {
                 'Content-Type': 'application/json',
-                'X-Goog-Api-Key': os.getenv('GOOGLE_API_KEY'),
+                'X-Goog-Api-Key': os.getenv('GOOGLE_MAPS_API_KEY'),
                 'X-Goog-FieldMask': 'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline'
             }
             response = requests.post('https://routes.googleapis.com/directions/v2:computeRoutes', json=payload, headers=headers)
@@ -121,15 +118,7 @@ class GoogleRoutesTool(BaseTool):
             if not routes:
                 return json.dumps({"error": "No routes found."})
 
-            output = [
-                {
-                    "duration": route.get("duration", {}).get("text", "No duration info"),
-                    "distance_meters": route.get("distanceMeters", 0),
-                    "polyline": route.get("polyline", {}).get("encodedPolyline", "No polyline info")
-                }
-                for route in routes
-            ]
-            return json.dumps(output)
+            return routes
         except requests.exceptions.RequestException as e:
             return json.dumps({"error": f"Error while fetching route information: {e}"})
         except Exception as e:

@@ -11,12 +11,13 @@ impact_analysis_task:
     Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event. Get a human input before before proceeding further.
   expected_output: >
     Detailed report for the analysis containing the following sections:
-    1. Event Description
+    1. Event Details
     2. Impact of weather on the event
-    3. Potential spread path
+    3. Image analysis
+    4. Potential spread path
     [with radius of the spread]
-    4. Places impacted  
-    5. Analysis of the event 
+    5. Places impacted  
+    6. Analysis of the entire event 
     
   agent: impact_analysis_agent
 
@@ -24,7 +25,7 @@ monitoring_task:
   description: >
     Use the wildfire monitoring tool to Fetch events from EONET source in the next 20 days and extract the immediate next wildfire spread event.
   expected_output: >
-    JSON of the next wildfire event.
+    JSON of the next wildfire event. Limit to one event.
     
   agent: monitoring_agent
 
@@ -35,13 +36,14 @@ places_search_task:
     A list of populated areas including cities and towns that fall within the potential spread radius of the wildfire, formatted for use in evacuation and resource allocation planning.
   agent: places_search_agent
 
-# evacuation_task:
-#   description: >
-#     Develop detailed evacuation plans for communities in the wildfire's projected path, ensuring safety and efficiency in moving residents to designated shelters.
-#   expected_output: >
-#     Comprehensive evacuation routes, shelter locations, and step-by-step evacuation procedures.
-#   agent: evacuation_agent
+safe_zones_identifier_task:
+  description: >
+    Analyze the spread of the wildfire, along with high risk areas, to identify safe zones outside of the potential spread radius.
+  expected_output: >
+    A list of safe zones, including their latitude, longitude and other attributes, to be used for shelter and safe evacuation planning.
+  agent: safe_zones_identifier_agent
 
+## Try to use the places identified in the places search task
 resource_deployment_task:
   description: >
     Allocate firefighting resources (like fire engines, water dropping helicopters, etc.) and personnel (first responders, medicos, etc.) based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas. High risk areas include schools, residential places, gas stations and hospitals. Assume you have certain resources available. 
@@ -59,12 +61,12 @@ resource_deployment_task:
 #     Public announcements including evacuation orders, safety guidelines, and updates on wildfire containment status, formatted for dissemination through various media.
 #   agent: communication_agent
 
-# route_planning_task:
-#   description: >
-#     Plan optimal routes for emergency response vehicles, considering current wildfire spread, road closures, and accessibility to high-risk areas.
-#   expected_output: >
-#     Optimized route plan JSON for vehicles to navigate safely and reach priority and safe zones quickly, accounting for real-time emergency data and road conditions.
-#   agent: route_planning_agent
+evac_route_planning_task:
+  description: >
+    Plan optimal routes for civilian vehicles from high risk zones to safe zones, considering current wildfire spread and road closures.
+  expected_output: >
+    JSON collection of optimized google map routes for vehicles to navigate safely from high risk zones to safe zones, avoiding high risk areas.
+  agent: evac_route_planning_agent
 
 weather_task:
   description: >
@@ -72,4 +74,3 @@ weather_task:
   expected_output: >
     Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
   agent: weather_agent
-
