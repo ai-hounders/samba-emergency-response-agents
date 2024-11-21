@@ -203,7 +203,7 @@ class SambaEmergencyResponseAgents():
         return Task(
             config=self.tasks_config['places_search_task'],
             context=[self.monitoring_task(), self.weather_task()],
-            output_file="places.json"
+            output_file="affected_places.json"
         )
     
     @task
@@ -229,7 +229,7 @@ class SambaEmergencyResponseAgents():
         return Task(
             config=self.tasks_config['safe_zones_identifier_task'],
             context=[self.impact_analysis_task(), self.resource_deployment_task()],
-            output_file="safe_zones.md",
+            output_file="safe_zones.json",
             human_input=True
         )
 
