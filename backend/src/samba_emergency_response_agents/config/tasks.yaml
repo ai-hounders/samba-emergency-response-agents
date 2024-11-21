@@ -19,7 +19,7 @@ image_analysis_task:
 
 impact_analysis_task:
   description: >
-    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event. Get a human input before before proceeding further.
+    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and determine the impact of the event. Get a human input before before proceeding further.
   expected_output: >
     Detailed report for the analysis containing the following sections:
     1. Event Description

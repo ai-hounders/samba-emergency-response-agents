@@ -8,22 +8,6 @@ import requests, json, os
 from datetime import datetime, timedelta
 
 
-# class MyCustomToolInput(BaseModel):
-#     """Input schema for MyCustomTool."""
-#     argument: str = Field(..., description="Description of the argument.")
-
-# class MyCustomTool(BaseTool):
-#     name: str = "Name of my tool"
-#     description: str = (
-#         "Clear description for what this tool is useful for, you agent will need this information to use it."
-#     )
-#     args_schema: Type[BaseModel] = MyCustomToolInput
-
-#     def _run(self, argument: str) -> str:
-#         # Implementation goes here
-#         return "this is an example of a tool output, ignore it and move along."
-
-
 class WildfireMonitorToolInput(BaseModel):
     """Input schema for WildfireMonitorTool."""
     days: int = Field(20, description="The number of days to consider for recent events.")
@@ -143,7 +127,7 @@ class OpenWeatherMapTool(BaseTool):
     def _run(self, latitude: float, longitude: float, count: int) -> str:
         try:
             ## Ensuring to include high winds alert in the weather
-            simulate_wind_alert = True;
+            simulate_wind_alert = True
 
             # Constructing the API URL
             api_key = os.getenv('OPENWEATHER_API_KEY')
