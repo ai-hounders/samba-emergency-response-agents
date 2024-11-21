@@ -5,13 +5,24 @@
 #     An image file of size 1024x1024 pixels that visualizes the concept described in the prompt.
 #   agent: image_generator_agent
 
+image_analysis_task:
+  description: >
+    Analyze the provided satellite image to determine wildfire spread, smoke density, and potential impact.
+  expected_output: >
+    A detailed report containing the following sections:
+    1. Description of the wildfire event (location, intensity, area affected).
+    2. Analysis of smoke density and movement patterns.
+    3. Estimation of wildfire spread based on visual cues.
+    4. Environmental impact assessment (flora, fauna, nearby settlements).
+    5. Recommendations for further monitoring or intervention.
+  agent: image_analysis_agent
 
 impact_analysis_task:
   description: >
     Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and drone images (if available) and determine the impact of the event. Get a human input before before proceeding further.
   expected_output: >
     Detailed report for the analysis containing the following sections:
-    1. Event Details
+    1. Event Description
     2. Impact of weather on the event
     3. Image analysis
     4. Potential spread path
@@ -23,9 +34,9 @@ impact_analysis_task:
 
 monitoring_task:
   description: >
-    Use the wildfire monitoring tool to Fetch events from EONET source in the next 20 days and extract the immediate next wildfire spread event.
+    Use the wildfire monitoring tool to Fetch events from EONET source in the next 20 days and extract at most one wildfire spread event from the list of events. Limit to only one event.
   expected_output: >
-    JSON of the next wildfire event. Limit to one event.
+    JSON of the wildfire event.
     
   agent: monitoring_agent
 

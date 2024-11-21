@@ -1,4 +1,4 @@
-import os
+import os, base64
 
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
@@ -72,6 +72,14 @@ class SambaEmergencyResponseAgents():
     #         verbose=True
     #     )
 
+    @agent
+    def image_analysis_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['image_analysis_agent'],
+            verbose=True,
+            llm=llama90b
+        )
+    
     @agent
     def evac_route_planning_agent(self) -> Agent:
         return Agent(
@@ -149,6 +157,23 @@ class SambaEmergencyResponseAgents():
             config=self.tasks_config['monitoring_task'],
             output_file="event.json"
         )
+    
+
+    @task
+    def image_analysis_task(self) -> Task:
+        image_path = "./src/samba_emergency_response_agents/images/satellite/wildfire_2.jpg"
+        with open(image_path, "rb") as image_file:
+            image_data = image_file.read()
+
+        encoded_image = base64.b64encode(image_data).decode('utf-8')
+        
+        output_path = "image_analysis.md"
+        return Task(
+            config=self.tasks_config['image_analysis_task'],
+            context=[self.monitoring_task()],
+            input_file=encoded_image,
+            output_file=output_path
+        )
 
     # @task
     # def communication_task(self) -> Task:
@@ -185,8 +210,8 @@ class SambaEmergencyResponseAgents():
     def impact_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['impact_analysis_task'],
-            context=[self.monitoring_task(), self.weather_task(), self.places_search_task()],
-            output_file="impact_analysis.md",
+            context=[self.monitoring_task(), self.weather_task(), self.places_search_task(), self.image_analysis_task()],
+            output_file="event_impact_analysis.md",
             human_input=True
         )
     
