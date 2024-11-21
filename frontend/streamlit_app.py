@@ -59,7 +59,7 @@ places_df["icon_data"] = [safe_zone_icon] * len(places_df)
 #     evac_data = json.load(f)
 
 # Display map with wildfire and impacted areas
-st.title("Wildfire Incident and Impacted Areas Map")
+st.title("Wildfire Incident and Safe Zone Areas Map")
 
 # Wildfire Layer
 wildfire_layer = pdk.Layer(
@@ -102,12 +102,12 @@ st.pydeck_chart(
                 get_radius=10000,
                 pickable=True,
             ),
-            # Impacted areas in orange
+            # Safe Zone areas in orange
             pdk.Layer(
                 "ScatterplotLayer",
                 data=places_df,
                 get_position="[lon, lat]",
-                get_color="[255, 165, 0, 160]",  # Orange for impacted areas
+                get_color="[255, 165, 0, 160]",  # Orange for safe zone areas
                 get_radius=500,
                 pickable=True,
             ),
@@ -119,5 +119,5 @@ st.pydeck_chart(
 st.write("Wildfire Incident Data")
 st.write(incident_df)
 
-st.write("Impacted Areas Data")
+st.write("Safe Zone Areas Data")
 st.write(places_df)
