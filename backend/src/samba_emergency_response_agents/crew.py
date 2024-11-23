@@ -81,21 +81,12 @@ class SambaEmergencyResponseAgents():
         )
     
     @agent
-    def evac_route_planning_manager_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['evac_route_planning_manager_agent'],
-            verbose=True,
-            allow_delegation=True,
-            llm=llama405b_2
-        )
-
-    @agent
     def route_planning_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['route_planning_agent'],
             tools=[GoogleRoutesTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama405b_2
         )
 
     @agent
@@ -244,19 +235,11 @@ class SambaEmergencyResponseAgents():
 
     ## For evacuation route planning
     @task
-    def evac_route_planning_manager_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['evac_route_planning_manager_task'],
-            context=[self.impact_analysis_task(), self.high_risk_places_search_task(), self.safe_zones_task()],
-            output_file="evac_routes.json",
-            
-        )
-    
-    @task
     def route_planning_task(self) -> Task:
         return Task(
             config=self.tasks_config['route_planning_task'],
-            context=[self.evac_route_planning_manager_task()]
+            context=[self.impact_analysis_task(), self.high_risk_places_search_task(), self.safe_zones_task()],
+            output_file="evac_routes.json"
         )
 
     @crew

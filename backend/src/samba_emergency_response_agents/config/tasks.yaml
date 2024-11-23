@@ -145,9 +145,9 @@ resource_deployment_task:
 #     Public announcements including evacuation orders, safety guidelines, and updates on wildfire containment status, formatted for dissemination through various media.
 #   agent: communication_agent
 
-evac_route_planning_manager_task:
+route_planning_task:
   description: >
-    Given a list of high risk areas and safe zones, efficiently manage the route planning agent to plan the routes from each high risk area to a safe zone.
+    Given a list of high risk areas and safe zones, efficiently plan the routes from each high risk area to a safe zone.
   expected_output: >
     JSON collection of optimized routes for vehicles to navigate safely from all high risk zones to safe zones. Example output:
     {
@@ -195,14 +195,7 @@ evac_route_planning_manager_task:
           "decoded_polyline": "czynEhmupUTc@vIyMz@gA~CgFd@eA\yBHo@Nc@nBgYrFAAuFrKE`HC|HBLBb@OPO`BeDd@q@bBkBROx@KzKq@fUmA?Mla@Mt@AvDBn@CpKEjWp@`BBTNrEYFIrBGxN?zAJpEh@nABfWG~CC~LA|YEfL?jBElIFds@H?sNjNAlHBjUGzJA@{O"
         }
     }
-  agent: evac_route_planning_manager_agent
-
-route_planning_task:
-  description: >
-    Plan optimal routes for civilian vehicles from high risk zones to safe zones, considering road closures.
-  expected_output: >
-    JSON of the route for vehicles to navigate safely from all high risk zone to safe zone. Do not truncate the polylines in the output json file.
-  agent: evac_route_planning_manager_agent
+  agent: route_planning_agent
 
 weather_task:
   description: >
