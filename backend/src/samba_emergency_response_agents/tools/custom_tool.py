@@ -22,7 +22,7 @@ class WildfireMonitorTool(BaseTool):
     )
     args_schema: Type[BaseModel] = WildfireMonitorToolInput
 
-    def _run(self, days: int, status: str) -> str:
+    def _run(self, days: int, status: str) -> dict:
         try:
             # Constructing the API URL with the provided parameters
             url = f"https://eonet.gsfc.nasa.gov/api/v3/events?limit=5&days={days}&status={status}"
@@ -30,7 +30,7 @@ class WildfireMonitorTool(BaseTool):
             response.raise_for_status()
             data = response.json()
             
-            return json.dumps(data)
+            return data
         except requests.exceptions.RequestException as e:
             return json.dumps({"error": f"Error while fetching wildfire events: {e}"})
         except Exception as e:
@@ -97,12 +97,19 @@ class GoogleRoutesTool(BaseTool):
             response.raise_for_status()
             data = response.json()
 
-            # Extracting route information
+             # Extracting route information
             routes = data.get("routes", [])
             if not routes:
                 return json.dumps({"error": "No routes found."})
 
-            return routes
+            output = []
+            for route in routes:
+                output.append({
+                    "duration": route.get("duration", "No duration info"),
+                    "distance_meters": route.get("distanceMeters", 0),
+                    "encoded_polyline": route.get("polyline", {}).get("encodedPolyline", "No polyline info")
+                })
+            return output[0]
         except requests.exceptions.RequestException as e:
             return json.dumps({"error": f"Error while fetching route information: {e}"})
         except Exception as e:
@@ -124,7 +131,7 @@ class OpenWeatherMapTool(BaseTool):
     )
     args_schema: Type[BaseModel] = OpenWeatherMapToolInput
 
-    def _run(self, latitude: float, longitude: float, count: int) -> str:
+    def _run(self, latitude: float, longitude: float, count: int) -> dict:
         try:
             ## Ensuring to include high winds alert in the weather
             simulate_wind_alert = True
@@ -158,11 +165,12 @@ class OpenWeatherMapTool(BaseTool):
                 })
 
             output = {
-                "current": current,
-                "forecast": forecast,
-                "alerts": alerts
-            }
-            return json.dumps(output)
+                "weather":{
+                    "current": current,
+                    "forecast": forecast,
+                    "alerts": alerts
+                }}
+            return output
         except requests.exceptions.RequestException as e:
             return json.dumps({"error": f"Error while fetching weather information: {e}"})
         except Exception as e:

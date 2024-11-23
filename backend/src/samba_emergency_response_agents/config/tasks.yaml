@@ -27,32 +27,104 @@ impact_analysis_task:
     3. Image analysis
     4. Potential spread path
     [with radius of the spread]
-    5. Places impacted  
+    5. High risk areas 
     6. Analysis of the entire event 
     
   agent: impact_analysis_agent
 
 monitoring_task:
   description: >
-    Use the wildfire monitoring tool to Fetch events from EONET source in the next 20 days and extract at most one wildfire spread event from the list of events. Limit to only one event.
+    Use the wildfire monitoring tool to fetch events from EONET source in the next 20 days and extract at most one wildfire spread event in USA from the list of events. Limit to only one event.
   expected_output: >
-    JSON of the wildfire event.
+    JSON of the wildfire event. Expected output:
+    {
+      "id": "EONET_12019",
+      "title": "BRIDGE BAER IMPLEMENTATION Wildfire, Los Angeles, California",
+      "description": null,
+      "link": "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_12019",
+      "closed": null,
+      "categories": [
+        {
+          "id": "wildfires",
+          "title": "Wildfires"
+        }
+      ],
+      "sources": [
+        {
+          "id": "IRWIN",
+          "url": "https://irwin.doi.gov/observer/"
+        }
+      ],
+      "geometry": [
+        {
+          "magnitudeValue": 820.0,
+          "magnitudeUnit": "acres",
+          "date": "2024-11-18T15:27:00Z",
+          "type": "Point",
+          "coordinates": [
+            -117.758,
+            34.2305
+          ]
+        }
+      ]
+    }
     
   agent: monitoring_agent
 
-places_search_task:
+high_risk_places_search_task:
   description: >
-    Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Use the Google Places Search API to identify localities within that radius.
+    Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
   expected_output: >
-    A list of populated areas including cities and towns that fall within the potential spread radius of the wildfire, formatted for use in evacuation and resource allocation planning.
-  agent: places_search_agent
+    JSON of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output format:
+    {
+      "spread_radius": 10000,
+      "high_risk_areas": [
+        {
+          "name": "Rancho Cucamonga",
+          "type": "hospital",
+          "location": {
+            "lat": 34.10639889999999,
+            "lng": -117.5931084
+          }
+        },
+        {
+          "name": "Pomona",
+          "type": "locality",
+          "location": {
+            "lat": 34.055103,
+            "lng": -117.7499909
+          }
+        }
+      ]
+    }
+  agent: high_risk_places_search_agent
 
-safe_zones_identifier_task:
+safe_zones_task:
   description: >
-    Analyze the spread of the wildfire, along with high risk areas, to identify safe zones outside of the potential spread radius.
+    Locate safe zones (campgrounds, open parking lots, stadiums, parks, locality) outside of the potential spread radius of the wildfire.
   expected_output: >
-    A list of safe zones, including their latitude, longitude and other attributes, to be used for shelter and safe evacuation planning.
-  agent: safe_zones_identifier_agent
+    JSON of safe zones that fall outside the potential spread radius of the wildfire. Example output format:
+    {
+      "safe_zones": [
+        {
+          "name": "Rancho Cucamonga",
+          "type": "campground",
+          "location": {
+            "lat": 34.10639889999999,
+            "lng": -117.5931084
+          }
+        },
+        {
+          "name": "Pomona",
+          "type": "locality",
+          "location": {
+            "lat": 34.055103,
+            "lng": -117.7499909
+          }
+        }
+      ]
+    }
+  agent: safe_zones_agent
 
 ## Try to use the places identified in the places search task
 resource_deployment_task:
@@ -63,6 +135,7 @@ resource_deployment_task:
     [Areas and their coordinates]
     # Resource allocation plan
     [detailed deployment schedules and distribution of firefighting equipment to high risk areas]
+    
   agent: resource_deployment_agent
 
 # communication_task:
@@ -72,16 +145,68 @@ resource_deployment_task:
 #     Public announcements including evacuation orders, safety guidelines, and updates on wildfire containment status, formatted for dissemination through various media.
 #   agent: communication_agent
 
-evac_route_planning_task:
+evac_route_planning_manager_task:
   description: >
-    Plan optimal routes for civilian vehicles from high risk zones to safe zones, considering current wildfire spread and road closures.
+    Given a list of high risk areas and safe zones, efficiently manage the route planning agent to plan the routes from each high risk area to a safe zone.
   expected_output: >
-    JSON collection of optimized google map routes for vehicles to navigate safely from high risk zones to safe zones, avoiding high risk areas.
-  agent: evac_route_planning_agent
+    JSON collection of optimized routes for vehicles to navigate safely from all high risk zones to safe zones. Example output:
+    {
+      "routes": [
+        {
+          "origin": {
+            "name": "Loyola High School",
+            "type": "campground",
+            "location": {
+              "lat": 34.10639889999999,
+              "lng": -117.5931084
+            }
+          },
+          "destination": {
+            "name": "Pasadena",
+            "type": "campground",
+            "location": {
+              "lat": 34.055103,
+              "lng": -117.7499909
+            }
+          },
+          "duration": "1415s",
+          "distance_meters": 21459,
+          "decoded_polyline": "oxynE~lupUuAqAq@k@aB_BqCaCUQeEuDeAy@hB_DBOdBiDhAcDI[\kAP}@PwAFwBFgG\gNb@cHjA}NpAaNLk@VyAr@}Br@{A~@oA|@}@`Aq@vImDrDsAlCw@hCc@lBSnBKhLOjA?~ABvFf@`Gt@`BJjCClCQbB@|BLtCVnAB|@C|BWnBc@`A]bBw@XApAs@hFiDFW|AwAr@_ApA}BVU\GVBPCfCrArH~CJ?LEnm@xC`P]tCGdEI~Xa@pJKJFlECV@pPKlBE`@KjAFvC@vDGzD?lAC`B?xjBuA~NOCdI?zY"
+        },
+        {
+          "origin": {
+            "name": "Fairfax High School",
+            "type": "campground",
+            "location": {
+              "lat": 34.10639889999999,
+              "lng": -117.5931084
+            }
+          },
+          "destination": {
+            "name": "Pasadena",
+            "type": "campground",
+            "location": {
+              "lat": 34.055103,
+              "lng": -117.7499909
+            }
+          },
+          "duration": "1829s",
+          "distance_meters": 26938,
+          "decoded_polyline": "czynEhmupUTc@vIyMz@gA~CgFd@eA\yBHo@Nc@nBgYrFAAuFrKE`HC|HBLBb@OPO`BeDd@q@bBkBROx@KzKq@fUmA?Mla@Mt@AvDBn@CpKEjWp@`BBTNrEYFIrBGxN?zAJpEh@nABfWG~CC~LA|YEfL?jBElIFds@H?sNjNAlHBjUGzJA@{O"
+        }
+    }
+  agent: evac_route_planning_manager_agent
+
+route_planning_task:
+  description: >
+    Plan optimal routes for civilian vehicles from high risk zones to safe zones, considering road closures.
+  expected_output: >
+    JSON of the route for vehicles to navigate safely from all high risk zone to safe zone. Do not truncate the polylines in the output json file.
+  agent: evac_route_planning_manager_agent
 
 weather_task:
   description: >
     Fetches real-time weather updates, including current conditions, 3-hourly forecasts for next 4 intervals, and weather alerts for the monitored areas.
   expected_output: >
-    Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
+    JSON of Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
   agent: weather_agent

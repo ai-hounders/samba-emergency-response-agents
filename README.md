@@ -54,6 +54,7 @@ Create a .env file with `SERPER_API_KEY` and `SAMBANOVA_API_KEY` variables.
 To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
 
 ```bash
+$ cd backend #Since repo is segregated into frontend and backend
 $ crewai run
 ```
 

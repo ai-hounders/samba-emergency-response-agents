@@ -15,11 +15,11 @@ llama90b = LLM(
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
-# llama90b_2 = LLM(
-#     model="sambanova/Llama-3.2-90B-Vision-Instruct",
-#     temperature=0.15,
-#     api_key=os.getenv("SAMBANOVA_API_KEY_2")
-# )
+llama90b_2 = LLM(
+    model="sambanova/Llama-3.2-90B-Vision-Instruct",
+    temperature=0.15,
+    api_key=os.getenv("SAMBANOVA_API_KEY_2")
+)
 
 llama70b = LLM(
     model="sambanova/Meta-Llama-3.1-70B-Instruct",
@@ -27,11 +27,11 @@ llama70b = LLM(
     api_key=os.getenv("SAMBANOVA_API_KEY")
 )
 
-# llama70b_2 = LLM(
-#     model="sambanova/Meta-Llama-3.1-70B-Instruct",
-#     temperature=0.15,
-#     api_key=os.getenv("SAMBANOVA_API_KEY_2")
-# )
+llama70b_2 = LLM(
+    model="sambanova/Meta-Llama-3.1-70B-Instruct",
+    temperature=0.15,
+    api_key=os.getenv("SAMBANOVA_API_KEY_2")
+)
 
 llama405b = LLM(
     model="sambanova/Meta-Llama-3.1-405B-Instruct",
@@ -81,12 +81,21 @@ class SambaEmergencyResponseAgents():
         )
     
     @agent
-    def evac_route_planning_agent(self) -> Agent:
+    def evac_route_planning_manager_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['evac_route_planning_agent'],
+            config=self.agents_config['evac_route_planning_manager_agent'],
+            verbose=True,
+            allow_delegation=True,
+            llm=llama405b_2
+        )
+
+    @agent
+    def route_planning_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['route_planning_agent'],
             tools=[GoogleRoutesTool()],
             verbose=True,
-            llm=llama405b_2
+            llm=llama70b
         )
 
     @agent
@@ -117,12 +126,12 @@ class SambaEmergencyResponseAgents():
     #     )
 
     @agent
-    def places_search_agent(self) -> Agent:
+    def high_risk_places_search_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['places_search_agent'],
+            config=self.agents_config['high_risk_places_search_agent'],
             tools=[PlacesSearchTool()],
             verbose=True,
-            llm=llama70b
+            llm=llama70b_2
         )
 
     @agent
@@ -139,13 +148,13 @@ class SambaEmergencyResponseAgents():
             config=self.agents_config['resource_deployment_agent'],
             verbose=True,
             tools=[PlacesSearchTool()],
-            llm=llama70b
+            llm=llama70b_2
         )
     
     @agent
-    def safe_zones_identifier_agent(self) -> Agent:
+    def safe_zones_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['safe_zones_identifier_agent'],
+            config=self.agents_config['safe_zones_agent'],
             verbose=True,
             tools=[PlacesSearchTool()],
             llm=llama90b
@@ -199,18 +208,18 @@ class SambaEmergencyResponseAgents():
         )
     
     @task
-    def places_search_task(self) -> Task:
+    def high_risk_places_search_task(self) -> Task:
         return Task(
-            config=self.tasks_config['places_search_task'],
+            config=self.tasks_config['high_risk_places_search_task'],
             context=[self.monitoring_task(), self.weather_task()],
-            output_file="affected_places.json"
+            output_file="high_risk_places.json"
         )
     
     @task
     def impact_analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['impact_analysis_task'],
-            context=[self.monitoring_task(), self.weather_task(), self.places_search_task(), self.image_analysis_task()],
+            context=[self.monitoring_task(), self.weather_task(), self.high_risk_places_search_task(), self.image_analysis_task()],
             output_file="event_impact_analysis.md",
             human_input=True
         )
@@ -225,21 +234,29 @@ class SambaEmergencyResponseAgents():
         )
     
     @task
-    def safe_zones_identifier_task(self) -> Task:
+    def safe_zones_task(self) -> Task:
         return Task(
-            config=self.tasks_config['safe_zones_identifier_task'],
-            context=[self.impact_analysis_task(), self.resource_deployment_task()],
+            config=self.tasks_config['safe_zones_task'],
+            context=[self.impact_analysis_task()],
             output_file="safe_zones.json",
             human_input=True
         )
 
     ## For evacuation route planning
     @task
-    def evac_route_planning_task(self) -> Task:
+    def evac_route_planning_manager_task(self) -> Task:
         return Task(
-            config=self.tasks_config['evac_route_planning_task'],
-            context=[self.impact_analysis_task(), self.resource_deployment_task(), self.safe_zones_identifier_task()],
-            output_file="evac_routes.json"
+            config=self.tasks_config['evac_route_planning_manager_task'],
+            context=[self.impact_analysis_task(), self.high_risk_places_search_task(), self.safe_zones_task()],
+            output_file="evac_routes.json",
+            
+        )
+    
+    @task
+    def route_planning_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['route_planning_task'],
+            context=[self.evac_route_planning_manager_task()]
         )
 
     @crew
@@ -250,6 +267,6 @@ class SambaEmergencyResponseAgents():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=False,
-            # memory=True
+            memory=True
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
