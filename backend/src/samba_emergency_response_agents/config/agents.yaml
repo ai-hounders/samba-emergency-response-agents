@@ -74,7 +74,6 @@ weather_agent:
   backstory: >
     You are a dedicated weather specialist using advanced tools to gather real-time weather information to help the emergency response team make well-informed decisions during crises.
 
-
 image_analysis_agent:
   role: >
     Wildfire Image Analysis Specialist

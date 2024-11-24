@@ -3,10 +3,8 @@ import os, base64
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 
-# Uncomment the following line to use an example of a custom tool
 from samba_emergency_response_agents.tools.custom_tool import WildfireMonitorTool, GoogleRoutesTool, OpenWeatherMapTool, PlacesSearchTool
 
-# Check our tools documentations for more information on how to use them
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool, DallETool
 
 llama90b = LLM(
@@ -58,11 +56,165 @@ llama11b = LLM(
 )
 
 @CrewBase
+class EmergencyMonitoringCrew():
+    """Emergency Monitoring Crew"""
+    @agent
+    def monitoring_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['monitoring_agent'],
+            tools=[WildfireMonitorTool()],
+            verbose=True,
+            llm=llama8b
+        )
+    
+    @task
+    def monitoring_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['monitoring_task'],
+            output_file="event.json"
+        )
+    
+    @crew
+    def crew(self) -> Crew:
+        """Creates the Emergency Monitoring Crew"""
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks, 
+            process=Process.sequential,
+            memory=True
+        )
+
+@CrewBase
+class WeatherMonitoringCrew():
+    """Weather Monitoring Crew"""
+    @agent
+    def weather_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['weather_agent'],
+            tools=[OpenWeatherMapTool()],
+            verbose=True,
+            llm=llama11b
+        )
+
+    @task
+    def weather_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['weather_task'],
+            output_file="weather.json"
+        )
+    
+    @crew
+    def crew(self) -> Crew:
+        """Creates the Weather Monitoring Crew"""
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks, 
+            process=Process.sequential,
+            memory=True
+        )
+    
+@CrewBase
+class HighRiskAreasAssessmentCrew():
+    """High Risk Areas Assessment Crew"""
+    @agent
+    def high_risk_places_search_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['high_risk_places_search_agent'],
+            tools=[PlacesSearchTool()],
+            verbose=True,
+            llm=llama90b
+        )
+    
+    @task
+    def high_risk_places_search_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['high_risk_places_search_task'],
+            output_file="high_risk_places.json"
+        )
+
+    @crew
+    def crew(self) -> Crew:
+        """Creates the High Risk Areas Assessment Crew"""
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks, 
+            process=Process.sequential,
+            memory=True,
+            planning=True #May require multiple calls to the tool to calculate the radius and locate the high risk areas.
+        )
+
+@CrewBase
+class ImageAnalysisCrew():
+    """Image Analysis Crew"""
+    @agent
+    def image_analysis_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['image_analysis_agent'],
+            verbose=True,
+            llm=llama90b_2
+        )
+    
+    @task
+    def image_analysis_task(self) -> Task:
+        image_path = "./src/samba_emergency_response_agents/images/satellite/wildfire_2.jpg"
+        with open(image_path, "rb") as image_file:
+            image_data = image_file.read()
+
+        encoded_image = base64.b64encode(image_data).decode('utf-8')
+        
+        output_path = "image_analysis.md"
+        print("hello im here")
+        return Task(
+            config=self.tasks_config['image_analysis_task'],
+            input_file=encoded_image,
+            output_file=output_path
+        )
+    
+    @crew
+    def crew(self) -> Crew:
+        """Creates the Image Analysis Crew"""
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks, 
+            process=Process.sequential,
+            memory=True
+        )
+    
+
+@CrewBase
+class ImpactAnalysisCrew():
+    """Impact Analysis Crew"""
+    @agent
+    def impact_analysis_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['impact_analysis_agent'],
+            verbose=True,
+            llm=llama405b
+        )
+    
+    @task
+    def impact_analysis_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['impact_analysis_task'],
+            output_file="event_impact_analysis.md"
+        )
+    
+    @crew
+    def crew(self) -> Crew:
+        """Creates the Impact Analysis Crew"""
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks, 
+            process=Process.sequential,
+            memory=True
+        )
+
+@CrewBase
 class SambaEmergencyResponseAgents():
     """SambaEmergencyResponseAgents crew"""
 
-    agents_config = 'config/agents.yaml'
-    tasks_config = 'config/tasks.yaml'
+
+
 
     # @agent
     # def image_generator_agent(self) -> Agent:
@@ -72,13 +224,7 @@ class SambaEmergencyResponseAgents():
     #         verbose=True
     #     )
 
-    @agent
-    def image_analysis_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['image_analysis_agent'],
-            verbose=True,
-            llm=llama90b
-        )
+    
     
     @agent
     def route_planning_agent(self) -> Agent:
@@ -89,23 +235,7 @@ class SambaEmergencyResponseAgents():
             llm=llama405b_2
         )
 
-    @agent
-    def monitoring_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['monitoring_agent'],
-            tools=[WildfireMonitorTool()],
-            verbose=True,
-            llm=llama11b
-        )
-
-    @agent
-    def weather_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['weather_agent'],
-            tools=[OpenWeatherMapTool()],
-            verbose=True,
-            llm=llama70b
-        )
+    
 
     # @agent
     # def communication_agent(self) -> Agent:
@@ -116,22 +246,9 @@ class SambaEmergencyResponseAgents():
     #         llm=llama70b
     #     )
 
-    @agent
-    def high_risk_places_search_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['high_risk_places_search_agent'],
-            tools=[PlacesSearchTool()],
-            verbose=True,
-            llm=llama70b_2
-        )
+    
 
-    @agent
-    def impact_analysis_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['impact_analysis_agent'],
-            verbose=True,
-            llm=llama405b
-        )
+  
 
     @agent
     def resource_deployment_agent(self) -> Agent:
@@ -151,29 +268,10 @@ class SambaEmergencyResponseAgents():
             llm=llama90b
         )
 
-    @task
-    def monitoring_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['monitoring_task'],
-            output_file="event.json"
-        )
+   
     
 
-    @task
-    def image_analysis_task(self) -> Task:
-        image_path = "./src/samba_emergency_response_agents/images/satellite/wildfire_2.jpg"
-        with open(image_path, "rb") as image_file:
-            image_data = image_file.read()
-
-        encoded_image = base64.b64encode(image_data).decode('utf-8')
-        
-        output_path = "image_analysis.md"
-        return Task(
-            config=self.tasks_config['image_analysis_task'],
-            context=[self.monitoring_task()],
-            input_file=encoded_image,
-            output_file=output_path
-        )
+   
 
     # @task
     # def communication_task(self) -> Task:
@@ -190,47 +288,22 @@ class SambaEmergencyResponseAgents():
     #         context=[self.monitoring_task()]
     #     )
     
-    @task
-    def weather_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['weather_task'],
-            context=[self.monitoring_task()],
-            output_file="weather.json"
-        )
     
-    @task
-    def high_risk_places_search_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['high_risk_places_search_task'],
-            context=[self.monitoring_task(), self.weather_task()],
-            output_file="high_risk_places.json"
-        )
     
-    @task
-    def impact_analysis_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['impact_analysis_task'],
-            context=[self.monitoring_task(), self.weather_task(), self.high_risk_places_search_task(), self.image_analysis_task()],
-            output_file="event_impact_analysis.md",
-            human_input=True
-        )
+    
     
     @task
     def resource_deployment_task(self) -> Task:
         return Task(
             config=self.tasks_config['resource_deployment_task'],
-            context=[self.impact_analysis_task()],
             output_file="resource_deployment.md",
-            human_input=True
         )
     
     @task
     def safe_zones_task(self) -> Task:
         return Task(
             config=self.tasks_config['safe_zones_task'],
-            context=[self.impact_analysis_task()],
             output_file="safe_zones.json",
-            human_input=True
         )
 
     ## For evacuation route planning
@@ -244,12 +317,14 @@ class SambaEmergencyResponseAgents():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the SambaEmergencyResponseAgents crew"""
+        """Creates the Emergency Monitoring Crew"""
         return Crew(
-            agents=self.agents, # Automatically created by the @agent decorator
-            tasks=self.tasks, # Automatically created by the @task decorator
+            agents=self.agents,
+            tasks=self.tasks, 
             process=Process.sequential,
             verbose=False,
-            memory=True
+            memory=True,
+            # planning=True,
+            # planning_llm=llama405b_2
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

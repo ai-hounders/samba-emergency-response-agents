@@ -7,7 +7,10 @@
 
 image_analysis_task:
   description: >
-    Analyze the provided satellite image to determine wildfire spread, smoke density, and potential impact.
+    Analyze the provided satellite image and event details to determine wildfire spread, smoke density, and potential impact.
+    Emergency Event Details
+    -----------------------
+    {event_details}
   expected_output: >
     A detailed report containing the following sections:
     1. Description of the wildfire event (location, intensity, area affected).
@@ -19,7 +22,22 @@ image_analysis_task:
 
 impact_analysis_task:
   description: >
-    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, places (towns and cities) near to the wildfire event, weather data and determine the impact of the event. Get a human input before before proceeding further.
+    Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, high risk areas near to the wildfire event, weather data, image analysis, and determine the impact of the event.
+    Emergency Event Details
+    -----------------------
+    {event_details}
+
+    Weather Information
+    -------------------
+    {weather_information}
+
+    High Risk Areas
+    ----------------
+    {high_risk_areas}
+
+    Image Analysis
+    ----------------
+    {image_analysis}
   expected_output: >
     Detailed report for the analysis containing the following sections:
     1. Event Description
@@ -74,6 +92,18 @@ monitoring_task:
 high_risk_places_search_task:
   description: >
     Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
+    Emergency Event Details
+    -----------------------
+    {event_details}
+
+    Weather Information
+    -------------------
+    {weather_information}
+
+    Additional Feedback
+    ------------------
+    {high_risk_area_assessment_feedback}
+  
   expected_output: >
     JSON of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output format:
     {
@@ -199,7 +229,10 @@ route_planning_task:
 
 weather_task:
   description: >
-    Fetches real-time weather updates, including current conditions, 3-hourly forecasts for next 4 intervals, and weather alerts for the monitored areas.
+    Fetches real-time weather updates, including current conditions, 3-hourly forecasts for next 4 intervals, and weather alerts for the area impacted by the emergency event.
+    Emergency Event Details
+    -----------------------
+    {event_details}
   expected_output: >
     JSON of Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
   agent: weather_agent
