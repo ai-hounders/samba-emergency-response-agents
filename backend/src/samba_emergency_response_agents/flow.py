@@ -11,6 +11,7 @@ from samba_emergency_response_agents.types import HighRiskAreas, SafeZones, Rout
 
 load_dotenv()
 API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
+st.title("🌩️ Emergency Response Platform")
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
@@ -62,9 +63,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.event = output
-        st.chat_message("assistant").write(f"Event Info JSON:")
-        st.json(output)
-        print("Event Info JSON: \n", output)
+        st.chat_message("assistant").write(f"Event Info JSON: \n{output}")
+        # print("Event Info JSON: \n", output)
         return output
 
     """
@@ -83,9 +83,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.weather = output
-        st.chat_message("assistant").write(f"Weather JSON:")
-        st.json(output)
-        print("Weather JSON: \n", output)
+        st.chat_message("assistant").write(f"Weather JSON:\n{output}")
+        # print("Weather JSON: \n", output)
         return output
     
     """
@@ -116,9 +115,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.high_risk_areas = output
-        st.chat_message("assistant").write(f"High Risk Areas JSON:")
-        st.json(output)
-        print("High Risk Areas JSON: \n", output)
+        st.chat_message("assistant").write(f"High Risk Areas JSON:\n{output}")
+        # print("High Risk Areas JSON: \n", output)
         return output
 
     """
@@ -138,7 +136,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         output = result.raw
         self.state.image_analysis = output
         st.chat_message("assistant").write(f"Image Analysis: {output}")
-        print("Image Analysis: \n", output)
+        # print("Image Analysis: \n", output)
         return output
 
     """
@@ -162,7 +160,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         output = result.raw
         self.state.event_analysis = output
         st.chat_message("assistant").write(f"Event Analysis: {output}")
-        print("Event Analysis: \n", output)
+        # print("Event Analysis: \n", output)
         return output
     
     """
@@ -178,52 +176,52 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         print("2. Redo high risk areas assessment with additional feedback.")
         print("3. Proceed with emergency response.")
 
-        st.session_state["messages"].append({
-            "role": "assistant",
-            "content": "Please choose an option:\n1. False emergency.\n2. Redo high risk areas assessment with additional feedback.\n3. Proceed with emergency response."
-        })
+        st.chat_message("assistant").write("Please choose an option:\n1. False emergency.\n2. Redo high risk areas assessment with additional feedback.\n3. Proceed with emergency response.")
 
-        choice = st.radio(
-            "Choose an action:", 
-            options=["1. False emergency.", 
-                    "2. Redo high risk areas assessment with additional feedback.", 
-                    "3. Proceed with emergency response."],
-            key="impact_assessment_choice"  # Add a unique key
-        )
-
-        feedback = None
-        if choice == "2. Redo high risk areas assessment with additional feedback.":
-            feedback = st.text_area(
-                "Please provide additional feedback on high risk area assessment:",
-                key="feedback_input"
+        choice = input("Enter the number of your choice: ")
+        if choice == "1":
+            print("Exiting the program.")
+            exit()
+        elif choice == "2":
+            feedback = input(
+                "\nPlease provide additional feedback on high risk area assessment:\n"
             )
+            self.state.weather_feedback = feedback
+            print("\nRe-running high risk area assessment with your feedback....")
+            return "high_risk_area_assessment_feedback"
+        elif choice == "3":
+            print("\nProceeding to emergency response.")
+            return "proceed_to_emergency_remediation"
+        else:
+            print("\nInvalid choice. Please try again.")
+            return "impact_assessment_feedback"
 
-       # Add a submit button to confirm selection
-        if st.button("Submit Decision"):
-            print(f"choice, {choice}")
-            if choice == "1. False emergency.":
-                st.chat_message("assistant").write("Exiting the program.")
-                print("Exiting the program.")
-                exit()
-            elif choice == "2. Redo high risk areas assessment with additional feedback.":
-                # Add a text input for feedback
-                feedback = st.text_input("Please provide additional feedback on high risk area assessment:")
-                if feedback:  # Only proceed if feedback is provided
-                    self.state.high_risk_area_assessment_feedback = feedback
-                    st.chat_message("assistant").write(f"Re-running high risk area assessment with your feedback....")
-                    print(f"Re-running high risk area assessment with your feedback....")
-                    return "high_risk_area_assessment_feedback"
-            elif choice == "3. Proceed with emergency response.":
-                st.chat_message("assistant").write("Proceeding to emergency response.")
-                print("\nProceeding to emergency response.")
-                return "proceed_to_emergency_remediation"
-            else:
-                st.chat_message("assistant").write("Invalid choice. Please try again.")
-                print("\nInvalid choice. Please try again.")
-                return "impact_assessment_feedback"
+    #    # Add a submit button to confirm selection
+    #     if st.button("Submit Decision"):
+    #         print(f"choice, {choice}")
+    #         if choice == "1. False emergency.":
+    #             st.chat_message("assistant").write("Exiting the program.")
+    #             print("Exiting the program.")
+    #             exit()
+    #         elif choice == "2. Redo high risk areas assessment with additional feedback.":
+    #             # Add a text input for feedback
+    #             feedback = st.text_input("Please provide additional feedback on high risk area assessment:")
+    #             if feedback:  # Only proceed if feedback is provided
+    #                 self.state.high_risk_area_assessment_feedback = feedback
+    #                 st.chat_message("assistant").write(f"Re-running high risk area assessment with your feedback....")
+    #                 print(f"Re-running high risk area assessment with your feedback....")
+    #                 return "high_risk_area_assessment_feedback"
+    #         elif choice == "3. Proceed with emergency response.":
+    #             st.chat_message("assistant").write("Proceeding to emergency response.")
+    #             print("\nProceeding to emergency response.")
+    #             return "proceed_to_emergency_remediation"
+    #         else:
+    #             st.chat_message("assistant").write("Invalid choice. Please try again.")
+    #             print("\nInvalid choice. Please try again.")
+    #             return "impact_assessment_feedback"
 
-        # Return None if no button press yet
-        return "proceed_to_emergency_remediation"
+    #     # Return None if no button press yet
+    #     # return "proceed_to_emergency_remediation"
     
     @listen("proceed_to_emergency_remediation")
     def determine_safe_zones(self):
@@ -239,7 +237,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         output = result.raw
         self.state.safe_zones = output
         st.chat_message("assistant").write(f"Safe Zones JSON: {output}")
-        print("Safe Zones JSON: \n", output)
+        # print("Safe Zones JSON: \n", output)
         return output
 
 
@@ -257,7 +255,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         output = result.raw
         self.state.resource_deployment = output
         st.chat_message("assistant").write(f"Resource Deployment JSON: {output}")
-        print("Resource Deployment JSON: \n", output)
+        # print("Resource Deployment JSON: \n", output)
         return output
     
     @listen(and_(determine_safe_zones))
@@ -276,7 +274,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         output = result.raw
         self.state.evacuation_routes = output
         st.chat_message("assistant").write(f"Evacuation Routes JSON: {output}")
-        print("Evacuation Routes JSON: \n", output)
+        # print("Evacuation Routes JSON: \n", output)
         return output
 
 
@@ -284,9 +282,6 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
 async def main():
     flow = EmergencyResponseFlow()
     flow.plot("my_flow_plot")
-
-    # Initialize the chatbot interface
-    st.title("🌩️ Emergency Response Chatbot")
 
     # Start flow execution
     st.chat_message("assistant").write("Initializing emergency response flow...")
@@ -339,6 +334,9 @@ async def main():
         {"name": place["name"], "lat": place["location"]["lat"], "lng": place["location"]["lng"]}
         for place in high_risk_areas["high_risk_areas"]
     ]
+
+    
+
 
     # HTML Template with Dynamic Data
     html_template = f"""
@@ -438,14 +436,13 @@ async def main():
         </script>
     </head>
     <body onload="initMap()">
-        <h1>Evacuation Routes, Safe Zones, and High-Risk Areas</h1>
         <div id="map" style="height: 600px; width: 100%;"></div>
     </body>
     </html>
     """
 
     # Render the HTML in Streamlit
-    st.title("Evacuation Routes, Safe Zones, and High-Risk Areas")
+    st.header("Evacuation Routes, Safe Zones, and High-Risk Areas")
     st.write("Below are the evacuation routes, safe zones, high-risk areas, and event locations displayed on the same map.")
     st.components.v1.html(html_template, height=700)
 
@@ -485,7 +482,5 @@ async def main():
         unsafe_allow_html=True,
     )
     # ==============================================
-
-
 
 asyncio.run(main())

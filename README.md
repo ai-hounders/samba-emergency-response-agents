@@ -15,6 +15,9 @@ The **Emergency Response Agents** is an agentic real-time emergency response pla
 
 The platform's ability to provide real-time situational awareness is pivotal in emergency scenarios. By leveraging SambaNova's advanced RDU-powered systems instead of traditional GPU-based architectures, it achieves unprecedented speed and efficiency in processing emergency data. Through the integration of the SambaNova API, the CrewAI framework, and NASA's Earth Observatory Natural Event Tracking (EONET) API, the system processes live data on wildfire locations, magnitudes, weather conditions, and spread patterns. This data is then synthesized to offer critical situational insights. The use of SambaNova's Llama 3.2 vision models further enhances its capabilities, enabling precise analysis of satellite imagery to track wildfire progression and assess impacts. With a structured data architecture that includes evacuation routes, safe zones, and high-risk areas, the platform ensures timely, data-driven decision-making. Its modular design and feedback loops enable continuous refinement of assessments, making it a robust and adaptive tool for managing emergencies.
 
+## Project Demo Video
+https://www.loom.com/share/210ae8483d5a432db1ea6f93105eec69
+
 ## About Team AI Hounders
 We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning the winds of change into opportunities for innovation and impact. In our free time, we enjoy rock hounding - searching for minerals, gems and fossils in nature.
 
