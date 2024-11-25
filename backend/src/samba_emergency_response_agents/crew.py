@@ -87,7 +87,7 @@ class EmergencyMonitoringCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
 
 
@@ -129,7 +129,7 @@ class ImageAnalysisCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
 
   
@@ -163,8 +163,7 @@ class HighRiskAreasSearchCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True,
-            planning=True
+            # memory=True
         )
 
 
@@ -197,7 +196,7 @@ class ImpactAnalysisCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
 
 
@@ -230,7 +229,7 @@ class WeatherMonitoringCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
  
 
@@ -264,7 +263,7 @@ class ResourceDeploymentCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
 
 @CrewBase
@@ -297,7 +296,7 @@ class SafeZonesCrew():
             agents=self.agents,
             tasks=self.tasks, 
             process=Process.sequential,
-            memory=True
+            # memory=True
         )
 
 @CrewBase
@@ -372,7 +371,6 @@ class RoutePlanningCrew():
             tasks=self.tasks, 
             process=Process.sequential,
             verbose=False,
-            memory=True,
-            planning=True
+            # memory=True
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )

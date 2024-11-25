@@ -2,22 +2,46 @@
 
 Welcome to the EmergencyResponseAgents project, powered by [SambaNova API](https://sambanova.ai/) and [crewAI](https://crewai.com). This project is part of the SambaNova's [Lightning Fast AI Hackathon](https://sambanova.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open) on [Devpost](https://devpost.com/).
 
-The Emergency Response Agents is a real-time emergency response platform, currently focused on wildfire management and evacuation coordination. The platform can be easily scalable to other natural disasters and emergencies like hurricanes, earthquakes, etc. By leveraging the SambaNova API and crewAI framework, along with NASA's Earth Observatory Natural Event Tracking (EONET) API for monitoring active wildfires and natural events, it processes live emergency data including location, magnitude, and spread patterns to provide critical situational awareness. The system maintains information about evacuation routes, safe zones, and high-risk areas through a comprehensive data structure that includes geographical coordinates and detailed location metadata. Additionally, it analyzes satellite imagery using SambaNova's Llama 3.2 vision models to infer and track wildfire progression and impact.
+## About Team AI Hounders
+We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning the winds of change into opportunities for innovation and impact. In our free time, we enjoy rock hounding - searching for minerals, gems and fossils in nature.
 
-On the frontend, the platform uses Streamlit to create an interactive dashboard that visualizes the emergency data on Google Maps. It tracks wildfire events from EONET with real-time updates on their coordinates, magnitude (820 acres), and status, maps out evacuation routes between origins and destinations, identifies safe zones across different categories, and highlights high-risk areas within a specified radius. This integration of NASA's EONET data feed, real-time data processing, satellite imagery analysis, and spatial visualization provides emergency responders and affected communities with actionable intelligence for better decision-making during crisis situations.
+* [Divya Chandana](https://www.linkedin.com/in/divya-chandana-75b27438/)
+* [Pranava Shashank P](https://www.linkedin.com/in/pranavashashank/)
 
-## Agent Flow Diagram
-![Emergency Response Agents](crewai.png)
+`AI Hounders = Gen[AI] + Rock [Hounders]`
 
+## Project Brief
+The **Emergency Response Agents** is an agentic real-time emergency response platform, currently focused on wildfire management and evacuation coordination. The platform is highly adaptable and scalable, making it applicable to a wide range of natural disasters and emergencies, such as hurricanes, earthquakes, and floods. Its core objective is to deliver instant, accurate, and actionable guidance to rescue teams and civilians, enabling them to respond effectively during critical moments when lives and property are at stake.
+
+The platform's ability to provide real-time situational awareness is pivotal in emergency scenarios. By leveraging SambaNova's advanced RDU-powered systems instead of traditional GPU-based architectures, it achieves unprecedented speed and efficiency in processing emergency data. Through the integration of the SambaNova API, the CrewAI framework, and NASA's Earth Observatory Natural Event Tracking (EONET) API, the system processes live data on wildfire locations, magnitudes, weather conditions, and spread patterns. This data is then synthesized to offer critical situational insights. The use of SambaNova's Llama 3.2 vision models further enhances its capabilities, enabling precise analysis of satellite imagery to track wildfire progression and assess impacts. With a structured data architecture that includes evacuation routes, safe zones, and high-risk areas, the platform ensures timely, data-driven decision-making. Its modular design and feedback loops enable continuous refinement of assessments, making it a robust and adaptive tool for managing emergencies.
 
 ## About Team AI Hounders
 We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning the winds of change into opportunities for innovation and impact. In our free time, we enjoy rock hounding - searching for minerals, gems and fossils in nature.
 
-* [Pranava Shashank P](https://www.linkedin.com/in/pranavashashank/)
 * [Divya Chandana](https://www.linkedin.com/in/divya-chandana-75b27438/)
+* [Pranava Shashank P](https://www.linkedin.com/in/pranavashashank/)
 
-`AI Hounders = Gen[AI] + Rock [Hounders]`
+## Context Diagram
+![Emergency Response Agents](images/Context%20diagram.jpg)
 
+## Agent Flow Diagram
+![Emergency Response Agents](images/crewai.png)
+
+### Detailed Agent Flow Diagram
+![Emergency Response Agents](images/Detailed%20Flow%20Diagram.jpg)
+
+Note - Multiple Llama models were used to overcome the rate limits of the SambaNova APIs.
+
+## Comparing the platform on SambaNova APIs vs VertextAI APIs
+Note - On bot the APIs, Llama models were used
+
+## GenAI Models Used
+- SambaNova's 
+  - Llama 3.2 vision - 11b, 90b 
+  - Llama 3.1 - 8b, 70b, 405b
+- VertexAI's (for comparing performance with SambaNova's models)
+  - Llama 3.2 vision - 11b, 90b
+  - Llama 3.1 - 8b, 70b, 405b
 
 ## References
 - NASA.Gov [EONET API](https://eonet.gsfc.nasa.gov/docs/v2.1)
@@ -27,13 +51,7 @@ We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning
 - crewAI's [website](https://crewai.com/)
 - Streamlit's [website](https://streamlit.io/)
 
-## GenAI Models Used
-- SambaNova's 
-  - Llama 3.2 vision - 11b, 90b 
-  - Llama 3.1 - 8b, 70b, 405b
-- VertexAI's (for comparing performance with SambaNova's models)
-  - Llama 3.2 vision - 11b, 90b
-  - Llama 3.1 - 8b, 70b, 405b
+
 
 ## Installation
 
