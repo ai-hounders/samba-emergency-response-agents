@@ -28,4 +28,6 @@ Deploy 1 firefighting crew to Bridge to Nowhere - Trailhead and Bungee America
 Deploy 1 firefighting crew to East Fork Day Use Parking Trailhead and Coyote Flat
 Deploy 1 firefighting crew to Vault toilet and Canyon Road
 Deploy 1 firefighting crew to Shoemaker Canyon Road Trail Parking and Vault toilet
-Deploy 1 firefighting crew to
+Deploy 1 firefighting crew to Iron Mountain trails and Heaton Flats Trailhead
+Deploy 1 firefighting crew to East Fork Trail and Heaton Saddle
+Deploy 1 firefighting crew to Bathroom and Entering Sheep Mountain Wilderness

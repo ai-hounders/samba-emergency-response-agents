@@ -1,18 +1,18 @@
 # SambaEmergencyResponseAgents Crew
 
-Welcome to the SambaEmergencyResponseAgents project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the EmergencyResponseAgents project, powered by [SambaNova API](https://sambanova.ai/) and [crewAI](https://crewai.com). This project is part of the SambaNova's [Lightning Fast AI Hackathon](https://sambanova.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open) on [Devpost](https://devpost.com/).
 
-{{ define "main" }}
-<div class="">
-    <iframe id="inlineFrameExample"
-    title="Emergency Response Agents"
-    src="/backend/src/samba_emergency_response_agents/docs/index.html"
-    class="blah blah"
-    >
-</iframe>
-</div>
 
-{{end}}
+## About Team AI Hounders
+We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning the winds of change into opportunities for innovation and impact. In our free time, we enjoy rock hounding - searching for minerals, gems and fossils in nature.
+
+* [Pranava Shashank P](https://www.linkedin.com/in/pranavashashank/) )
+* [Divya Chandana](https://www.linkedin.com/in/divya-chandana-75b27438/)
+
+`AI Hounders = Gen[AI] + Rock [Hounders]`
+
+
+## References
 
 ## Installation
 
@@ -59,7 +59,7 @@ Create a .env file with `SERPER_API_KEY` and `SAMBANOVA_API_KEY` variables.
 - Modify `src/samba_emergency_response_agents/config/agents.yaml` to define your agents
 - Modify `src/samba_emergency_response_agents/config/tasks.yaml` to define your tasks
 - Modify `src/samba_emergency_response_agents/crew.py` to add your own logic, tools and specific args
-- Modify `src/samba_emergency_response_agents/main.py` to add custom inputs for your agents and tasks
+- Modify `src/samba_emergency_response_agents/flow.py` to add flow logic to orchestrate your crews with better control
 
 ## Running the Project
 
@@ -67,10 +67,11 @@ To kickstart your crew of AI agents and begin task execution, run this from the 
 
 ```bash
 $ cd backend #Since repo is segregated into frontend and backend
-$ crewai run
+$ source .venv/bin/activate 
+$ python flow.py
 ```
 
-This command initializes the samba-emergency-response-agents Crew, assembling the agents and assigning them tasks as defined in your configuration.
+This command initializes the EmergencyResponseFlow, assembling the crews agents and assigning them tasks as defined in your configuration.
 
 This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
 

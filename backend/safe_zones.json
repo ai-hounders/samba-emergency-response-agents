@@ -1,19 +1,112 @@
 {
   "safe_zones": [
     {
-      "name": "Rancho Cucamonga",
-      "type": "campground",
+      "name": "Camp Williams Resort",
       "location": {
-        "lat": 34.10639889999999,
-        "lng": -117.5931084
+        "lat": 34.2320971,
+        "lng": -117.7903056
+      }
+    }
+  ],
+  "open_parking_lots": [
+    {
+      "name": "Shoemaker Canyon Road Trail Parking",
+      "location": {
+        "lat": 34.2334339,
+        "lng": -117.7709792
+      }
+    }
+  ],
+  "parks": [
+    {
+      "name": "Shoemaker Viewpoint Day Use Area",
+      "location": {
+        "lat": 34.233015,
+        "lng": -117.771169
       }
     },
     {
-      "name": "Pomona",
-      "type": "locality",
+      "name": "Bridge to Nowhere - Trailhead",
       "location": {
-        "lat": 34.16309040000001,
-        "lng": -117.8187343
+        "lat": 34.2370999,
+        "lng": -117.764899
+      }
+    },
+    {
+      "name": "East Fork Day Use Parking Trailhead",
+      "location": {
+        "lat": 34.2369299,
+        "lng": -117.765216
+      }
+    },
+    {
+      "name": "Coyote Flat",
+      "location": {
+        "lat": 34.2355643,
+        "lng": -117.7670914
+      }
+    },
+    {
+      "name": "Iron Mountain trails",
+      "location": {
+        "lat": 34.2418539,
+        "lng": -117.7611003
+      }
+    },
+    {
+      "name": "Heaton Flats Trailhead",
+      "location": {
+        "lat": 34.2419807,
+        "lng": -117.7611982
+      }
+    },
+    {
+      "name": "East Fork Trail",
+      "location": {
+        "lat": 34.24366260000001,
+        "lng": -117.7609065
+      }
+    },
+    {
+      "name": "Heaton Saddle",
+      "location": {
+        "lat": 34.242559,
+        "lng": -117.748447
+      }
+    },
+    {
+      "name": "Entering Sheep Mountain Wilderness",
+      "location": {
+        "lat": 34.24368,
+        "lng": -117.747442
+      }
+    },
+    {
+      "name": "East Fork Trail",
+      "location": {
+        "lat": 34.2573079,
+        "lng": -117.7505153
+      }
+    },
+    {
+      "name": "Shoemaker Canyon Tunnel",
+      "location": {
+        "lat": 34.2594489,
+        "lng": -117.7620881
+      }
+    },
+    {
+      "name": "Sunset Peak North Trailhead",
+      "location": {
+        "lat": 34.2189058,
+        "lng": -117.7124497
+      }
+    },
+    {
+      "name": "Allison Saddle",
+      "location": {
+        "lat": 34.25912989999999,
+        "lng": -117.7229288
       }
     }
   ]
