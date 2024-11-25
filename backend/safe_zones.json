@@ -1,14 +1,16 @@
 {
-  "campgrounds": [
+  "safe_zones": [
     {
-      "name": "Rob Hill Campground",
+      "name": "Rancho Cucamonga",
+      "type": "campground",
       "location": {
-        "lat": 37.7966727,
-        "lng": -122.4758376
+        "lat": 34.10639889999999,
+        "lng": -117.5931084
       }
     },
     {
-      "name": "Kirby Cove Campground",
+      "name": "Pomona",
+      "type": "locality",
       "location": {
         "lat": 37.827983,
         "lng": -122.4909919
@@ -56,166 +58,5 @@
         "lng": -122.4258002
       }
     }
-  ],
-  "parking": [
-    {
-      "name": "Caltrain Bike Station",
-      "location": {
-        "lat": 37.776552,
-        "lng": -122.395387
-      }
-    },
-    {
-      "name": "450 Sutter Garage",
-      "location": {
-        "lat": 37.7896794,
-        "lng": -122.4078572
-      }
-    },
-    {
-      "name": "Impark (Parking)",
-      "location": {
-        "lat": 37.7817789,
-        "lng": -122.4048023
-      }
-    },
-    {
-      "name": "Mason O'Farrell Garage",
-      "location": {
-        "lat": 37.78651320000001,
-        "lng": -122.4101161
-      }
-    },
-    {
-      "name": "SFMTA - North Beach Garage",
-      "location": {
-        "lat": 37.7984081,
-        "lng": -122.4095171
-      }
-    },
-    {
-      "name": "SFMTA - Union Square Garage",
-      "location": {
-        "lat": 37.7879259,
-        "lng": -122.4075134
-      }
-    },
-    {
-      "name": "Royal Parking",
-      "location": {
-        "lat": 37.79032509999999,
-        "lng": -122.4097804
-      }
-    },
-    {
-      "name": "EZ Public Parking",
-      "location": {
-        "lat": 37.7843286,
-        "lng": -122.4128376
-      }
-    },
-    {
-      "name": "525 Market St. Garage",
-      "location": {
-        "lat": 37.7906295,
-        "lng": -122.3988942
-      }
-    },
-    {
-      "name": "Prestige Park",
-      "location": {
-        "lat": 37.7883476,
-        "lng": -122.4099753
-      }
-    },
-    {
-      "name": "55 Francisco Street Garage",
-      "location": {
-        "lat": 37.8054357,
-        "lng": -122.4064309
-      }
-    },
-    {
-      "name": "Chinatown Parking Garage",
-      "location": {
-        "lat": 37.7969295,
-        "lng": -122.4073602
-      }
-    },
-    {
-      "name": "Parking-Opera Plaza",
-      "location": {
-        "lat": 37.7810948,
-        "lng": -122.4211407
-      }
-    },
-    {
-      "name": "Fox Plaza - Lot #356",
-      "location": {
-        "lat": 37.7770837,
-        "lng": -122.4176807
-      }
-    },
-    {
-      "name": "Tower Valet Parking Inc.",
-      "location": {
-        "lat": 37.7867262,
-        "lng": -122.4019945
-      }
-    },
-    {
-      "name": "433 Mason Garage",
-      "location": {
-        "lat": 37.7876744,
-        "lng": -122.4101481
-      }
-    },
-    {
-      "name": "Cycle Gear",
-      "location": {
-        "lat": 37.77059759999999,
-        "lng": -122.4128541
-      }
-    },
-    {
-      "name": "600 Harrison Parking",
-      "location": {
-        "lat": 37.784068,
-        "lng": -122.395763
-      }
-    },
-    {
-      "name": "Piers 30-32 Parking",
-      "location": {
-        "lat": 37.78721110000001,
-        "lng": -122.3875306
-      }
-    },
-    {
-      "name": "Public Parking Garage",
-      "location": {
-        "lat": 37.8009455,
-        "lng": -122.4117504
-      }
-    }
-  ],
-  "stadiums": [
-    {
-      "name": "Oracle Park",
-      "location": {
-        "lat": 37.7784136,
-        "lng": -122.3892168
-      }
-    },
-    {
-      "name": "Kezar Stadium",
-      "location": {
-        "lat": 37.7669182,
-        "lng": -122.4561008
-      }
-    },
-    {
-      "name": "Boxer Stadium",
-      "location": {
-        "lat": 37.72583720000001,
-        "lng":
+  ]
+}
