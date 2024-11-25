@@ -1,0 +1,40 @@
+
+high_risk_places_search_task:
+  description: >
+    Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
+    Emergency Event Details
+    -----------------------
+    {event_details}
+
+    Weather Information
+    -------------------
+    {weather_information}
+
+    Additional Feedback
+    ------------------
+    {high_risk_area_assessment_feedback}
+  
+  expected_output: >
+    JSON of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output:
+    {
+      "high_risk_areas": [
+        {
+          "name": "Rancho Cucamonga",
+          "type": "hospital",
+          "location": {
+            "lat": 34.10639889999999,
+            "lng": -117.5931084
+          }
+        },
+        {
+          "name": "Pomona",
+          "type": "locality",
+          "location": {
+            "lat": 34.055103,
+            "lng": -117.7499909
+          }
+        }
+      ]
+    }
+  agent: high_risk_places_search_agent
+

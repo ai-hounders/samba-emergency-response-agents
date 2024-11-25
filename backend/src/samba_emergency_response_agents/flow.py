@@ -3,7 +3,12 @@ from litellm import completion
 from dotenv import load_dotenv
 import os, asyncio
 from typing import Dict
-from crew import EmergencyMonitoringCrew, ImpactAnalysisCrew, WeatherMonitoringCrew, HighRiskAreasAssessmentCrew, SambaEmergencyResponseAgents, ImageAnalysisCrew
+from samba_emergency_response_agents.emergency_monitoring_crew import EmergencyMonitoringCrew
+from samba_emergency_response_agents.impact_analysis_crew import ImpactAnalysisCrew
+from samba_emergency_response_agents.weather_monitoring_crew import WeatherMonitoringCrew
+from samba_emergency_response_agents.high_risk_areas_search_crew import HighRiskAreasSearchCrew
+from samba_emergency_response_agents.crew import SambaEmergencyResponseAgents
+from samba_emergency_response_agents.image_analysis_crew import ImageAnalysisCrew
 from pydantic import BaseModel
 
 load_dotenv()
@@ -72,7 +77,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
             "high_risk_area_assessment_feedback": self.state.high_risk_area_assessment_feedback
         }
 
-        result = HighRiskAreasAssessmentCrew().crew().kickoff(inputs=inputs)
+        result = HighRiskAreasSearchCrew().crew().kickoff(inputs=inputs)
 
         # get raw output then save to state
         output = result.raw

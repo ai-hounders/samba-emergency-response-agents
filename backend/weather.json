@@ -1,0 +1,223 @@
+{
+  "weather": {
+    "current": {
+      "coord": {
+        "lon": -117.758,
+        "lat": 34.2305
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04n"
+        }
+      ],
+      "base": "stations",
+      "main": {
+        "temp": 282.35,
+        "feels_like": 282.35,
+        "temp_min": 281.4,
+        "temp_max": 283.66,
+        "pressure": 1021,
+        "humidity": 80,
+        "sea_level": 1021,
+        "grnd_level": 889
+      },
+      "visibility": 10000,
+      "wind": {
+        "speed": 0.45,
+        "deg": 240,
+        "gust": 0.89
+      },
+      "clouds": {
+        "all": 58
+      },
+      "dt": 1732506229,
+      "sys": {
+        "type": 2,
+        "id": 2007521,
+        "country": "US",
+        "sunrise": 1732458795,
+        "sunset": 1732495378
+      },
+      "timezone": -28800,
+      "id": 5391648,
+      "name": "San Antonio Heights",
+      "cod": 200
+    },
+    "forecast": {
+      "cod": "200",
+      "message": 0,
+      "cnt": 4,
+      "list": [
+        {
+          "dt": 1732514400,
+          "main": {
+            "temp": 282.03,
+            "feels_like": 282.03,
+            "temp_min": 281.39,
+            "temp_max": 282.03,
+            "pressure": 1020,
+            "sea_level": 1020,
+            "grnd_level": 889,
+            "humidity": 82,
+            "temp_kf": 0.64
+          },
+          "weather": [
+            {
+              "id": 803,
+              "main": "Clouds",
+              "description": "broken clouds",
+              "icon": "04n"
+            }
+          ],
+          "clouds": {
+            "all": 52
+          },
+          "wind": {
+            "speed": 0.57,
+            "deg": 88,
+            "gust": 0.95
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "n"
+          },
+          "dt_txt": "2024-11-25 06:00:00"
+        },
+        {
+          "dt": 1732525200,
+          "main": {
+            "temp": 281.62,
+            "feels_like": 281.62,
+            "temp_min": 281.25,
+            "temp_max": 281.62,
+            "pressure": 1021,
+            "sea_level": 1021,
+            "grnd_level": 889,
+            "humidity": 83,
+            "temp_kf": 0.37
+          },
+          "weather": [
+            {
+              "id": 803,
+              "main": "Clouds",
+              "description": "broken clouds",
+              "icon": "04n"
+            }
+          ],
+          "clouds": {
+            "all": 81
+          },
+          "wind": {
+            "speed": 0.54,
+            "deg": 65,
+            "gust": 0.65
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "n"
+          },
+          "dt_txt": "2024-11-25 09:00:00"
+        },
+        {
+          "dt": 1732536000,
+          "main": {
+            "temp": 282.68,
+            "feels_like": 282.68,
+            "temp_min": 282.68,
+            "temp_max": 282.68,
+            "pressure": 1020,
+            "sea_level": 1020,
+            "grnd_level": 889,
+            "humidity": 65,
+            "temp_kf": 0
+          },
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
+              "icon": "04n"
+            }
+          ],
+          "clouds": {
+            "all": 100
+          },
+          "wind": {
+            "speed": 1.24,
+            "deg": 0,
+            "gust": 1.11
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "n"
+          },
+          "dt_txt": "2024-11-25 12:00:00"
+        },
+        {
+          "dt": 1732546800,
+          "main": {
+            "temp": 283.54,
+            "feels_like": 282.36,
+            "temp_min": 283.54,
+            "temp_max": 283.54,
+            "pressure": 1021,
+            "sea_level": 1021,
+            "grnd_level": 890,
+            "humidity": 66,
+            "temp_kf": 0
+          },
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
+              "icon": "04d"
+            }
+          ],
+          "clouds": {
+            "all": 100
+          },
+          "wind": {
+            "speed": 0.27,
+            "deg": 264,
+            "gust": 0.66
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "d"
+          },
+          "dt_txt": "2024-11-25 15:00:00"
+        }
+      ],
+      "city": {
+        "id": 5391648,
+        "name": "San Antonio Heights",
+        "coord": {
+          "lat": 34.2305,
+          "lon": -117.758
+        },
+        "country": "US",
+        "population": 3371,
+        "timezone": -28800,
+        "sunrise": 1732458795,
+        "sunset": 1732495378
+      }
+    },
+    "alerts": [
+      {
+        "sender_name": "Simulated Alert System",
+        "event": "High Winds Warning",
+        "start": "2024-11-24T23:43:49.512007Z",
+        "end": "2024-11-25T00:43:49.512007Z",
+        "description": "Strong winds expected with gusts up to 60 mph. Please take necessary precautions."
+      }
+    ]
+  }
+}

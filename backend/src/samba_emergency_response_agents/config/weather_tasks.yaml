@@ -1,0 +1,9 @@
+weather_task:
+  description: >
+    Fetches real-time weather updates, including current conditions, 3-hourly forecasts for next 4 intervals, and weather alerts for the area impacted by the emergency event.
+    Emergency Event Details
+    -----------------------
+    {event_details}
+  expected_output: >
+    JSON of Weather data containing the current weather, hourly weather forecast, and any active weather alerts, formatted to assist in decision-making during emergency response.
+  agent: weather_agent

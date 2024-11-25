@@ -1,0 +1,31 @@
+{
+  "id": "EONET_12019",
+  "title": "BRIDGE BAER IMPLEMENTATION Wildfire, Los Angeles, California",
+  "description": null,
+  "link": "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_12019",
+  "closed": null,
+  "categories": [
+    {
+      "id": "wildfires",
+      "title": "Wildfires"
+    }
+  ],
+  "sources": [
+    {
+      "id": "IRWIN",
+      "url": "https://irwin.doi.gov/observer/"
+    }
+  ],
+  "geometry": [
+    {
+      "magnitudeValue": 820.0,
+      "magnitudeUnit": "acres",
+      "date": "2024-11-18T15:27:00Z",
+      "type": "Point",
+      "coordinates": [
+        -117.758,
+        34.2305
+      ]
+    }
+  ]
+}
