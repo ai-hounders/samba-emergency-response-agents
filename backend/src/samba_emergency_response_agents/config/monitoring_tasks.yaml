@@ -43,4 +43,3 @@ monitoring_task:
     }
     
   agent: monitoring_agent
-

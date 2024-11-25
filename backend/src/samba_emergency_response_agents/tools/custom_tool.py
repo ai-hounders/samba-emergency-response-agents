@@ -105,9 +105,11 @@ class GoogleRoutesTool(BaseTool):
             output = []
             for route in routes:
                 output.append({
+                    "origin": payload["origin"],
+                    "destination": payload["destination"],
                     "duration": route.get("duration", "No duration info"),
                     "distance_meters": route.get("distanceMeters", 0),
-                    "encoded_polyline": route.get("polyline", {}).get("encodedPolyline", "No polyline info")
+                    # "encoded_polyline": route.get("polyline", {}).get("encodedPolyline", "No polyline info")
                 })
             return output[0]
         except requests.exceptions.RequestException as e:

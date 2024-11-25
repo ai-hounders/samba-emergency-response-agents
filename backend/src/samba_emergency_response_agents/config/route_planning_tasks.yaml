@@ -14,5 +14,5 @@ route_planning_task:
     ----------------
     {safe_zones}
   expected_output: >
-    JSON collection of optimized routes for vehicles to navigate safely from all high risk zones to safe zones. Example output:
+    JSON collection of routes for vehicles to navigate safely from all high risk zones to safe zones. Follow the format of the pydantic file provided. 
   agent: route_planning_agent

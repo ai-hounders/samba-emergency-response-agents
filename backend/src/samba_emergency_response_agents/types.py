@@ -6,7 +6,7 @@ class Location(BaseModel):
     lng: float = Field(..., ge=-180, le=180)
 
 
-class Places(BaseModel):
+class Place(BaseModel):
     name: str = Field(..., min_length=1)
     type: str = Field(..., min_length=1)
     location: Location
@@ -14,19 +14,18 @@ class Places(BaseModel):
 
 class HighRiskAreas(BaseModel):
     spread_radius: int = Field(..., gt=0)
-    high_risk_areas: list[Places]
+    high_risk_areas: list[Place]
 
 
 class SafeZones(BaseModel):
-    safe_zones: list[Places]
+    safe_zones: list[Place]
 
 
 class Route(BaseModel):
-    origin: Places
-    destination: Places
+    origin: Place
+    destination: Place
     duration: str
     distance_meters: int
-    decoded_polyline: str
 
 
 class Routes(BaseModel):

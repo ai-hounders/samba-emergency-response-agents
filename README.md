@@ -114,7 +114,7 @@ To kickstart your crew of AI agents and begin task execution, run this from the 
 ```bash
 $ cd backend #Since repo is segregated into frontend and backend
 $ source .venv/bin/activate 
-$ python flow.py
+$ streamlit run src/samba_emergency_response_agents/flow.py
 ```
 
 This command initializes the EmergencyResponseFlow, assembling the crews agents and assigning them tasks as defined in your configuration.
