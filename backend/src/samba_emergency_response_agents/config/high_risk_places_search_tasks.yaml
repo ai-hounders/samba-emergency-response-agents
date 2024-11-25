@@ -16,26 +16,5 @@ high_risk_places_search_task:
   
   expected_output: >
     JSON of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output:
-    {
-      "spread_radius": 10000,
-      "high_risk_areas": [
-        {
-          "name": "Rancho Cucamonga",
-          "type": "hospital",
-          "location": {
-            "lat": 34.10639889999999,
-            "lng": -117.5931084
-          }
-        },
-        {
-          "name": "Pomona",
-          "type": "locality",
-          "location": {
-            "lat": 34.055103,
-            "lng": -117.7499909
-          }
-        }
-      ]
-    }
   agent: high_risk_places_search_agent
 

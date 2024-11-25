@@ -15,9 +15,9 @@ load_dotenv()
 
 class EmergencyDatabase(BaseModel):
     event: dict = {}
-    safe_places: list[dict] = []
+    safe_places: dict = {}
     weather: dict = {}
-    high_risk_areas: list[dict] = []
+    high_risk_areas: dict = {}
     image_analysis: str = ""
     event_analysis: str = ""
     high_risk_area_assessment_feedback: str = ""
@@ -27,6 +27,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
 
+    
     @start()
     def monitor_emergency_events(self):
         print("**** Starting Emergency Monitoring ****")

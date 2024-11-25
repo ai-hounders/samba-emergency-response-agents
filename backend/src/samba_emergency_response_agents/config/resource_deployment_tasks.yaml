@@ -1,0 +1,14 @@
+
+resource_deployment_task:
+  description: >
+    Using the event analysis given below, allocate firefighting resources (like fire engines, water dropping helicopters, etc.) and personnel (first responders, medicos, etc.) based on the real-time wildfire spread data to ensure optimal deployment to high-risk areas. High risk areas include schools, residential places, gas stations and hospitals. Assume you have certain resources available. 
+    Event Analysis:
+    --------------
+    {event_analysis}
+  expected_output: >
+    # High risk areas identified
+    [Areas and their coordinates]
+    # Resource allocation plan
+    [detailed deployment schedules and distribution of firefighting equipment to high risk areas]
+    
+  agent: resource_deployment_agent

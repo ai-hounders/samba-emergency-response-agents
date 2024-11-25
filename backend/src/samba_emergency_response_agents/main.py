@@ -2,7 +2,7 @@
 import sys
 import warnings
 
-from samba_emergency_response_agents.crew import SambaEmergencyResponseAgents
+from backend.src.samba_emergency_response_agents import SambaEmergencyResponseAgents
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 

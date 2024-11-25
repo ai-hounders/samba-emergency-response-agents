@@ -12,50 +12,8 @@
       "name": "Pomona",
       "type": "locality",
       "location": {
-        "lat": 37.827983,
-        "lng": -122.4909919
-      }
-    },
-    {
-      "name": "Angel Island East Bay Sites",
-      "location": {
-        "lat": 37.86514750000001,
-        "lng": -122.4252248
-      }
-    },
-    {
-      "name": "Hipcamp Outpost",
-      "location": {
-        "lat": 37.78143910000001,
-        "lng": -122.4075701
-      }
-    },
-    {
-      "name": "Campsite 5",
-      "location": {
-        "lat": 37.8572845,
-        "lng": -122.440452
-      }
-    },
-    {
-      "name": "Campsite 4",
-      "location": {
-        "lat": 37.8583814,
-        "lng": -122.4393056
-      }
-    },
-    {
-      "name": "Kayak Camp",
-      "location": {
-        "lat": 37.8623789,
-        "lng": -122.4410937
-      }
-    },
-    {
-      "name": "North Garrison Group Campsite",
-      "location": {
-        "lat": 37.8669307,
-        "lng": -122.4258002
+        "lat": 34.16309040000001,
+        "lng": -117.8187343
       }
     }
   ]
