@@ -189,8 +189,16 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
             key="impact_assessment_choice"  # Add a unique key
         )
 
+        feedback = None
+        if choice == "2. Redo high risk areas assessment with additional feedback.":
+            feedback = st.text_area(
+                "Please provide additional feedback on high risk area assessment:",
+                key="feedback_input"
+            )
+
        # Add a submit button to confirm selection
         if st.button("Submit Decision"):
+            print(f"choice, {choice}")
             if choice == "1. False emergency.":
                 st.chat_message("assistant").write("Exiting the program.")
                 print("Exiting the program.")
@@ -213,7 +221,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
                 return "impact_assessment_feedback"
 
         # Return None if no button press yet
-        return None
+        return "proceed_to_emergency_remediation"
     
     @listen("proceed_to_emergency_remediation")
     def determine_safe_zones(self):
@@ -274,6 +282,12 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
 async def main():
     flow = EmergencyResponseFlow()
     flow.plot("my_flow_plot")
+
+    # Initialize the chatbot interface
+    st.title("🌩️ Emergency Response Chatbot")
+
+    # Start flow execution
+    st.chat_message("assistant").write("Initializing emergency response flow...")
 
     await flow.kickoff_async()
 
