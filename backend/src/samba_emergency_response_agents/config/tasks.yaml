@@ -5,26 +5,7 @@ safe_zones_task:
     Locate safe zones (campgrounds, open parking lots, stadiums, parks, locality) outside of the potential spread radius of the wildfire.
   expected_output: >
     JSON of safe zones that fall outside the potential spread radius of the wildfire. Example output format:
-    {
-      "safe_zones": [
-        {
-          "name": "Rancho Cucamonga",
-          "type": "campground",
-          "location": {
-            "lat": 34.10639889999999,
-            "lng": -117.5931084
-          }
-        },
-        {
-          "name": "Pomona",
-          "type": "locality",
-          "location": {
-            "lat": 34.055103,
-            "lng": -117.7499909
-          }
-        }
-      ]
-    }
+    
   agent: safe_zones_agent
 
 ## Try to use the places identified in the places search task
@@ -51,50 +32,6 @@ route_planning_task:
     Given a list of high risk areas and safe zones, efficiently plan the routes from each high risk area to a safe zone.
   expected_output: >
     JSON collection of optimized routes for vehicles to navigate safely from all high risk zones to safe zones. Example output:
-    {
-      "routes": [
-        {
-          "origin": {
-            "name": "Loyola High School",
-            "type": "campground",
-            "location": {
-              "lat": 34.10639889999999,
-              "lng": -117.5931084
-            }
-          },
-          "destination": {
-            "name": "Pasadena",
-            "type": "campground",
-            "location": {
-              "lat": 34.055103,
-              "lng": -117.7499909
-            }
-          },
-          "duration": "1415s",
-          "distance_meters": 21459,
-          "decoded_polyline": "oxynE~lupUuAqAq@k@aB_BqCaCUQeEuDeAy@hB_DBOdBiDhAcDI[\kAP}@PwAFwBFgG\gNb@cHjA}NpAaNLk@VyAr@}Br@{A~@oA|@}@`Aq@vImDrDsAlCw@hCc@lBSnBKhLOjA?~ABvFf@`Gt@`BJjCClCQbB@|BLtCVnAB|@C|BWnBc@`A]bBw@XApAs@hFiDFW|AwAr@_ApA}BVU\GVBPCfCrArH~CJ?LEnm@xC`P]tCGdEI~Xa@pJKJFlECV@pPKlBE`@KjAFvC@vDGzD?lAC`B?xjBuA~NOCdI?zY"
-        },
-        {
-          "origin": {
-            "name": "Fairfax High School",
-            "type": "campground",
-            "location": {
-              "lat": 34.10639889999999,
-              "lng": -117.5931084
-            }
-          },
-          "destination": {
-            "name": "Pasadena",
-            "type": "campground",
-            "location": {
-              "lat": 34.055103,
-              "lng": -117.7499909
-            }
-          },
-          "duration": "1829s",
-          "distance_meters": 26938,
-          "decoded_polyline": "czynEhmupUTc@vIyMz@gA~CgFd@eA\yBHo@Nc@nBgYrFAAuFrKE`HC|HBLBb@OPO`BeDd@q@bBkBROx@KzKq@fUmA?Mla@Mt@AvDBn@CpKEjWp@`BBTNrEYFIrBGxN?zAJpEh@nABfWG~CC~LA|YEfL?jBElIFds@H?sNjNAlHBjUGzJA@{O"
-        }
-    }
+    
   agent: route_planning_agent
 

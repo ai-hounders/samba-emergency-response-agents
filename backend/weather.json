@@ -7,18 +7,18 @@
       },
       "weather": [
         {
-          "id": 803,
-          "main": "Clouds",
-          "description": "broken clouds",
-          "icon": "04n"
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n"
         }
       ],
       "base": "stations",
       "main": {
-        "temp": 282.35,
-        "feels_like": 282.35,
-        "temp_min": 281.4,
-        "temp_max": 283.66,
+        "temp": 282.32,
+        "feels_like": 281.33,
+        "temp_min": 280.97,
+        "temp_max": 283.61,
         "pressure": 1021,
         "humidity": 80,
         "sea_level": 1021,
@@ -26,14 +26,13 @@
       },
       "visibility": 10000,
       "wind": {
-        "speed": 0.45,
-        "deg": 240,
-        "gust": 0.89
+        "speed": 2.06,
+        "deg": 300
       },
       "clouds": {
-        "all": 58
+        "all": 0
       },
-      "dt": 1732506229,
+      "dt": 1732506801,
       "sys": {
         "type": 2,
         "id": 2007521,
@@ -54,26 +53,26 @@
         {
           "dt": 1732514400,
           "main": {
-            "temp": 282.03,
-            "feels_like": 282.03,
+            "temp": 282.01,
+            "feels_like": 282.01,
             "temp_min": 281.39,
-            "temp_max": 282.03,
+            "temp_max": 282.01,
             "pressure": 1020,
             "sea_level": 1020,
             "grnd_level": 889,
             "humidity": 82,
-            "temp_kf": 0.64
+            "temp_kf": 0.62
           },
           "weather": [
             {
-              "id": 803,
+              "id": 801,
               "main": "Clouds",
-              "description": "broken clouds",
-              "icon": "04n"
+              "description": "few clouds",
+              "icon": "02n"
             }
           ],
           "clouds": {
-            "all": 52
+            "all": 24
           },
           "wind": {
             "speed": 0.57,
@@ -90,15 +89,15 @@
         {
           "dt": 1732525200,
           "main": {
-            "temp": 281.62,
-            "feels_like": 281.62,
+            "temp": 281.61,
+            "feels_like": 281.61,
             "temp_min": 281.25,
-            "temp_max": 281.62,
+            "temp_max": 281.61,
             "pressure": 1021,
             "sea_level": 1021,
             "grnd_level": 889,
             "humidity": 83,
-            "temp_kf": 0.37
+            "temp_kf": 0.36
           },
           "weather": [
             {
@@ -109,7 +108,7 @@
             }
           ],
           "clouds": {
-            "all": 81
+            "all": 67
           },
           "wind": {
             "speed": 0.54,
@@ -214,8 +213,8 @@
       {
         "sender_name": "Simulated Alert System",
         "event": "High Winds Warning",
-        "start": "2024-11-24T23:43:49.512007Z",
-        "end": "2024-11-25T00:43:49.512007Z",
+        "start": "2024-11-24T23:53:21.488962Z",
+        "end": "2024-11-25T00:53:21.488962Z",
         "description": "Strong winds expected with gusts up to 60 mph. Please take necessary precautions."
       }
     ]

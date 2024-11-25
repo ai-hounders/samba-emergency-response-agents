@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "origin": "Galileo Academy of Science and Technology",
+      "destination": "Rob Hill Campground",
+      "duration": "747s",
+      "distance_meters": 6793,
+      "encoded_polyline": "}mveFz|ejVjBrYxDe@xDg@fErp@nD~i@P~BZnEGfAIh@kK~PuDhG_BpBuB~Bm@lA_@lAWtAMxBAxBFhB`@nGn@pIh@`EpDzQXfCL|B?hCE|Ag@~EeAdIy@jHaAxGcAlF{@`DiB|EmAbC_BlCkA|AmD~Dq@h@o@BWOe@mACu@\\e@b@?FBNt@f@jAlArBz@~@`Al@x@V`ALjC@p@LdAd@bFtC`@\\x@dAn@d@`Cz@bAp@z@n@p@TfBLr@Px@^`@XJe@c@i@c@}@Mi@`Bk@p@i@zBkBb@UTGPeAb@ELOLq@HqANg@HIP?TVZf@HHK`@'"
+    },
+    {
+      "origin": "Mission High School",
+      "destination": "Kirby Cove Campground",
+      "duration": "1800s",
+      "distance_meters": 17647,
+      "encoded_polyline": "ogneFnqfjVtBb}@_I\\zBx~@r@nZi\\|Dg@L_\\vDk@Hk@HmCXiOhB|AnUCVDrBxB~\\XrEJLRfEn@jc@imApDo@?kCOiBYsA_@wBcAuCkBiIoFwAq@oAa@}AWoAI{o@[yCAkFGqDAu@Fw@Xk@f@i@r@]x@Qr@i@`EWlAy@nB_@z@C`@kA|AmD~DyDxC{@bAmB`D}@bAw@n@kAl@iA\\sAN}tA~Hil@jDwAVqAf@eAn@gAbA}@nAy@~A{BfFgAbBi@p@WBg@`@}@f@q@Rg@Da@Am@Q}@a@_Ao@]Ii@c@{@c@q@MkAAiADAh@_@j@m@x@m@fAk@`BYrAUjCOr@sQdo@If@Ah@Lp@pCjF|A|DdAnCh@z@jDxDx@l@tBpAfAxAzF|IVj@L`@h@|C~@a@V[lAgCNs@FgB?kBIe@Q_@WYi@Uk@SSUIYCe@D]~BgH?]M]YOSA{B`@_@CSKS]a@}AY_@eAm@KWC[D[PWTIVDNJdAbB^Xf@Lb@Aj@O^[zBmD~C}C\\SfBa@h@@RDNGFUAUGKCs@XkDRsANY\\[`B_AZg@F_@?c@G_@U]i@g@K]?c@N_@Xg@F_@C]s@_CAa@J_@n@gAz@k@r@iAl@g@`A_@r@]|@o@`@KnGGJC'"
+    }
+  ]
+}

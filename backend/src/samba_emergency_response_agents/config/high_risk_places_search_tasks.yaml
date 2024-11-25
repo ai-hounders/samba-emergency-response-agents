@@ -1,7 +1,7 @@
 
 high_risk_places_search_task:
   description: >
-    Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
+    Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
     Emergency Event Details
     -----------------------
     {event_details}
@@ -17,6 +17,7 @@ high_risk_places_search_task:
   expected_output: >
     JSON of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output:
     {
+      "spread_radius": 10000,
       "high_risk_areas": [
         {
           "name": "Rancho Cucamonga",

@@ -158,7 +158,7 @@ class SambaEmergencyResponseAgents():
     def route_planning_task(self) -> Task:
         return Task(
             config=self.tasks_config['route_planning_task'],
-            context=[self.impact_analysis_task(), self.high_risk_places_search_task(), self.safe_zones_task()],
+            context=[self.safe_zones_task()],
             output_file="evac_routes.json"
         )
 

@@ -1,0 +1,145 @@
+{
+  "radius": 5000,
+  "high_risk_areas": [
+    {
+      "name": "Camp Williams Resort",
+      "location": {
+        "lat": 34.2320971,
+        "lng": -117.7903056
+      }
+    },
+    {
+      "name": "Shoemaker Viewpoint Day Use Area",
+      "location": {
+        "lat": 34.233015,
+        "lng": -117.771169
+      }
+    },
+    {
+      "name": "Oaks Picnic Area",
+      "location": {
+        "lat": 34.22942499999999,
+        "lng": -117.778265
+      }
+    },
+    {
+      "name": "Camp Williams Cafe & General Store",
+      "location": {
+        "lat": 34.2322826,
+        "lng": -117.7909453
+      }
+    },
+    {
+      "name": "River Community",
+      "location": {
+        "lat": 34.2328343,
+        "lng": -117.7976258
+      }
+    },
+    {
+      "name": "East Fork Volunteer Fire Department",
+      "location": {
+        "lat": 34.2320138,
+        "lng": -117.7903617
+      }
+    },
+    {
+      "name": "Bridge to Nowhere - Trailhead",
+      "location": {
+        "lat": 34.2370999,
+        "lng": -117.764899
+      }
+    },
+    {
+      "name": "Bungee America",
+      "location": {
+        "lat": 34.2371096,
+        "lng": -117.7649129
+      }
+    },
+    {
+      "name": "East Fork Day Use Parking Trailhead",
+      "location": {
+        "lat": 34.2369299,
+        "lng": -117.765216
+      }
+    },
+    {
+      "name": "Coyote Flat",
+      "location": {
+        "lat": 34.2355643,
+        "lng": -117.7670914
+      }
+    },
+    {
+      "name": "Vault toilet",
+      "location": {
+        "lat": 34.2370015,
+        "lng": -117.7657272
+      }
+    },
+    {
+      "name": "Canyon Road",
+      "location": {
+        "lat": 34.228969,
+        "lng": -117.7688895
+      }
+    },
+    {
+      "name": "Shoemaker Canyon Road Trail Parking",
+      "location": {
+        "lat": 34.2334339,
+        "lng": -117.7709792
+      }
+    },
+    {
+      "name": "Vault toilet",
+      "location": {
+        "lat": 34.2417161,
+        "lng": -117.7611982
+      }
+    },
+    {
+      "name": "Iron Mountain trails",
+      "location": {
+        "lat": 34.2418539,
+        "lng": -117.7611003
+      }
+    },
+    {
+      "name": "Heaton Flats Trailhead",
+      "location": {
+        "lat": 34.2419807,
+        "lng": -117.7611982
+      }
+    },
+    {
+      "name": "East Fork Trail",
+      "location": {
+        "lat": 34.24366260000001,
+        "lng": -117.7609065
+      }
+    },
+    {
+      "name": "Heaton Saddle",
+      "location": {
+        "lat": 34.242559,
+        "lng": -117.748447
+      }
+    },
+    {
+      "name": "Bathroom",
+      "location": {
+        "lat": 34.2300226,
+        "lng": -117.776695
+      }
+    },
+    {
+      "name": "Entering Sheep Mountain Wilderness",
+      "location": {
+        "lat": 34.24368,
+        "lng": -117.747442
+      }
+    }
+  ]
+}
