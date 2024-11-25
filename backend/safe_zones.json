@@ -1,5 +1,5 @@
 {
-  "safe_zones": [
+  "campgrounds": [
     {
       "name": "Camp Williams Resort",
       "location": {
@@ -107,6 +107,13 @@
       "location": {
         "lat": 34.25912989999999,
         "lng": -117.7229288
+      }
+    },
+    {
+      "name": "Glendora Ridge Lookout",
+      "location": {
+        "lat": 34.2037634,
+        "lng": -117.8055274
       }
     }
   ]

@@ -15,30 +15,30 @@
       ],
       "base": "stations",
       "main": {
-        "temp": 281.14,
-        "feels_like": 280.46,
-        "temp_min": 280.27,
-        "temp_max": 282.61,
-        "pressure": 1021,
-        "humidity": 79,
-        "sea_level": 1021,
-        "grnd_level": 889
+        "temp": 281.58,
+        "feels_like": 280.06,
+        "temp_min": 279.55,
+        "temp_max": 283.34,
+        "pressure": 1022,
+        "humidity": 74,
+        "sea_level": 1022,
+        "grnd_level": 890
       },
       "visibility": 10000,
       "wind": {
-        "speed": 1.54,
-        "deg": 50
+        "speed": 2.57,
+        "deg": 70
       },
       "clouds": {
         "all": 0
       },
-      "dt": 1732520201,
+      "dt": 1732530053,
       "sys": {
         "type": 2,
         "id": 2007521,
         "country": "US",
-        "sunrise": 1732458795,
-        "sunset": 1732495378
+        "sunrise": 1732545251,
+        "sunset": 1732581759
       },
       "timezone": -28800,
       "id": 5391648,
@@ -51,53 +51,17 @@
       "cnt": 4,
       "list": [
         {
-          "dt": 1732525200,
-          "main": {
-            "temp": 281.14,
-            "feels_like": 281.14,
-            "temp_min": 281.14,
-            "temp_max": 281.55,
-            "pressure": 1022,
-            "sea_level": 1022,
-            "grnd_level": 890,
-            "humidity": 79,
-            "temp_kf": -0.41
-          },
-          "weather": [
-            {
-              "id": 800,
-              "main": "Clear",
-              "description": "clear sky",
-              "icon": "01n"
-            }
-          ],
-          "clouds": {
-            "all": 0
-          },
-          "wind": {
-            "speed": 0.62,
-            "deg": 123,
-            "gust": 0.9
-          },
-          "visibility": 10000,
-          "pop": 0,
-          "sys": {
-            "pod": "n"
-          },
-          "dt_txt": "2024-11-25 09:00:00"
-        },
-        {
           "dt": 1732536000,
           "main": {
-            "temp": 281.62,
-            "feels_like": 281.07,
-            "temp_min": 281.62,
+            "temp": 281.91,
+            "feels_like": 281.4,
+            "temp_min": 281.91,
             "temp_max": 282.58,
             "pressure": 1021,
             "sea_level": 1021,
             "grnd_level": 889,
-            "humidity": 76,
-            "temp_kf": -0.96
+            "humidity": 72,
+            "temp_kf": -0.67
           },
           "weather": [
             {
@@ -125,15 +89,15 @@
         {
           "dt": 1732546800,
           "main": {
-            "temp": 282.99,
-            "feels_like": 282.99,
-            "temp_min": 282.99,
+            "temp": 283.13,
+            "feels_like": 283.13,
+            "temp_min": 283.13,
             "temp_max": 283.91,
             "pressure": 1021,
             "sea_level": 1021,
             "grnd_level": 890,
-            "humidity": 69,
-            "temp_kf": -0.92
+            "humidity": 68,
+            "temp_kf": -0.78
           },
           "weather": [
             {
@@ -193,6 +157,42 @@
             "pod": "d"
           },
           "dt_txt": "2024-11-25 18:00:00"
+        },
+        {
+          "dt": 1732568400,
+          "main": {
+            "temp": 286.31,
+            "feels_like": 285.4,
+            "temp_min": 286.31,
+            "temp_max": 286.31,
+            "pressure": 1021,
+            "sea_level": 1021,
+            "grnd_level": 890,
+            "humidity": 66,
+            "temp_kf": 0
+          },
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
+              "icon": "04d"
+            }
+          ],
+          "clouds": {
+            "all": 99
+          },
+          "wind": {
+            "speed": 0.86,
+            "deg": 217,
+            "gust": 1.4
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "d"
+          },
+          "dt_txt": "2024-11-25 21:00:00"
         }
       ],
       "city": {
@@ -205,16 +205,16 @@
         "country": "US",
         "population": 3371,
         "timezone": -28800,
-        "sunrise": 1732458795,
-        "sunset": 1732495378
+        "sunrise": 1732545251,
+        "sunset": 1732581759
       }
     },
     "alerts": [
       {
         "sender_name": "Simulated Alert System",
         "event": "High Winds Warning",
-        "start": "2024-11-25T03:36:41.580735Z",
-        "end": "2024-11-25T04:36:41.580735Z",
+        "start": "2024-11-25T06:20:54.153375Z",
+        "end": "2024-11-25T07:20:54.153375Z",
         "description": "Strong winds expected with gusts up to 60 mph. Please take necessary precautions."
       }
     ]

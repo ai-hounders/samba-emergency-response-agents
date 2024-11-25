@@ -1,6 +1,7 @@
 from crewai.flow.flow import Flow, listen, start, router, or_, and_
 from litellm import completion
 from dotenv import load_dotenv
+import streamlit as st
 import os, asyncio
 from typing import Dict
 from samba_emergency_response_agents.crew import EmergencyMonitoringCrew, HighRiskAreasSearchCrew, WeatherMonitoringCrew, ImpactAnalysisCrew, SafeZonesCrew, ResourceDeploymentCrew, RoutePlanningCrew, ImageAnalysisCrew
@@ -8,6 +9,13 @@ from pydantic import BaseModel
 from samba_emergency_response_agents.types import HighRiskAreas, SafeZones, Routes
 
 load_dotenv()
+
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
+
+# Display existing messages
+for msg in st.session_state["messages"]:
+    st.chat_message(msg["role"]).write(msg["content"])
 
 class EmergencyDatabase(BaseModel):
     event: dict = {}
@@ -43,6 +51,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @start()
     def monitor_emergency_events(self):
         print("**** Starting Emergency Monitoring ****")
+        st.chat_message("assistant").write("Starting Emergency Monitoring...")
         inputs = {
         }
 
@@ -51,6 +60,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.event = output
+        st.chat_message("assistant").write(f"Event Info JSON:")
+        st.json(output)
         print("Event Info JSON: \n", output)
         return output
 
@@ -60,7 +71,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @listen(monitor_emergency_events)
     def monitor_weather(self):
         print("****Starting Weather Monitoring Flow****")
-
+        st.chat_message("assistant").write("Starting Weather Monitoring Flow...")
         inputs = {
             "event_details": self.state.event,
         }
@@ -70,6 +81,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.weather = output
+        st.chat_message("assistant").write(f"Weather JSON:")
+        st.json(output)
         print("Weather JSON: \n", output)
         return output
     
@@ -80,7 +93,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @listen(or_(and_(monitor_weather, monitor_emergency_events), "high_risk_area_assessment_feedback"))
     def assess_high_risk_areas(self):
         print("****Starting High Risk Areas Assessment Flow****")
-
+        st.chat_message("assistant").write("Starting High Risk Areas Assessment Flow...")
         # Check if required data is in state
         if not self.state.weather:
             print("Warning: Weather data not available in state")
@@ -101,6 +114,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.high_risk_areas = output
+        st.chat_message("assistant").write(f"High Risk Areas JSON:")
+        st.json(output)
         print("High Risk Areas JSON: \n", output)
         return output
 
@@ -110,7 +125,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @listen(monitor_emergency_events)
     def analyze_images(self):
         print("****Starting Image Analysis Flow****")
-
+        st.chat_message("assistant").write("Starting Image Analysis Flow...")
         inputs = {
             "event_details": self.state.event
         }
@@ -120,7 +135,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.image_analysis = output
-        print("Image Analysis JSON: \n", output)
+        st.chat_message("assistant").write(f"Image Analysis: {output}")
+        print("Image Analysis: \n", output)
         return output
 
     """
@@ -130,7 +146,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @listen(and_(monitor_emergency_events, monitor_weather, assess_high_risk_areas, analyze_images))
     def assess_impact(self):
         print("****Starting Impact Assessment Flow****")
-
+        st.chat_message("assistant").write("Starting Impact Assessment Flow...")
         inputs = {
             "event_details": self.state.event,
             "weather_information": self.state.weather,
@@ -143,7 +159,8 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.event_analysis = output
-        print("Event Analysis JSON: \n", output)
+        st.chat_message("assistant").write(f"Event Analysis: {output}")
+        print("Event Analysis: \n", output)
         return output
     
     """
@@ -152,36 +169,56 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @router(assess_impact)
     def provide_impact_assessment_feedback(self):
         print(f"Review the wildfire emergency and its impact.")
-
+        st.chat_message("assistant").write("Review the wildfire emergency and its impact.")
         # Present options to the user
         print("\nPlease choose an option:")
         print("1. False emergency.")
         print("2. Redo high risk areas assessment with additional feedback.")
         print("3. Proceed with emergency response.")
 
-        choice = input("Enter the number of your choice: ")
+        st.session_state["messages"].append({
+            "role": "assistant",
+            "content": "Please choose an option:\n1. False emergency.\n2. Redo high risk areas assessment with additional feedback.\n3. Proceed with emergency response."
+        })
 
-        if choice == "1":
-            print("Exiting the program.")
-            exit()
-        elif choice == "2":
-            feedback = input(
-                "\nPlease provide additional feedback on high risk area assessment:\n"
-            )
-            self.state.weather_feedback = feedback
-            print("\nRe-running high risk area assessment with your feedback....")
-            return "high_risk_area_assessment_feedback"
-        elif choice == "3":
-            print("\nProceeding to emergency response.")
-            return "proceed_to_emergency_remediation"
-        else:
-            print("\nInvalid choice. Please try again.")
-            return "impact_assessment_feedback"
+        choice = st.radio(
+            "Choose an action:", 
+            options=["1. False emergency.", 
+                    "2. Redo high risk areas assessment with additional feedback.", 
+                    "3. Proceed with emergency response."],
+            key="impact_assessment_choice"  # Add a unique key
+        )
 
+       # Add a submit button to confirm selection
+        if st.button("Submit Decision"):
+            if choice == "1. False emergency.":
+                st.chat_message("assistant").write("Exiting the program.")
+                print("Exiting the program.")
+                exit()
+            elif choice == "2. Redo high risk areas assessment with additional feedback.":
+                # Add a text input for feedback
+                feedback = st.text_input("Please provide additional feedback on high risk area assessment:")
+                if feedback:  # Only proceed if feedback is provided
+                    self.state.high_risk_area_assessment_feedback = feedback
+                    st.chat_message("assistant").write(f"Re-running high risk area assessment with your feedback....")
+                    print(f"Re-running high risk area assessment with your feedback....")
+                    return "high_risk_area_assessment_feedback"
+            elif choice == "3. Proceed with emergency response.":
+                st.chat_message("assistant").write("Proceeding to emergency response.")
+                print("\nProceeding to emergency response.")
+                return "proceed_to_emergency_remediation"
+            else:
+                st.chat_message("assistant").write("Invalid choice. Please try again.")
+                print("\nInvalid choice. Please try again.")
+                return "impact_assessment_feedback"
+
+        # Return None if no button press yet
+        return None
+    
     @listen("proceed_to_emergency_remediation")
     def determine_safe_zones(self):
         print("****Starting Safe Zone Determination Flow****")
-
+        st.chat_message("assistant").write("Starting Safe Zone Determination Flow...")
         inputs = {
             "event_analysis": self.state.event_analysis
         }
@@ -191,6 +228,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.safe_zones = output
+        st.chat_message("assistant").write(f"Safe Zones JSON: {output}")
         print("Safe Zones JSON: \n", output)
         return output
 
@@ -198,7 +236,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     @listen("proceed_to_emergency_remediation")
     def deploy_resources(self):
         print("****Starting Resource Deployment Flow****")
-
+        st.chat_message("assistant").write("Starting Resource Deployment Flow...")
         inputs = {
             "event_analysis": self.state.event_analysis
         }
@@ -208,13 +246,14 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.resource_deployment = output
+        st.chat_message("assistant").write(f"Resource Deployment JSON: {output}")
         print("Resource Deployment JSON: \n", output)
         return output
     
     @listen(and_(determine_safe_zones))
     def plan_evacuation_routes(self):
         print("****Starting Evacuation Route Planning Flow****")
-
+        st.chat_message("assistant").write("Starting Evacuation Route Planning Flow...")
         inputs = {
             "event_analysis": self.state.event_analysis,
             "high_risk_areas": self.state.high_risk_areas,
@@ -226,6 +265,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.evacuation_routes = output
+        st.chat_message("assistant").write(f"Evacuation Routes JSON: {output}")
         print("Evacuation Routes JSON: \n", output)
         return output
 

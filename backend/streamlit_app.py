@@ -8,19 +8,19 @@ load_dotenv()
 API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 
 # Load wildfire evacuation routes data
-with open("../backend/evac_routes.json", "r") as f:
+with open("evac_routes.json", "r") as f:
     evac_routes = json.load(f)
 
 # Load safe zones data
-with open("../backend/safe_zones.json", "r") as f:
+with open("safe_zones.json", "r") as f:
     safe_zones = json.load(f)
 
 # Load event data
-with open("../backend/event.json", "r") as f:
+with open("event.json", "r") as f:
     event_data = json.load(f)
 
 # Load high-risk places data
-with open("../backend/high_risk_places.json", "r") as f:
+with open("high_risk_places.json", "r") as f:
     high_risk_areas = json.load(f)
 
 # Extract route information
