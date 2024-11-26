@@ -54,6 +54,16 @@ Note - On bot the APIs, Llama models were used
 - crewAI's [website](https://crewai.com/)
 - Streamlit's [website](https://streamlit.io/)
 
+## Agent Outputs
+Impacted Event : [event.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event.json)
+Weather in Impacted Area: [weather.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/weather.json)
+High Risk Areas: [high_risk_places.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/high_risk_places.json)
+Safe Zones: [safe zones](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/safe_zones.json)
+Evacuation Routes: [evacuatoin](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/evac_routes.json)
+Event Impact Analysis: [event impact analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event_impact_analysis.md)
+Satellite Image Analysis: [event image analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/image_analysis.md)
+Resource Allocation Plan : [resource allocation](Resource Allocation](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/resource_deployment.md)
+
 
 
 ## Installation
