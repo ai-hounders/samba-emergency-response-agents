@@ -35,8 +35,54 @@ We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning
 
 Note - Multiple Llama models were used to overcome the rate limits of the SambaNova APIs.
 
+## Screenshots of the outputs
+[PDF]() of the streamlit output:
+
+
+#### Agents interacting with each other
+![Agents interacting with each other](images/Agents%20interacting%20with%20each%20other.jpg)
+
+#### Emergency Response System
+![Emergency Response System](images/Emergency_Response_System.png)
+
+#### Event Monitoring
+![Event Information](images/Event_Info.png)
+
+#### Weather Monitoring
+![Weather Information](images/Weather_Info.png)
+
+#### High Risk Zones Assessment
+![High Risk Zones Assessment](images/High_Risk_Areas_Info.png)
+![High Risk Areas Map](images/High_Risk_Areas_Map.png)
+
+#### Image Analysis
+![Image Analysis](images/Image_Analysis_Image.png)
+![Image Analysis](images/Image_Analysis.png)
+
+#### Impact Analysis
+![Impact Analysis 1](images/Impact_Assessment_1.png)
+![Impact Analysis 2](images/Impact_Assessment_2.png)
+
+#### Human in the Loop (Take input from console)
+![Human in the Loop 1](images/Impact_Assessment_Review_1.png)
+![Human in the Loop 2](images/Impact_Assessment_Review_2.png)
+
+#### Safe Zone Assessment
+![Safe Zone Assessment](images/Safe_Zones.png)
+
+#### Resource Deployment
+![Resource Deployment 1](images/Resource_Deployment_Plan_1.png)
+![Resource Deployment 2](images/Resource_Deployment_Plan_2.png)
+![Resource Deployment 3](images/Resource_Deployment_Plan_3.png)
+
+#### Evacuation Route Planning
+![Evacuation Route Planning](images/Evacuation_Routes.png)
+
+
 ## Comparing the platform on SambaNova APIs vs VertextAI APIs
-Note - On bot the APIs, Llama models were used
+Note - On both the APIs, Llama models were used
+In Progress
+
 
 ## GenAI Models Used
 - SambaNova's 
@@ -131,10 +177,3 @@ $ streamlit run src/samba_emergency_response_agents/flow.py
 ```
 
 This command initializes the EmergencyResponseFlow, assembling the crews agents and assigning them tasks as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The samba-emergency-response-agents Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
