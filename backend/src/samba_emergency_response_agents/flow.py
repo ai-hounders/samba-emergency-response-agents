@@ -1,10 +1,10 @@
-import json
 from crewai.flow.flow import Flow, listen, start, router, or_, and_
 from litellm import completion
 from dotenv import load_dotenv
 import streamlit as st
-import os, asyncio
+import os, asyncio, json
 from typing import Dict
+from string import Template
 from samba_emergency_response_agents.crew import EmergencyMonitoringCrew, HighRiskAreasSearchCrew, WeatherMonitoringCrew, ImpactAnalysisCrew, SafeZonesCrew, ResourceDeploymentCrew, RoutePlanningCrew, ImageAnalysisCrew
 from pydantic import BaseModel
 from samba_emergency_response_agents.types import HighRiskAreas, SafeZones, Routes
@@ -22,6 +22,7 @@ for msg in st.session_state["messages"]:
 
 class EmergencyDatabase(BaseModel):
     event: dict = {}
+    event_marker: dict = {}
     safe_zones: SafeZones = None
     weather: dict = {}
     high_risk_areas: HighRiskAreas = None
@@ -31,6 +32,7 @@ class EmergencyDatabase(BaseModel):
     emergency_response: str = ""
     evacuation_routes: Routes = None
     resource_deployment: str = ""
+    spread_radius: int = 0
 
 """
 EmergencyResponseFlow handles the orchestration of emergency response activities.
@@ -39,7 +41,10 @@ This flow coordinates multiple crews and agents to:
 1. Monitor emergency events (wildfires) using EONET data
 2. Track weather conditions that could affect the emergency
 3. Identify high-risk areas within potential spread radius
-4. Analyze impact and provide response recommendations
+4. Analyze impact
+5. Determine safe zones
+6. Plan evacuation routes
+7. Deploy resources
 
 The flow maintains state using EmergencyDatabase to share data between steps.
 Each step builds on previous results to create a comprehensive emergency response.
@@ -57,13 +62,23 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         st.chat_message("assistant").write("Starting Emergency Monitoring...")
         inputs = {
         }
-
+        
         result = EmergencyMonitoringCrew().crew().kickoff(inputs=inputs)
 
         # get raw output then save to state
-        output = result.raw
+        output = json.loads(result.raw)
         self.state.event = output
-        st.chat_message("assistant").write(f"Event Info JSON: \n{output}")
+        st.chat_message("assistant").write(f"Event Info JSON: \n \n {output}")
+        
+        # Extract event geometry for the marker
+        event_marker = {
+            "title": output["title"],
+            "lat": output["geometry"][0]["coordinates"][1],  # Latitude
+            "lng": output["geometry"][0]["coordinates"][0],  # Longitude
+        }
+        self.state.event_marker = event_marker
+        html = html_template_event.substitute(event_marker=json.dumps(event_marker), API_KEY=API_KEY)
+        st.components.v1.html(html, height=700)
         # print("Event Info JSON: \n", output)
         return output
 
@@ -83,7 +98,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.weather = output
-        st.chat_message("assistant").write(f"Weather JSON:\n{output}")
+        st.chat_message("assistant").write(f"Weather JSON:\n\n{output}")
         # print("Weather JSON: \n", output)
         return output
     
@@ -113,9 +128,18 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         result = HighRiskAreasSearchCrew().crew().kickoff(inputs=inputs)
 
         # get raw output then save to state
-        output = result.raw
-        self.state.high_risk_areas = output
-        st.chat_message("assistant").write(f"High Risk Areas JSON:\n{output}")
+        output = json.loads(result.raw)
+        st.chat_message("assistant").write(f"High Risk Areas JSON:\n\n{output}")
+        self.state.spread_radius = output["spread_radius"]
+        # Extract high-risk places
+        high_risk_areas= [
+            {"name": place["name"], "lat": place["location"]["lat"], "lng": place["location"]["lng"]}
+            for place in output["high_risk_areas"]
+        ]
+        self.state.high_risk_areas = high_risk_areas
+        html = html_template_high_risk_areas.substitute(event_marker=json.dumps(self.state.event_marker), high_risk_areas=json.dumps(high_risk_areas), API_KEY=API_KEY)
+        
+        st.components.v1.html(html, height=700)
         # print("High Risk Areas JSON: \n", output)
         return output
 
@@ -135,7 +159,13 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.image_analysis = output
-        st.chat_message("assistant").write(f"Image Analysis: {output}")
+
+        image_path = "../backend/src/samba_emergency_response_agents/images/satellite/wildfire_2.jpg"
+
+        st.header("Image Analysis")
+        st.image(image_path, caption="Satellite Image: Wildfire Area", use_container_width=True)
+        st.chat_message("assistant").write(f"Image Analysis:\n\n{output}")
+
         # print("Image Analysis: \n", output)
         return output
 
@@ -176,7 +206,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         print("2. Redo high risk areas assessment with additional feedback.")
         print("3. Proceed with emergency response.")
 
-        st.chat_message("assistant").write("Please choose an option:\n1. False emergency.\n2. Redo high risk areas assessment with additional feedback.\n3. Proceed with emergency response.")
+        st.chat_message("assistant").write("Please choose an option from the console:\n1. False emergency.\n2. Redo high risk areas assessment with additional feedback.\n3. Proceed with emergency response.")
 
         choice = input("Enter the number of your choice: ")
         if choice == "1":
@@ -228,15 +258,28 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         print("****Starting Safe Zone Determination Flow****")
         st.chat_message("assistant").write("Starting Safe Zone Determination Flow...")
         inputs = {
-            "event_analysis": self.state.event_analysis
+            "event_details": self.state.event,
+            "high_risk_areas": self.state.high_risk_areas,
+            "spread_radius": self.state.spread_radius
         }
 
         result = SafeZonesCrew().crew().kickoff(inputs=inputs)
 
         # get raw output then save to state
-        output = result.raw
-        self.state.safe_zones = output
-        st.chat_message("assistant").write(f"Safe Zones JSON: {output}")
+        output = json.loads(result.raw)
+        
+        st.chat_message("assistant").write(f"Safe Zones JSON: \n{output}")
+
+        # Extract safe zones
+        safe_zones = [
+            {"name": place["name"], "lat": place["location"]["lat"], "lng": place["location"]["lng"]}
+            for place in output["safe_zones"]
+        ]
+        self.state.safe_zones = safe_zones
+
+        html = html_template_safe_areas.substitute(event_marker=json.dumps(self.state.event_marker), safe_zones=json.dumps(safe_zones), API_KEY=API_KEY, high_risk_areas=json.dumps(self.state.high_risk_areas))
+        
+        st.components.v1.html(html, height=700)
         # print("Safe Zones JSON: \n", output)
         return output
 
@@ -254,16 +297,16 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         # get raw output then save to state
         output = result.raw
         self.state.resource_deployment = output
-        st.chat_message("assistant").write(f"Resource Deployment JSON: {output}")
+        st.chat_message("assistant").write(f"Resource Deployment: \n \n{output}")
         # print("Resource Deployment JSON: \n", output)
         return output
     
-    @listen(and_(determine_safe_zones))
+    @listen(determine_safe_zones)
     def plan_evacuation_routes(self):
         print("****Starting Evacuation Route Planning Flow****")
         st.chat_message("assistant").write("Starting Evacuation Route Planning Flow...")
         inputs = {
-            "event_analysis": self.state.event_analysis,
+            "event_details": self.state.event,
             "high_risk_areas": self.state.high_risk_areas,
             "safe_zones": self.state.safe_zones
         }
@@ -271,9 +314,21 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
         result = RoutePlanningCrew().crew().kickoff(inputs=inputs)
 
         # get raw output then save to state
-        output = result.raw
+        output = json.loads(result.raw)
         self.state.evacuation_routes = output
         st.chat_message("assistant").write(f"Evacuation Routes JSON: {output}")
+
+        #Extract route information
+        routes = [
+            {"origin": route["route"]["origin"], "destination": route["route"]["destination"]}
+            for route in output["routes"]
+        ]
+
+        st.header("Evacuation Routes, Safe Zones, and High-Risk Areas")
+        st.write("Below are the evacuation routes, safe zones, high-risk areas, and event locations displayed on the same map.")
+        html = html_template_routes.substitute(event_marker=json.dumps(self.state.event_marker), safe_zones=json.dumps(self.state.safe_zones), API_KEY=API_KEY, high_risk_areas=json.dumps(self.state.high_risk_areas), routes=json.dumps(routes))
+        
+        st.components.v1.html(html, height=700)
         # print("Evacuation Routes JSON: \n", output)
         return output
 
@@ -288,199 +343,290 @@ async def main():
 
     await flow.kickoff_async()
 
-    # ==============================================
-    # Load wildfire evacuation routes data
-    with open("evac_routes.json", "r") as f:
-        evac_routes = json.load(f)
-
-    # Load safe zones data
-    with open("safe_zones.json", "r") as f:
-        safe_zones = json.load(f)
-
-    # Load event data
-    with open("event.json", "r") as f:
-        event_data = json.load(f)
-
-    # Load high-risk places data
-    with open("high_risk_places.json", "r") as f:
-        high_risk_areas = json.load(f)
-
-    # Extract route information
-    routes_js_array = [
-        {"origin": route["origin"], "destination": route["destination"]}
-        for route in evac_routes["routes"]
-    ]
-
-    # Extract safe zones
-    safe_zones_js_array = []
-    for category, locations in safe_zones.items():
-        for location in locations:
-            safe_zones_js_array.append({
-                "name": location["name"],
-                "lat": location["location"]["lat"],
-                "lng": location["location"]["lng"],
-                "category": category
-            })
-
-    # Extract event geometry for the marker
-    event_marker = {
-        "title": event_data["title"],
-        "lat": event_data["geometry"][0]["coordinates"][1],  # Latitude
-        "lng": event_data["geometry"][0]["coordinates"][0],  # Longitude
-    }
-
-    # Extract high-risk places
-    high_risk_js_array = [
-        {"name": place["name"], "lat": place["location"]["lat"], "lng": place["location"]["lng"]}
-        for place in high_risk_areas["high_risk_areas"]
-    ]
-
-    
-
-
-    # HTML Template with Dynamic Data
-    html_template = f"""
+html_template_event = Template("""
     <!DOCTYPE html>
     <html>
     <head>
         <title>Evacuation Routes, Safe Zones, and High-Risk Areas</title>
-        <script src="https://maps.googleapis.com/maps/api/js?key={API_KEY}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}"></script>
         <script>
-            function initMap() {{
+            function initMap() {
+            
                 // Center map on event location
-                const eventLatLng = {{ lat: {event_marker['lat']}, lng: {event_marker['lng']} }};
-                const map = new google.maps.Map(document.getElementById("map"), {{
-                    zoom: 12,
+                const event_marker = ${event_marker};
+                const eventLatLng = {lat: event_marker.lat, lng: event_marker.lng };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 9,
                     center: eventLatLng
-                }});
-
-                // Add routes
-                const routes = {json.dumps(routes_js_array)};
-                routes.forEach((route, index) => {{
-                    const directionsService = new google.maps.DirectionsService();
-                    const directionsRenderer = new google.maps.DirectionsRenderer({{
-                        map: map,
-                        polylineOptions: {{
-                            strokeColor: index === 0 ? "red" : "blue",
-                        }},
-                    }});
-
-                    directionsService.route(
-                        {{
-                            origin: route.origin,
-                            destination: route.destination,
-                            travelMode: google.maps.TravelMode.DRIVING,
-                        }},
-                        (result, status) => {{
-                            if (status === "OK") {{
-                                directionsRenderer.setDirections(result);
-                            }} else {{
-                                console.error("Error fetching directions: " + status);
-                            }}
-                        }}
-                    );
-                }});
-
-                // Add safe zones as markers
-                const safeZones = {json.dumps(safe_zones_js_array)};
-                safeZones.forEach((zone) => {{
-                    new google.maps.Marker({{
-                        position: {{ lat: zone.lat, lng: zone.lng }},
-                        map: map,
-                        title: `${{zone.name}} (${{zone.category}})`,
-                        icon: {{
-                            path: google.maps.SymbolPath.CIRCLE,
-                            scale: 10,
-                            fillColor: "green",
-                            fillOpacity: 0.8,
-                            strokeWeight: 1,
-                            strokeColor: "white"
-                        }},
-                    }});
-                }});
-
-                // Add high-risk areas as markers
-                const highRiskAreas = {json.dumps(high_risk_js_array)};
-                highRiskAreas.forEach((area) => {{
-                    new google.maps.Marker({{
-                        position: {{ lat: area.lat, lng: area.lng }},
-                        map: map,
-                        title: area.name,
-                        icon: {{
-                            path: google.maps.SymbolPath.CIRCLE,
-                            scale: 10,
-                            fillColor: "orange",
-                            fillOpacity: 0.9,
-                            strokeWeight: 1,
-                            strokeColor: "white"
-                        }},
-                    }});
-                }});
+                });
 
                 // Add event marker
-                const eventMarker = {json.dumps(event_marker)};
-                new google.maps.Marker({{
-                    position: {{ lat: eventMarker.lat, lng: eventMarker.lng }},
+                new google.maps.Marker({
+                    position: eventLatLng,
                     map: map,
-                    title: eventMarker.title,
-                    icon: {{
+                    title: event_marker.title,
+                    icon: {
                         path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
                         scale: 20,
                         fillColor: "red",
                         fillOpacity: 0.9,
                         strokeWeight: 2,
                         strokeColor: "white"
-                    }},
-                }});
-            }}
+                    },
+                });
+            
+                               
+            }
         </script>
     </head>
     <body onload="initMap()">
         <div id="map" style="height: 600px; width: 100%;"></div>
     </body>
     </html>
-    """
+    """)
 
-    # Render the HTML in Streamlit
-    st.header("Evacuation Routes, Safe Zones, and High-Risk Areas")
-    st.write("Below are the evacuation routes, safe zones, high-risk areas, and event locations displayed on the same map.")
-    st.components.v1.html(html_template, height=700)
+html_template_high_risk_areas = Template("""
+    <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Evacuation Routes, Safe Zones, and High-Risk Areas</title>
+            <script src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}"></script>
+            <script>
+                function initMap() {
+                
+                    // Center map on event location
+                    const event_marker = ${event_marker};
+                    const eventLatLng = {lat: event_marker.lat, lng: event_marker.lng };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 9,
+                        center: eventLatLng
+                    });
+
+                    // Add event marker
+                    new google.maps.Marker({
+                        position: eventLatLng,
+                        map: map,
+                        title: event_marker.title,
+                        icon: {
+                            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                            scale: 20,
+                            fillColor: "red",
+                            fillOpacity: 0.9,
+                            strokeWeight: 2,
+                            strokeColor: "white"
+                        },
+                    });
+                                         
+                    // Add high-risk areas as markers
+                    const highRiskAreas = ${high_risk_areas};
+                    highRiskAreas.forEach((area) => {
+                        new google.maps.Marker({
+                            position: { lat: area.lat, lng: area.lng },
+                            map: map,
+                            title: area.name,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 10,
+                                fillColor: "orange",
+                                fillOpacity: 0.9,
+                                strokeWeight: 1,
+                                strokeColor: "white"
+                            },
+                        });
+                    });
+                
+                                
+                }
+            </script>
+        </head>
+        <body onload="initMap()">
+            <div id="map" style="height: 600px; width: 100%;"></div>
+        </body>
+        </html>
+        """)
 
 
-    image_path = "../backend/src/samba_emergency_response_agents/images/satellite/wildfire_2.jpg"
-    analysis_path = "../backend/image_analysis.md"
+html_template_safe_areas = Template("""
+    <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Evacuation Routes, Safe Zones, and High-Risk Areas</title>
+            <script src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}"></script>
+            <script>
+                function initMap() {
+                
+                    // Center map on event location
+                    const event_marker = ${event_marker};
+                    const eventLatLng = {lat: event_marker.lat, lng: event_marker.lng };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 9,
+                        center: eventLatLng
+                    });
 
-    st.header("Image Analysis")
-    st.image(image_path, caption="Satellite Image: Wildfire Area", use_container_width=True)
+                    // Add event marker
+                    new google.maps.Marker({
+                        position: eventLatLng,
+                        map: map,
+                        title: event_marker.title,
+                        icon: {
+                            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                            scale: 20,
+                            fillColor: "red",
+                            fillOpacity: 0.9,
+                            strokeWeight: 2,
+                            strokeColor: "white"
+                        },
+                    });
+                                         
+                    // Add high-risk areas as markers
+                    const highRiskAreas = ${high_risk_areas};
+                    highRiskAreas.forEach((area) => {
+                        new google.maps.Marker({
+                            position: { lat: area.lat, lng: area.lng },
+                            map: map,
+                            title: area.name,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 10,
+                                fillColor: "orange",
+                                fillOpacity: 0.9,
+                                strokeWeight: 1,
+                                strokeColor: "white"
+                            },
+                        });
+                    });
+                
+                     // Add safe zones as markers
+                    const safeZones = ${safe_zones};
+                    safeZones.forEach((zone) => {
+                        new google.maps.Marker({
+                            position: { lat: zone.lat, lng: zone.lng },
+                            map: map,
+                            title: zone.name + " ("+zone.type+")",
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 10,
+                                fillColor: "green",
+                                fillOpacity: 0.8,
+                                strokeWeight: 1,
+                                strokeColor: "white"
+                            },
+                        });
+                    });
+                                
+                }
+            </script>
+        </head>
+        <body onload="initMap()">
+            <div id="map" style="height: 600px; width: 100%;"></div>
+        </body>
+        </html>
+        """)
 
-    # Use a scrollable text area for the analysis at the bottom
+html_template_routes = Template("""
+    <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Evacuation Routes, Safe Zones, and High-Risk Areas</title>
+            <script src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}"></script>
+            <script>
+                function initMap() {
+                
+                    // Center map on event location
+                    const event_marker = ${event_marker};
+                    const eventLatLng = {lat: event_marker.lat, lng: event_marker.lng };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 9,
+                        center: eventLatLng
+                    });
 
-    with open(analysis_path, "r") as f:
-            analysis_content = f.read()
-    st.markdown(
-        f"""
-        <div style="height: 400px; overflow-y: scroll; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            {analysis_content}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+                    // Add event marker
+                    new google.maps.Marker({
+                        position: eventLatLng,
+                        map: map,
+                        title: event_marker.title,
+                        icon: {
+                            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                            scale: 20,
+                            fillColor: "red",
+                            fillOpacity: 0.9,
+                            strokeWeight: 2,
+                            strokeColor: "white"
+                        },
+                    });
+                                         
+                    // Add high-risk areas as markers
+                    const highRiskAreas = ${high_risk_areas};
+                    highRiskAreas.forEach((area) => {
+                        new google.maps.Marker({
+                            position: { lat: area.lat, lng: area.lng },
+                            map: map,
+                            title: area.name,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 10,
+                                fillColor: "orange",
+                                fillOpacity: 0.9,
+                                strokeWeight: 1,
+                                strokeColor: "white"
+                            },
+                        });
+                    });
+                
+                     // Add safe zones as markers
+                    const safeZones = ${safe_zones};
+                    safeZones.forEach((zone) => {
+                        new google.maps.Marker({
+                            position: { lat: zone.lat, lng: zone.lng },
+                            map: map,
+                            title: zone.name + " ("+zone.type+")",
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 10,
+                                fillColor: "green",
+                                fillOpacity: 0.8,
+                                strokeWeight: 1,
+                                strokeColor: "white"
+                            },
+                        });
+                    });
+                                
+                    
+                    // Add routes
+                    const routes = ${routes};
+                    routes.forEach((route, index) => {
+                        const directionsService = new google.maps.DirectionsService();
+                        const directionsRenderer = new google.maps.DirectionsRenderer({
+                            map: map,
+                            polylineOptions: {
+                                strokeColor: "blue",
+                                suppressMarkers: true
+                            },
+                        });
 
-
-    impact_analysis_path = "../backend/event_impact_analysis.md"
-
-    st.header("Event Impact Analysis")
-
-    with open(impact_analysis_path, "r") as f:
-            impact_analysis_content = f.read()
-    st.markdown(
-        f"""
-        <div style="height: 600px; overflow-y: scroll; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            {impact_analysis_content}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    # ==============================================
-
+                        directionsService.route({
+                                origin: route.origin,
+                                destination: route.destination,
+                                travelMode: google.maps.TravelMode.DRIVING,
+                            },
+                            (result, status) => {
+                                if (status === "OK") {
+                                    directionsRenderer.setDirections(result);
+                                } else {
+                                    console.error(`Route ${index + 1} failed: ` + status);
+                                }
+                            }
+                        );
+                    });
+                                
+                }
+            </script>
+        </head>
+        <body onload="initMap()">
+            <div id="map" style="height: 600px; width: 100%;"></div>
+        </body>
+        </html>
+        """)
+                                         
 asyncio.run(main())
+

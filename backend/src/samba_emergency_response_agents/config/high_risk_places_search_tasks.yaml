@@ -3,18 +3,15 @@ high_risk_places_search_task:
   description: >
     Calculate the potential spread radius of the wildfire, taking into account weather information and event details. Identify high risk areas (schools, gas stations, residential places, hospitals, etc) impacted by the wildfire spread.
     Emergency Event Details
-    -----------------------
     {event_details}
 
     Weather Information
-    -------------------
     {weather_information}
 
     Additional Feedback
-    ------------------
     {high_risk_area_assessment_feedback}
   
   expected_output: >
-    JSON collection of radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output:
+    JSON collection of spread_radius in meters and high risk areas that fall within the potential spread radius of the wildfire. Example output:
   agent: high_risk_places_search_agent
 

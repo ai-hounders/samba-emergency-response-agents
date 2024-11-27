@@ -1,8 +1,8 @@
 {
-  "id": "EONET_12019",
-  "title": "BRIDGE BAER IMPLEMENTATION Wildfire, Los Angeles, California",
-  "description": null,
-  "link": "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_12019",
+  "id": "EONET_12044",
+  "title": "B ANAYA Wildfire, Santa Fe, New Mexico",
+  "description": "North of Moriarty, NM  East of SR 41 SOuth of Stanley NM",
+  "link": "https://eonet.gsfc.nasa.gov/api/v3/events/EONET_12044",
   "closed": null,
   "categories": [
     {
@@ -18,13 +18,13 @@
   ],
   "geometry": [
     {
-      "magnitudeValue": 820.0,
+      "magnitudeValue": 795.0,
       "magnitudeUnit": "acres",
-      "date": "2024-11-18T15:27:00Z",
+      "date": "2024-11-24T17:30:00Z",
       "type": "Point",
       "coordinates": [
-        -117.758,
-        34.2305
+        -105.977628,
+        35.113722
       ]
     }
   ]

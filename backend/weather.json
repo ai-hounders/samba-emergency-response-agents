@@ -2,8 +2,8 @@
   "weather": {
     "current": {
       "coord": {
-        "lon": -117.758,
-        "lat": 34.2305
+        "lon": -105.9776,
+        "lat": 35.1137
       },
       "weather": [
         {
@@ -15,34 +15,35 @@
       ],
       "base": "stations",
       "main": {
-        "temp": 281.09,
-        "feels_like": 280.4,
-        "temp_min": 279.6,
-        "temp_max": 281.61,
-        "pressure": 1020,
-        "humidity": 88,
-        "sea_level": 1020,
-        "grnd_level": 889
+        "temp": 285.4,
+        "feels_like": 283.67,
+        "temp_min": 284.39,
+        "temp_max": 285.98,
+        "pressure": 1010,
+        "humidity": 38,
+        "sea_level": 1010,
+        "grnd_level": 801
       },
       "visibility": 10000,
       "wind": {
-        "speed": 1.54,
-        "deg": 30
+        "speed": 8.75,
+        "deg": 270,
+        "gust": 13.89
       },
       "clouds": {
         "all": 0
       },
-      "dt": 1732535641,
+      "dt": 1732690624,
       "sys": {
-        "type": 1,
-        "id": 3578,
+        "type": 2,
+        "id": 2005536,
         "country": "US",
-        "sunrise": 1732545251,
-        "sunset": 1732581759
+        "sunrise": 1732628999,
+        "sunset": 1732665194
       },
-      "timezone": -28800,
-      "id": 5391648,
-      "name": "San Antonio Heights",
+      "timezone": -25200,
+      "id": 5480181,
+      "name": "Moriarty",
       "cod": 200
     },
     "forecast": {
@@ -51,124 +52,124 @@
       "cnt": 4,
       "list": [
         {
-          "dt": 1732536000,
+          "dt": 1732698000,
           "main": {
-            "temp": 281.09,
-            "feels_like": 280.46,
-            "temp_min": 281.09,
-            "temp_max": 282.58,
-            "pressure": 1020,
-            "sea_level": 1020,
-            "grnd_level": 889,
-            "humidity": 88,
-            "temp_kf": -1.49
-          },
-          "weather": [
-            {
-              "id": 800,
-              "main": "Clear",
-              "description": "clear sky",
-              "icon": "01n"
-            }
-          ],
-          "clouds": {
-            "all": 0
-          },
-          "wind": {
-            "speed": 1.49,
-            "deg": 23,
-            "gust": 1.52
-          },
-          "visibility": 10000,
-          "pop": 0,
-          "sys": {
-            "pod": "n"
-          },
-          "dt_txt": "2024-11-25 12:00:00"
-        },
-        {
-          "dt": 1732546800,
-          "main": {
-            "temp": 282.03,
-            "feels_like": 282.03,
-            "temp_min": 282.03,
-            "temp_max": 283.91,
-            "pressure": 1020,
-            "sea_level": 1020,
-            "grnd_level": 890,
-            "humidity": 80,
-            "temp_kf": -1.88
+            "temp": 284.97,
+            "feels_like": 283.23,
+            "temp_min": 284.12,
+            "temp_max": 284.97,
+            "pressure": 1010,
+            "sea_level": 1010,
+            "grnd_level": 800,
+            "humidity": 39,
+            "temp_kf": 0.85
           },
           "weather": [
             {
               "id": 802,
               "main": "Clouds",
               "description": "scattered clouds",
-              "icon": "03d"
+              "icon": "03n"
             }
           ],
           "clouds": {
-            "all": 33
+            "all": 27
           },
           "wind": {
-            "speed": 0.36,
-            "deg": 37,
-            "gust": 0.34
+            "speed": 9.71,
+            "deg": 261,
+            "gust": 17.84
           },
           "visibility": 10000,
           "pop": 0,
           "sys": {
-            "pod": "d"
+            "pod": "n"
           },
-          "dt_txt": "2024-11-25 15:00:00"
+          "dt_txt": "2024-11-27 09:00:00"
         },
         {
-          "dt": 1732557600,
+          "dt": 1732708800,
           "main": {
-            "temp": 284.05,
-            "feels_like": 283.08,
-            "temp_min": 284.05,
-            "temp_max": 285.53,
-            "pressure": 1022,
-            "sea_level": 1022,
-            "grnd_level": 892,
-            "humidity": 72,
-            "temp_kf": -1.48
+            "temp": 284.25,
+            "feels_like": 282.46,
+            "temp_min": 283.68,
+            "temp_max": 284.25,
+            "pressure": 1009,
+            "sea_level": 1009,
+            "grnd_level": 800,
+            "humidity": 40,
+            "temp_kf": 0.57
           },
           "weather": [
             {
               "id": 803,
               "main": "Clouds",
               "description": "broken clouds",
+              "icon": "04n"
+            }
+          ],
+          "clouds": {
+            "all": 60
+          },
+          "wind": {
+            "speed": 11.02,
+            "deg": 269,
+            "gust": 20.18
+          },
+          "visibility": 10000,
+          "pop": 0,
+          "sys": {
+            "pod": "n"
+          },
+          "dt_txt": "2024-11-27 12:00:00"
+        },
+        {
+          "dt": 1732719600,
+          "main": {
+            "temp": 283.15,
+            "feels_like": 279.21,
+            "temp_min": 283.15,
+            "temp_max": 283.15,
+            "pressure": 1010,
+            "sea_level": 1010,
+            "grnd_level": 800,
+            "humidity": 48,
+            "temp_kf": 0
+          },
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
               "icon": "04d"
             }
           ],
           "clouds": {
-            "all": 67
+            "all": 100
           },
           "wind": {
-            "speed": 2.04,
-            "deg": 196,
-            "gust": 2.09
+            "speed": 10.76,
+            "deg": 270,
+            "gust": 21.34
           },
           "visibility": 10000,
           "pop": 0,
           "sys": {
             "pod": "d"
           },
-          "dt_txt": "2024-11-25 18:00:00"
+          "dt_txt": "2024-11-27 15:00:00"
         },
         {
-          "dt": 1732568400,
+          "dt": 1732730400,
           "main": {
-            "temp": 286.31,
-            "feels_like": 285.4,
-            "temp_min": 286.31,
-            "temp_max": 286.31,
-            "pressure": 1021,
-            "sea_level": 1021,
-            "grnd_level": 890,
-            "humidity": 66,
+            "temp": 284.67,
+            "feels_like": 283.13,
+            "temp_min": 284.67,
+            "temp_max": 284.67,
+            "pressure": 1010,
+            "sea_level": 1010,
+            "grnd_level": 801,
+            "humidity": 48,
             "temp_kf": 0
           },
           "weather": [
@@ -183,38 +184,38 @@
             "all": 99
           },
           "wind": {
-            "speed": 0.86,
-            "deg": 217,
-            "gust": 1.4
+            "speed": 11.64,
+            "deg": 282,
+            "gust": 21.17
           },
           "visibility": 10000,
           "pop": 0,
           "sys": {
             "pod": "d"
           },
-          "dt_txt": "2024-11-25 21:00:00"
+          "dt_txt": "2024-11-27 18:00:00"
         }
       ],
       "city": {
-        "id": 5391648,
-        "name": "San Antonio Heights",
+        "id": 5480181,
+        "name": "Moriarty",
         "coord": {
-          "lat": 34.2305,
-          "lon": -117.758
+          "lat": 35.1137,
+          "lon": -105.9776
         },
         "country": "US",
-        "population": 3371,
-        "timezone": -28800,
-        "sunrise": 1732545251,
-        "sunset": 1732581759
+        "population": 1910,
+        "timezone": -25200,
+        "sunrise": 1732628999,
+        "sunset": 1732665194
       }
     },
     "alerts": [
       {
         "sender_name": "Simulated Alert System",
         "event": "High Winds Warning",
-        "start": "2024-11-25T07:54:57.611233Z",
-        "end": "2024-11-25T08:54:57.611233Z",
+        "start": "2024-11-27T02:57:04.337511Z",
+        "end": "2024-11-27T03:57:04.337511Z",
         "description": "Strong winds expected with gusts up to 60 mph. Please take necessary precautions."
       }
     ]

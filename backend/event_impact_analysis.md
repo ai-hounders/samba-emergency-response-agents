@@ -1,70 +1,66 @@
-**Wildfire Event Analysis Report**
-
-**Event ID:** EONET_12019
-**Event Title:** BRIDGE BAER IMPLEMENTATION Wildfire, Los Angeles, California
+**Wildfire Event Analysis Report: B ANAYA Wildfire, Santa Fe, New Mexico**
 
 **1. Event Description**
 
-The wildfire event is located in Los Angeles, California, with coordinates -117.758 latitude and 34.2305 longitude. The event was reported on November 18, 2024, at 15:27:00Z. The magnitude of the wildfire is estimated to be 820.0 acres.
-
-The wildfire is a moderate to high-intensity fire, with visible flames and smoke plumes. The fire is spreading in a north-easterly direction, with a mix of grasslands and chaparral vegetation in the affected area.
+The B ANAYA Wildfire is a significant environmental disaster located north of Moriarty, New Mexico, east of State Route 41, and south of Stanley, New Mexico. The wildfire has affected an area of approximately 795 acres as of November 24, 2024. The event details indicate that the wildfire is of moderate to high intensity, with visible flames and a significant amount of smoke.
 
 **2. Impact of Weather on the Event**
 
-The current weather conditions in the area are clear skies with a temperature of 281.09 K (7.94°C) and a relative humidity of 88%. The wind speed is 1.54 m/s (3.45 mph) with a direction of 30°. The forecast indicates that the weather will remain clear with increasing cloud cover and a high of 284.05 K (10.9°C) and a low of 281.09 K (7.94°C).
+The weather conditions in the area are expected to have a significant impact on the wildfire's spread and intensity. The current weather conditions indicate scattered clouds with a temperature of 284.71 K (11.56°C) and a relative humidity of 41%. The wind speed is approximately 10.2 m/s (23 mph) with a gust speed of 18.42 m/s (41 mph). The forecast indicates that the weather conditions will remain relatively stable over the next 24 hours, with a slight increase in cloud cover and a decrease in temperature.
 
-The weather conditions are expected to have a moderate impact on the spread of the wildfire. The clear skies and low humidity will contribute to the spread of the fire, while the increasing cloud cover may help to slow it down. The wind direction and speed will also play a role in the spread of the fire, with the north-easterly winds pushing the fire in that direction.
+The high winds in the area are expected to contribute to the spread of the wildfire, with gusts up to 60 mph predicted in the next 24 hours. The wind direction is expected to remain relatively constant, blowing from the west-southwest direction. The relative humidity is expected to remain relatively low, which will contribute to the spread of the wildfire.
 
 **3. Image Analysis**
 
-Based on the satellite image analysis, the wildfire appears to be a moderate to high-intensity fire, with visible flames and smoke plumes. The fire is spreading in a north-easterly direction, with a mix of grasslands and chaparral vegetation in the affected area.
-
-The smoke density analysis reveals a moderate to high level of particulate matter (PM) in the air, with a smoke density index (SDI) of 4.5. The smoke plume is visible for approximately 10 km, with a direction of movement towards the north-east.
+The satellite image analysis reveals a significant amount of smoke emanating from the wildfire, with a smoke density index of 6.5/10. The smoke plume is visible for several miles, indicating a moderate to high level of smoke dispersion. The movement pattern analysis suggests that the smoke is moving in a northeasterly direction, driven by prevailing winds. This movement pattern may impact nearby settlements and agricultural areas.
 
 **4. Potential Spread Path**
 
-Based on the analysis, the potential spread path of the wildfire is in a north-easterly direction, with a radius of approximately 8 km. The fire is expected to continue spreading rapidly, with a rate of spread of approximately 1 km/h.
-
-The potential spread path is expected to impact nearby settlements and infrastructure, including the city of Los Angeles. The smoke and particulate matter from the fire may affect air quality and visibility, leading to health concerns for local residents.
+Based on the analysis of the weather conditions and the image analysis, the potential spread path of the wildfire is expected to be in a northeasterly direction. The radius of the spread is estimated to be approximately 5 miles (8 kilometers) over the next 24 hours. The spread path is expected to impact nearby settlements and agricultural areas, including the high-risk areas identified below.
 
 **5. High Risk Areas**
 
-The high-risk areas identified in the analysis include:
+The following high-risk areas have been identified as being potentially impacted by the wildfire:
 
-* Glendora
-* Camp Williams Resort
-* Shoemaker Viewpoint Day Use Area
-* Oaks Picnic Area
-* Camp Williams Cafe & General Store
-* Bridge to Nowhere
-* US Forestry Department
-* River Community
-* East Fork Volunteer Fire Department
-* Bridge to Nowhere - Trailhead
-* Bungee America
-* East Fork Day Use Parking Trailhead
-* Coyote Flat
-* Vault toilet
-* Canyon Road
-* Shoemaker Canyon Road Trail Parking
-* Iron Mountain trails
-* Heaton Flats Trailhead
-* San Dimas
-
-These areas are at risk due to their proximity to the wildfire and the potential for the fire to spread in their direction.
+* Stanley, New Mexico
+* Robbins Ranch Art Glass
+* Komtek Communications
+* VISUALDREAMS
+* J Bar Cane
+* Enchanted Mill and Ranch LLC
+* Aerostar International LLC Winter Lodge
+* Bill King Ranch
+* Stanley Union Church
+* STANLEY CYCLONE CENTER
+* NM-41 & Kinsell Avenue
+* Bowman construction services
+* AMA Mobile RV Repair
+* Dennisson Drilling Of New mexico Inc.
+* Bryan Farms
+* Mountainview Tractor & Equipment
+* Bear Essentials Riding
+* Stanley Cemetery
+* NORTHWINDS
+* Cerrillos, New Mexico
 
 **6. Analysis of the Entire Event**
 
-The BRIDGE BAER IMPLEMENTATION Wildfire in Los Angeles, California, is a significant environmental disaster that requires immediate attention and action. The wildfire has the potential to cause significant damage to local flora and fauna, as well as impact nearby settlements and infrastructure.
+The B ANAYA Wildfire is a significant environmental disaster that requires immediate attention and action. The analysis of the event indicates that the wildfire has the potential to cause significant damage to local flora and fauna, as well as nearby settlements and agricultural areas. The weather conditions in the area are expected to contribute to the spread of the wildfire, with high winds and low relative humidity predicted over the next 24 hours.
 
-The analysis indicates that the fire is spreading rapidly, with a rate of spread of approximately 1 km/h. The potential spread path is in a north-easterly direction, with a radius of approximately 8 km. The high-risk areas identified in the analysis include several nearby settlements and infrastructure.
+The image analysis reveals a significant amount of smoke emanating from the wildfire, with a smoke density index of 6.5/10. The movement pattern analysis suggests that the smoke is moving in a northeasterly direction, driven by prevailing winds. This movement pattern may impact nearby settlements and agricultural areas.
 
-Further monitoring and intervention are necessary to mitigate the impact of the fire and prevent further spread. Recommendations include:
+The potential spread path of the wildfire is expected to be in a northeasterly direction, with a radius of approximately 5 miles (8 kilometers) over the next 24 hours. The high-risk areas identified above are expected to be potentially impacted by the wildfire.
 
-* Further monitoring of the wildfire using satellite imagery and ground-based observations to track the spread and intensity of the fire.
-* Firefighting efforts focused on containing the fire and preventing further spread.
-* Evacuation or preparation of nearby settlements and infrastructure for potential impact from the fire.
-* Air quality monitoring to assess the impact of the fire on local air quality and visibility.
-* Environmental impact assessments to evaluate the damage to local flora and fauna.
+Recommendations for further monitoring or intervention include:
 
-Overall, the BRIDGE BAER IMPLEMENTATION Wildfire is a significant environmental disaster that requires immediate attention and action to mitigate its impact and prevent further spread.
+* Continuing to monitor the wildfire's spread and intensity using satellite imagery and ground-based observations.
+* Conducting regular smoke density and movement pattern analysis to assess potential impacts on nearby settlements and agricultural areas.
+* Considering deploying firefighting resources to the area to contain the wildfire and prevent further spread.
+* Conducting environmental impact assessments to determine the extent of damage to local flora and fauna.
+* Providing regular updates to local authorities and residents on the wildfire's status and potential impacts.
+
+Additional recommendations include:
+
+* Considering using fire retardants or other suppression methods to contain the wildfire.
+* Establishing a firebreak to prevent the wildfire from spreading to nearby settlements and agricultural areas.
+* Conducting a thorough investigation into the cause of the wildfire to prevent similar incidents in the future.

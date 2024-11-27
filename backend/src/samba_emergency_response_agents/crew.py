@@ -76,8 +76,7 @@ class EmergencyMonitoringCrew():
     @task
     def monitoring_task(self) -> Task:
         return Task(
-            config=self.tasks_config['monitoring_task'],
-            output_file="event.json"
+            config=self.tasks_config['monitoring_task']
         )
     
     @crew
@@ -145,15 +144,14 @@ class HighRiskAreasSearchCrew():
             config=self.agents_config['high_risk_places_search_agent'],
             tools=[PlacesSearchTool()],
             verbose=True,
-            llm=llama90b
+            llm=llama70b
         )
     
     @task
     def high_risk_places_search_task(self) -> Task:
         return Task(
             config=self.tasks_config['high_risk_places_search_task'],
-            output_pydantic=HighRiskAreas,
-            output_file="high_risk_places.json",
+            output_pydantic=HighRiskAreas
         )
 
     @crew
@@ -179,7 +177,7 @@ class ImpactAnalysisCrew():
         return Agent(
             config=self.agents_config['impact_analysis_agent'],
             verbose=True,
-            llm=llama405b
+            llm=llama405b_2
         )
     
     @task
@@ -218,8 +216,7 @@ class WeatherMonitoringCrew():
     @task
     def weather_task(self) -> Task:
         return Task(
-            config=self.tasks_config['weather_task'],
-            output_file="weather.json"
+            config=self.tasks_config['weather_task']
         )
     
     @crew
@@ -278,14 +275,13 @@ class SafeZonesCrew():
             config=self.agents_config['safe_zones_agent'],
             verbose=True,
             tools=[PlacesSearchTool()],
-            llm=llama90b
+            llm=llama90b_2
         )
     
     @task
     def safe_zones_task(self) -> Task:
         return Task(
             config=self.tasks_config['safe_zones_task'],
-            output_file="safe_zones.json",
             output_pydantic=SafeZones
         )
     
@@ -322,7 +318,8 @@ class RoutePlanningCrew():
             config=self.agents_config['route_planning_agent'],
             tools=[GoogleRoutesTool()],
             verbose=True,
-            llm=llama405b_2
+            max_retry_limit=6,
+            llm=llama90b
         )
 
 
@@ -359,7 +356,6 @@ class RoutePlanningCrew():
     def route_planning_task(self) -> Task:
         return Task(
             config=self.tasks_config['route_planning_task'],
-            output_file="evac_routes.json",
             output_pydantic=Routes
         )
 

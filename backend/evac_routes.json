@@ -1,46 +1,148 @@
 {
   "routes": [
     {
-      "origin": {
-        "latitude": 34.2305,
-        "longitude": -117.758
-      },
-      "destination": {
-        "name": "Camp Williams Resort",
-        "latitude": 34.2320971,
-        "longitude": -117.7903056
-      },
-      "duration": "259s",
-      "distance_meters": 3105,
-      "encoded_polyline": "op}oEv_xmUh@r@XdAL^LzAHlAL`@t@p@fAn@^d@RVF`@TXVRrCp@t@JfB\\tDbA\\@ZErBm@z@QVA^F|AfAHFP^Lb@D^D`AAbFUpBMv@M?uA~B_AhBa@~@Sv@SlAOvCCnB@v@Dp@^vAp@xBNx@@rBPfCRnBC`AGZs@jBMh@E^FxBRfD?fAo@rFOzAAjANbCJzA@pAIdBIx@Sv@]nA]`Au@nAi@d@cDpBkAj@a@\\W\\Od@If@Cj@@j@B\\L`@JR`BxA^f@Xx@Hr@@r@Q~@Yn@}CzEYn@[tAGx@BnBHxANpAt@dEFh@C`BI`CQhBYdAMTqAhAyAfA]XWON[r@oCTgBHyAG{BKuAUsA{@}CUs@s@gCK{@Ey@?u@H}AxAiIJo@BmAC}@S_AaBqEWiAKcA@m@JaANm@Tq@Ve@pG{HfAiB^}@^}AV}AJ_Cr@aVCaCUsC_CmLQsAKuAKmEPoGHaCMiA]yAQe@Wk@y@eAu@g@{@[FOFGTAn@X'"
+      "high_risk_area": "Edgewood",
+      "safe_zone": "Albuquerque KOA Journey",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 35.0614358,
+              "longitude": -106.1914141
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.072559,
+              "longitude": -106.508679
+            }
+          }
+        },
+        "duration": "1330s",
+        "distance_meters": 33416
+      }
     },
     {
-      "origin": {
-        "latitude": 34.2305,
-        "longitude": -117.758
-      },
-      "destination": {
-        "name": "Shoemaker Canyon Road Trail Parking",
-        "latitude": 34.2334339,
-        "longitude": -117.7709792
-      },
-      "duration": "601s",
-      "distance_meters": 7127,
-      "encoded_polyline": "op}oEv_xmUh@r@XdAL^LzAHlAL`@t@p@fAn@^d@RVF`@TXVRrCp@t@JfB\\tDbA\\@ZErBm@z@QVA^F|AfAHFP^Lb@D^D`AAbFUpBMv@M?uA~B_AhBa@~@Sv@SlAOvCCnB@v@Dp@^vAp@xBNx@@rBPfCRnBC`AGZs@jBMh@E^FxBRfD?fAo@rFOzAAjANbCJzA@pAIdBIx@Sv@]nA]`Au@nAi@d@cDpBkAj@a@\\W\\Od@If@Cj@@j@B\\L`@JR`BxA^f@Xx@Hr@@r@Q~@Yn@}CzEYn@[tAGx@BnBHxANpAt@dEFh@C`BI`CQhBYdAMTqAhAyAfA]XWON[r@oCTgBHyAG{BKuAUsA{@}CUs@s@gCK{@Ey@?u@H}AxAiIJo@BmAC}@S_AaBqEWiAKcA@m@JaANm@Tq@Ve@pG{HfAiB^}@^}AV}AJ_Cr@aVCaCUsC_CmLQsAKuAKmEPoGHaCMiA]yAQe@Wk@y@eAu@g@{@[FOFGTAn@X'"
+      "high_risk_area": "Edgewood",
+      "safe_zone": "Turquoise Trail Campgrounds",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 35.0614358,
+              "longitude": -106.1914141
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.1429329,
+              "longitude": -106.3675909
+            }
+          }
+        },
+        "duration": "1180s",
+        "distance_meters": 27108
+      }
     },
     {
-      "origin": {
-        "latitude": 34.2305,
-        "longitude": -117.758
-      },
-      "destination": {
-        "name": "Shoemaker Viewpoint Day Use Area",
-        "latitude": 34.233015,
-        "longitude": -117.771169
-      },
-      "duration": "608s",
-      "distance_meters": 7176,
-      "encoded_polyline": "op}oEv_xmUh@r@XdAL^LzAHlAL`@t@p@fAn@^d@RVF`@TXVRrCp@t@JfB\\tDbA\\@ZErBm@z@QVA^F|AfAHFP^Lb@D^D`AAbFUpBMv@M?uA~B_AhBa@~@Sv@SlAOvCCnB@v@Dp@^vAp@xBNx@@rBPfCRnBC`AGZs@jBMh@E^FxBRfD?fAo@rFOzAAjANbCJzA@pAIdBIx@Sv@]nA]`Au@nAi@d@cDpBkAj@a@\\W\\Od@If@Cj@@j@B\\L`@JR`BxA^f@Xx@Hr@@r@Q~@Yn@}CzEYn@[tAGx@BnBHxANpAt@dEFh@C`BI`CQhBYdAMTqAhAyAfA]XWON[r@oCTgBHyAG{BKuAUsA{@}CUs@s@gCK{@Ey@?u@H}AxAiIJo@BmAC}@S_AaBqEWiAKcA@m@JaANm@Tq@Ve@pG{HfAiB^}@^}AV}AJ_Cr@aVCaCUsC_CmLQsAKuAKmEPoGHaCMiA]yAQe@Wk@y@eAu@g@{@[FOFGTAjAh@j@h@'"
+      "high_risk_area": "Edgewood",
+      "safe_zone": "Santa Fe KOA Journey",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 35.0614358,
+              "longitude": -106.1914141
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.546653,
+              "longitude": -105.836621
+            }
+          }
+        },
+        "duration": "3300s",
+        "distance_meters": 85911
+      }
+    },
+    {
+      "high_risk_area": "Moriarty",
+      "safe_zone": "Albuquerque KOA Journey",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 34.9900503,
+              "longitude": -106.0491893
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.072559,
+              "longitude": -106.508679
+            }
+          }
+        },
+        "duration": "2330s",
+        "distance_meters": 53111
+      }
+    },
+    {
+      "high_risk_area": "Moriarty",
+      "safe_zone": "Turquoise Trail Campgrounds",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 34.9900503,
+              "longitude": -106.0491893
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.1429329,
+              "longitude": -106.3675909
+            }
+          }
+        },
+        "duration": "2030s",
+        "distance_meters": 46319
+      }
+    },
+    {
+      "high_risk_area": "Moriarty",
+      "safe_zone": "Santa Fe KOA Journey",
+      "route": {
+        "origin": {
+          "location": {
+            "latLng": {
+              "latitude": 34.9900503,
+              "longitude": -106.0491893
+            }
+          }
+        },
+        "destination": {
+          "location": {
+            "latLng": {
+              "latitude": 35.546653,
+              "longitude": -105.836621
+            }
+          }
+        },
+        "duration": "3730s",
+        "distance_meters": 94339
+      }
     }
   ]
 }

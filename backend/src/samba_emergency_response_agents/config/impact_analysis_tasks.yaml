@@ -3,19 +3,15 @@ impact_analysis_task:
   description: >
     Analyze wildfire spread using Earth Observatory Natural Event tracker (EONET) data, high risk areas near to the wildfire event, weather data, image analysis, and determine the impact of the event.
     Emergency Event Details
-    -----------------------
     {event_details}
 
     Weather Information
-    -------------------
     {weather_information}
 
     High Risk Areas
-    ----------------
     {high_risk_areas}
 
     Image Analysis
-    ----------------
     {image_analysis}
   expected_output: >
     Detailed report for the analysis containing the following sections:

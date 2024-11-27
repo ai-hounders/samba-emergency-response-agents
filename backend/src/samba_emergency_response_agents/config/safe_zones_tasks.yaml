@@ -2,10 +2,15 @@
 
 safe_zones_task:
   description: >
-    Using the event analysis given below, locate safe zones (campgrounds, open parking lots, stadiums, parks, locality) outside of the potential spread radius of the wildfire.
-    Event Analysis:
-    --------------
-    {event_analysis}
+    Using the event data, high risk areas and spread radius given below, locate safe zones (campgrounds, open parking lots, stadiums, parks, locality) outside of the potential spread radius of the wildfire.
+    Emergency Event Details
+    {event_details}
+
+    High Risk Areas:
+    {high_risk_areas}
+
+    Spread Radius:
+    {spread_radius}
   expected_output: >
-    JSON of safe zones that fall outside the potential spread radius of the wildfire. 
+    JSON of safe zones that fall outside the potential spread radius of the wildfire. The type of the location should hold the category (campgrounds, open parking lots, stadiums, parks or locality)
   agent: safe_zones_agent

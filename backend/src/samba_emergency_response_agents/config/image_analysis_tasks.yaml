@@ -3,8 +3,7 @@
 image_analysis_task:
   description: >
     Analyze the provided satellite image and event details to determine wildfire spread, smoke density, and potential impact.
-    Emergency Event Details
-    -----------------------
+    Emergency Event Details-
     {event_details}
   expected_output: >
     A detailed report containing the following sections:

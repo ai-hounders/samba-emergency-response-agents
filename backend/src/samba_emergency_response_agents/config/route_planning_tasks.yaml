@@ -1,18 +1,15 @@
 
 route_planning_task:
   description: >
-    Given a list of high risk areas and safe zones, efficiently plan the routes from each high risk area to a safe zone.
-    Event Analysis:
-    --------------
-    {event_analysis}
+    Given wildfire event info, a list of high risk areas and a list of safe zones, efficiently plan the routes from each high risk area to a safe zone.
+    Event Details:
+    {event_details}
 
     High Risk Areas:
-    ----------------
     {high_risk_areas}
 
     Safe Areas:
-    ----------------
     {safe_zones}
   expected_output: >
-    JSON collection of routes for vehicles to navigate safely from all high risk zones to safe zones. Follow the format of the pydantic file provided. 
+    JSON file of routes for vehicles to navigate safely from all high risk zones to safe zones. Follow the format of the pydantic file provided. 
   agent: route_planning_agent

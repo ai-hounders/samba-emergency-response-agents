@@ -1,33 +1,47 @@
-# High risk areas identified 
-Camp Williams Resort (34.2320971, -117.7903056)
-Shoemaker Viewpoint Day Use Area (34.233015, -117.771169)
-Oaks Picnic Area (34.22942499999999, -117.778265)
-Camp Williams Cafe & General Store (34.2322826, -117.7909453)
-River Community (34.2328343, -117.7976258)
-East Fork Volunteer Fire Department (34.2320138, -117.7903617)
-Bridge to Nowhere - Trailhead (34.2370999, -117.764899)
-Bungee America (34.2371096, -117.7649129)
-East Fork Day Use Parking Trailhead (34.2369299, -117.765216)
-Coyote Flat (34.2355643, -117.7670914)
-Vault toilet (34.2370015, -117.7657272)
-Canyon Road (34.228969, -117.7688895)
-Shoemaker Canyon Road Trail Parking (34.2334339, -117.7709792)
-Vault toilet (34.2417161, -117.7611982)
-Iron Mountain trails (34.2418539, -117.7611003)
-Heaton Flats Trailhead (34.2419807, -117.7611982)
-East Fork Trail (34.24366260000001, -117.7609065)
-Heaton Saddle (34.242559, -117.748447)
-Bathroom (34.2300226, -117.776695)
-Entering Sheep Mountain Wilderness (34.24368, -117.747442)
+# High risk areas identified
+* Stanley, New Mexico (35.1942, -105.4464)
+* Robbins Ranch Art Glass (no coordinates available)
+* Komtek Communications (no coordinates available)
+* VISUALDREAMS (no coordinates available)
+* J Bar Cane (no coordinates available)
+* Enchanted Mill and Ranch LLC (no coordinates available)
+* Aerostar International LLC Winter Lodge (no coordinates available)
+* Bill King Ranch (no coordinates available)
+* Stanley Union Church (no coordinates available)
+* STANLEY CYCLONE CENTER (no coordinates available)
+* NM-41 & Kinsell Avenue (no coordinates available)
+* Bowman construction services (no coordinates available)
+* AMA Mobile RV Repair (no coordinates available)
+* Dennisson Drilling Of New mexico Inc. (no coordinates available)
+* Bryan Farms (no coordinates available)
+* Mountainview Tractor & Equipment (no coordinates available)
+* Bear Essentials Riding (no coordinates available)
+* Stanley Cemetery (no coordinates available)
+* NORTHWINDS (no coordinates available)
+* Cerrillos, New Mexico (35.4372, -106.1239)
 
-# Resource allocation plan 
-Deploy 2 fire engines to Camp Williams Resort and Shoemaker Viewpoint Day Use Area
-Deploy 1 water dropping helicopter to Oaks Picnic Area and Camp Williams Cafe & General Store
-Deploy 1 medic team to River Community and East Fork Volunteer Fire Department
-Deploy 1 firefighting crew to Bridge to Nowhere - Trailhead and Bungee America
-Deploy 1 firefighting crew to East Fork Day Use Parking Trailhead and Coyote Flat
-Deploy 1 firefighting crew to Vault toilet and Canyon Road
-Deploy 1 firefighting crew to Shoemaker Canyon Road Trail Parking and Vault toilet
-Deploy 1 firefighting crew to Iron Mountain trails and Heaton Flats Trailhead
-Deploy 1 firefighting crew to East Fork Trail and Heaton Saddle
-Deploy 1 firefighting crew to Bathroom and Entering Sheep Mountain Wilderness
+# Resource allocation plan
+Based on the high-risk areas identified, the following resource allocation plan is recommended:
+
+* Deploy 2 fire engines to Stanley, New Mexico to protect the town and surrounding areas.
+* Deploy 1 water dropping helicopter to Robbins Ranch Art Glass to prevent the spread of the wildfire.
+* Deploy 1 fire crew to Komtek Communications to protect the communication infrastructure.
+* Deploy 1 fire crew to VISUALDREAMS to protect the surrounding areas.
+* Deploy 1 fire engine to J Bar Cane to protect the ranch and surrounding areas.
+* Deploy 1 fire crew to Enchanted Mill and Ranch LLC to protect the mill and surrounding areas.
+* Deploy 1 fire engine to Aerostar International LLC Winter Lodge to protect the lodge and surrounding areas.
+* Deploy 1 fire crew to Bill King Ranch to protect the ranch and surrounding areas.
+* Deploy 1 fire engine to Stanley Union Church to protect the church and surrounding areas.
+* Deploy 1 fire crew to STANLEY CYCLONE CENTER to protect the center and surrounding areas.
+* Deploy 1 fire engine to NM-41 & Kinsell Avenue to protect the surrounding areas.
+* Deploy 1 fire crew to Bowman construction services to protect the construction site and surrounding areas.
+* Deploy 1 fire engine to AMA Mobile RV Repair to protect the repair shop and surrounding areas.
+* Deploy 1 fire crew to Dennisson Drilling Of New mexico Inc. to protect the drilling site and surrounding areas.
+* Deploy 1 fire engine to Bryan Farms to protect the farm and surrounding areas.
+* Deploy 1 fire crew to Mountainview Tractor & Equipment to protect the equipment and surrounding areas.
+* Deploy 1 fire engine to Bear Essentials Riding to protect the riding area and surrounding areas.
+* Deploy 1 fire crew to Stanley Cemetery to protect the cemetery and surrounding areas.
+* Deploy 1 fire engine to NORTHWINDS to protect the surrounding areas.
+* Deploy 1 fire crew to Cerrillos, New Mexico to protect the town and surrounding areas.
+
+Note: The resource allocation plan is based on the assumption that the resources are available and can be deployed to the high-risk areas. The actual deployment of resources may vary depending on the availability of resources and the situation on the ground.
