@@ -106,7 +106,7 @@ class EmergencyResponseFlow(Flow[EmergencyDatabase]):
     Listen for weather data and emergency events. Assess high-risk areas within potential spread radius.
     Also, listen for feedback from the impact assessment step to further refine high-risk area assessment.
     """
-    @listen(or_(and_(monitor_weather, monitor_emergency_events), "high_risk_area_assessment_feedback"))
+    @listen(or_(monitor_weather, "high_risk_area_assessment_feedback"))
     def assess_high_risk_areas(self):
         print("****Starting High Risk Areas Assessment Flow****")
         st.chat_message("assistant").write("Starting High Risk Areas Assessment Flow...")

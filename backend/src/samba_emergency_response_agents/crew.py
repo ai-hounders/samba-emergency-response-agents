@@ -113,12 +113,10 @@ class ImageAnalysisCrew():
 
         encoded_image = base64.b64encode(image_data).decode('utf-8')
         
-        output_path = "image_analysis.md"
 
         return Task(
             config=self.tasks_config['image_analysis_task'],
-            input_file=encoded_image,
-            output_file=output_path
+            input_file=encoded_image
         )
     
     @crew
@@ -183,8 +181,7 @@ class ImpactAnalysisCrew():
     @task
     def impact_analysis_task(self) -> Task:
         return Task(
-            config=self.tasks_config['impact_analysis_task'],
-            output_file="event_impact_analysis.md"
+            config=self.tasks_config['impact_analysis_task']
         )
     
     @crew
@@ -249,8 +246,7 @@ class ResourceDeploymentCrew():
     @task
     def resource_deployment_task(self) -> Task:
         return Task(
-            config=self.tasks_config['resource_deployment_task'],
-            output_file="resource_deployment.md",
+            config=self.tasks_config['resource_deployment_task']
         )
     
     @crew
@@ -316,10 +312,9 @@ class RoutePlanningCrew():
     def route_planning_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['route_planning_agent'],
-            tools=[GoogleRoutesTool()],
             verbose=True,
             max_retry_limit=6,
-            llm=llama90b
+            llm=llama405b
         )
 
 
