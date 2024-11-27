@@ -312,6 +312,7 @@ class RoutePlanningCrew():
     def route_planning_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['route_planning_agent'],
+            tools=[GoogleRoutesTool()],
             verbose=True,
             max_retry_limit=6,
             llm=llama405b

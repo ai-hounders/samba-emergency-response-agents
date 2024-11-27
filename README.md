@@ -35,12 +35,46 @@ We are passionate tech enthusiasts caught in the eye of the GenAI storm, turning
 
 Note - Multiple Llama models were used to overcome the rate limits of the SambaNova APIs.
 
+
+## Comparing the platform on SambaNova APIs vs VertextAI APIs (In Progress)
+Note - On both the APIs, Llama models were used
+
+
+## GenAI Models Used
+- SambaNova's 
+  - Llama 3.2 vision - 11b, 90b 
+  - Llama 3.1 - 8b, 70b, 405b
+- VertexAI's (for comparing performance with SambaNova's models)
+  - Llama 3.2 vision - 11b, 90b
+  - Llama 3.1 - 8b, 70b, 405b
+
+## References
+- NASA.Gov [EONET API](https://eonet.gsfc.nasa.gov/docs/v2.1)
+- OpenWeatherMap's [API](https://openweathermap.org/api)
+- Wildfire Satellite Imagery NASA.Gov [Earth Observatory](https://earthobservatory.nasa.gov/images/event/152498/2024-fires-in-the-northern-hemisphere)
+- SambaNova's [API](https://docs.sambanova.ai/api-reference/)
+- crewAI's [website](https://crewai.com/)
+- Streamlit's [website](https://streamlit.io/)
+
+## Agent Outputs
+- Impacted Event : [event.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event.json)
+- Weather in Impacted Area: [weather.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/weather.json)
+- High Risk Areas: [high_risk_places.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/high_risk_places.json)
+- Safe Zones: [safe zones](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/safe_zones.json)
+- Evacuation Routes: [evacuatoin](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/evac_routes.json)
+- Event Impact Analysis: [event impact analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event_impact_analysis.md)
+- Satellite Image Analysis: [event image analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/image_analysis.md)
+- Resource Allocation Plan : [resource allocation](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/resource_deployment.md)
+
+
 ## Screenshots of the outputs
-[PDF]() of the streamlit output:
+[PDF](files/Samba_Emergency_Response_Agents.pdf) of the streamlit output:
 
 
 #### Agents interacting with each other
-![Agents interacting with each other](images/Agents%20interacting%20with%20each%20other.jpg)
+![Agents interacting with each other 1](images/Agents_Interacting_With_Each_Other_1.png)
+![Agents interacting with each other 2](images/Agents_Interacting_With_Each_Other_2.png)
+![Agents interacting with each other 3](images/Agents_Interacting_With_Each_Other_3.png)
 
 #### Emergency Response System
 ![Emergency Response System](images/Emergency_Response_System.png)
@@ -77,40 +111,6 @@ Note - Multiple Llama models were used to overcome the rate limits of the SambaN
 
 #### Evacuation Route Planning
 ![Evacuation Route Planning](images/Evacuation_Routes.png)
-
-
-## Comparing the platform on SambaNova APIs vs VertextAI APIs
-Note - On both the APIs, Llama models were used
-In Progress
-
-
-## GenAI Models Used
-- SambaNova's 
-  - Llama 3.2 vision - 11b, 90b 
-  - Llama 3.1 - 8b, 70b, 405b
-- VertexAI's (for comparing performance with SambaNova's models)
-  - Llama 3.2 vision - 11b, 90b
-  - Llama 3.1 - 8b, 70b, 405b
-
-## References
-- NASA.Gov [EONET API](https://eonet.gsfc.nasa.gov/docs/v2.1)
-- OpenWeatherMap's [API](https://openweathermap.org/api)
-- Wildfire Satellite Imagery NASA.Gov [Earth Observatory](https://earthobservatory.nasa.gov/images/event/152498/2024-fires-in-the-northern-hemisphere)
-- SambaNova's [API](https://docs.sambanova.ai/api-reference/)
-- crewAI's [website](https://crewai.com/)
-- Streamlit's [website](https://streamlit.io/)
-
-## Agent Outputs
-- Impacted Event : [event.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event.json)
-- Weather in Impacted Area: [weather.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/weather.json)
-- High Risk Areas: [high_risk_places.json](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/high_risk_places.json)
-- Safe Zones: [safe zones](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/safe_zones.json)
-- Evacuation Routes: [evacuatoin](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/evac_routes.json)
-- Event Impact Analysis: [event impact analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/event_impact_analysis.md)
-- Satellite Image Analysis: [event image analysis](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/image_analysis.md)
-- Resource Allocation Plan : [resource allocation](https://github.com/ai-hounders/samba-emergency-response-agents/blob/main/backend/resource_deployment.md)
-
-
 
 ## Installation
 
